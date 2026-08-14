@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌹 لحبيبتي</title>
+    <!-- خط أنيق من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- إعدادات عامة ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(145deg, #2d1b2e, #1a0f1a);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: 70px;
+        }
+
+        /* شريط التنقل (ضخم وواقعي) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background: rgba(44, 22, 44, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 200, 255, 0.15);
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .navbar .logo i {
+            -webkit-text-fill-color: #ff6b8a;
+        }
+
+        .nav-links a {
+            color: #f0e0f0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-right: 25px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: 0.3s ease;
+            background: transparent;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffb3c6;
+            transform: translateY(-2px);
+        }
+
+        /* الحاوية الأساسية */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 25px 40px;
+        }
+
+        /* ---------- قسم الترحيب (Hero) ---------- */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 50px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 60px 60px 30px 30px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 200, 255, 0.1);
+            margin-bottom: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 4.2rem;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-top: 15px;
+            color: #d4b5d4;
+            letter-spacing: 3px;
+        }
+
+        .hero .heart-big {
+            font-size: 4rem;
+            display: inline-block;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); text-shadow: 0 0 40px #ff4d6d; }
+            100% { transform: scale(1); }
+        }
+
+        /* ---------- البطاقات (الكروت) ---------- */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            position: absolute;
+            bottom: -12px;
+            right: 50%;
+            transform: translateX(50%);
+            border-radius: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 30px 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.01);
+            background: rgba(255, 255, 255, 0.13);
+            border-color: rgba(255, 200, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(255, 100, 150, 0.2);
+        }
+
+        .card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffd1dc;
+        }
+
+        .card .content-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #eed9ee;
+            min-height: 100px;
+            padding: 10px 0;
+            font-weight: 400;
+        }
+
+        .card .content-text i {
+            color: #ff8da1;
+        }
+
+        /* الأزرار التفاعلية */
+        .btn {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 60px;
+            color: #1a0f1a;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 8px 25px rgba(255, 117, 140, 0.35);
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 117, 140, 0.6);
+            background: linear-gradient(135deg, #ff6b81, #ff5e8e);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* قسم خاص للراسيل والأفيهات جنب بعض */
+        .double-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .double-section {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2.8rem; }
+            .navbar { padding: 12px 20px; flex-wrap: wrap; }
+            .nav-links a { font-size: 0.9rem; margin: 0 8px; padding: 5px 10px; }
+        }
+
+        /* ---------- تأثير القلوب المتطايرة (JS) ---------- */
+        .floating-heart {
+            position: fixed;
+            font-size: 1.8rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatUp 2.5s ease-out forwards;
+            opacity: 0.9;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-400px) scale(1.4) rotate(40deg); opacity: 0; }
+        }
+
+        /* الفوتر */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
+            color: #9b7b9b;
+            font-size: 1.1rem;
+        }
+
+        .footer span {
+            color: #ff6b8a;
+        }
+
+        /* تحسين التمرير */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #1a0f1a; }
+        ::-webkit-scrollbar-thumb { background: #ff758c; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="logo">❤️ حبيبتي</div>
+        <div class="nav-links">
+            <a href="#messages">📩 رسايل</a>
+            <a href="#jokes">😂 أفيهات</a>
+            <a href="#home" onclick="createHearts(event)">💖 قلب</a>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container" id="home">
+
+        <!-- قسم الترحيب -->
+        <section class="hero">
+            <div class="heart-big">💖</div>
+            <h1>أهلاً بيكي يا <span>دنيايَ</span> 🥰</h1>
+            <p>الموقع ده معمول عشان خاطرك إنتِ بس</p>
+        </section>
+
+        <!-- قسم الرسائل والأفيهات جنب بعض (ضخم وحقيقي) -->
+        <div class="double-section">
+
+            <!-- بطاقة الرسائل (راسيل) -->
+            <div class="card" id="messages">
+                <div class="icon">📩</div>
+                <h3>رسايل لحبيبتي</h3>
+                <div class="content-text" id="messageDisplay">
+                    "وجودكِ في حياتي هو أجمل هدية جاتلي."
+                </div>
+                <button class="btn" onclick="changeMessage()">✨ رسالة جديدة</button>
+            </div>
+
+            <!-- بطاقة الأفيهات -->
+            <div class="card" id="jokes">
+                <div class="icon">😂</div>
+                <h3>أفيهات حلوة</h3>
+                <div class="content-text" id="jokeDisplay">
+                    "مرة واحد سأل حبيبته: إنتِ بتحبيني؟ قالت: لا... بحبك أوي أوي!"
+                </div>
+                <button class="btn" onclick="changeJoke()">😂 أفيه جديد</button>
+            </div>
+
+        </div>
+
+        <!-- إضافة بطاقة تالتة للرومانسية زيادة (ضخامة) -->
+        <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px;" class="card-grid">
+            <div class="card" style="background: rgba(255, 100, 150, 0.08);">
+                <div class="icon">🌹</div>
+                <h3>يومياتنا</h3>
+                <div class="content-text" style="min-height: 60px;">كل يوم معاكي بيكتب تاريخ جديد في قلبي.</div>
+            </div>
+            <div class="card" style="background: rgba(100, 150, 255, 0.08);">
+                <div class="icon">⭐</div>
+                <h3>نجمتي</h3>
+                <div class="content-text" style="min-height: 60px;">إنتِ أجمل نجمه في سماء عمري.</div>
+            </div>
+            <div class="card" style="background: rgba(255, 200, 100, 0.08);">
+                <div class="icon">🎵</div>
+                <h3>أغنيتنا</h3>
+                <div class="content-text" style="min-height: 60px;">قلبي بيغني لحن اسمكِ كل ثانية.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            صنعتُ هذا الموقع <span>❤️</span> من أجل عيونكِ الجميلة
+        </div>
+    </div>
+
+    <script>
+        // ---------- 1. قاعدة بيانات الرسائل الرومانسية (بالعامية المصرية) ----------
+        const messages = [
+            "وجودكِ في حياتي هو أجمل هدية جاتلي.",
+            "كل يوم بشوفكِ فيه، بحس إن الدنيا بتتغير للأحسن.",
+            "ضحكتكِ هي أجمل صوت في الكون، بتخليني أنسى همومي كلها.",
+            "لو كان فيه كلام أوصف بيه جمالكِ، كان الزمان وقف.",
+            "إنتِ مش بس حبيبتي، إنتِ أملي في الدنيا.",
+            "ساعات ببصلكِ وبفتكر إن ربنا كريم جداً إنه خلقكِ.",
+            "قلبي مكانه عندكِ، من غيركِ مش هيعرف يضرب تاني.",
+            "بحبكِ أكتر من الكلام، وأكتر من اللي تتخيليه."
+        ];
+
+        // ---------- 2. قاعدة بيانات الأفيهات (نكت لطيفة) ----------
+        const jokes = [
+            "مرة واحد سأل حبيبته: إنتِ بتحبيني؟ قالت: لا... بحبك أوي أوي!",
+            "واحد بيحب واحدة، قالها: إنتِ الشمس في حياتي. قالتله: طيب ما تابتنيش عشان مش عايزة أسمر.",
+            "الحبيب للحبيبته: لو كنتي وردة كنت هقطفك كل يوم. قالتله: ولو كنت قمر؟ قالها: كنت هباتلك كل ليلة.",
+            "مرة واحد كتب لحبيبته رسالة: 'وحشتيني أوي'. ردت عليه: 'طب تعالى بسرعة عشان أشوفك وأنا مش واخدة بالي'.",
+            "سأل الحبيب حبيبته: إيه رأيك نفضل سوا للأبد؟ قالت: طيب، بس شرط تخليني أضحك كل يوم!",
+            "واحد بيكلم حبيبته قالها: أنا بحبك قد البحر. قالتله: طب ما البحر مالح! قالها: ده أنا بموت فيكي يا ملوحة.",
+            "مرة واحدة قالت لحبيبها: إنت بتخلي الدنيا وردي. قالها: لأ أنا بخليها جنة وأنتِ الحوريه."
+        ];
+
+        // ---------- 3. دوال التغيير (الجزء التفاعلي الواقعي) ----------
+        function changeMessage() {
+            const display = document.getElementById('messageDisplay');
+            // نختار رسالة عشوائية
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            display.innerHTML = `"${messages[randomIndex]}"`;
+            // تأثير بسيط: نضيف لمحة تغيير
+            display.style.transition = '0.3s';
+            display.style.transform = 'scale(1.04)';
+            setTimeout(() => { display.style.transform = 'scale(1)'; }, 200);
+            // نخلق قلوب فرح
+            createHeartsEvent();
+        }
+
+        function changeJoke() {
+            const display = document.getElementById('jokeDisplay');
+            const randomIndex = Math.floor(Math.random() * jokes.length);
+            display.innerHTML = `"${jokes[randomIndex]}"`;
+            display.style.transition = '0.3s';
+            display.style.transform = 'scale(1.04)';
+            setTimeout(() => { display.style.transform = 'scale(1)'; }, 200);
+            createHeartsEvent();
+        }
+
+        // ---------- 4. تأثير القلوب المتطايرة (عشان يبقى واقعي وحلو) ----------
+        function createHearts(e) {
+            // لو في حدث (click) هنستخدم مكان الفأرة، غير كده هنخليها عشوائية
+            let x, y;
+            if (e && e.clientX) {
+                x = e.clientX;
+                y = e.clientY;
+            } else {
+                x = Math.random() * window.innerWidth;
+                y = Math.random() * window.innerHeight;
+            }
+
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = ['❤️', '💖', '💗', '💘', '🌹', '✨'][Math.floor(Math.random() * 6)];
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            heart.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+            document.body.appendChild(heart);
+
+            // نمسح العنصر بعد ما يخلص عشان الموقع ميبقاش تقيل
+            setTimeout(() => {
+                heart.remove();
+            }, 2600);
+        }
+
+        // دالة مساعدة عشان نناديها من غير حدث الفأرة
+        function createHeartsEvent() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createHearts(null);
+                }, i * 150);
+            }
+        }
+
+        // نضيف مستمع للحدث على أي حتة في الصفحة (تأثير التفاعل)
+        document.addEventListener('click', function(e) {
+            // لو الضغط على زرار مش هنعمل دبل عشان متضاعفش
+            if (e.target.tagName === 'BUTTON') return;
+            createHearts(e);
+        });
+
+        // ننشئ قلوب تلقائياً أول ما الصفحة تتحمل عشان الإستقبال يبقى حلو
+        window.onload = function() {
+            setTimeout(() => {
+                createHeartsEvent();
+            }, 500);
+            // نغير الرسالة والأفيه تلقائياً أول مرة
+            setTimeout(() => {
+                changeMessage();
+                changeJoke();
+            }, 1000);
+        };
+
+        // نضيف تأثير للروابط (تنقل سلس)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
