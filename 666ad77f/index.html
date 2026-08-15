@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARK - صانع الخلفيات والبروفايل</title>
+    <style>
+        :root {
+            --bg-main: #090d16;
+            --panel-bg: #131b2e;
+            --accent-color: #6366f1;
+            --accent-hover: #4f46e5;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--panel-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* لوحة التحكم الجانبية */
+        .controls-panel {
+            flex: 1;
+            min-width: 320px;
+            background-color: var(--panel-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        input[type="text"], select, input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input[type="color"] {
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .preset-btn {
+            height: 40px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .preset-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* منطقة المعاينة Canvas */
+        .preview-panel {
+            flex: 2;
+            min-width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">DARK Studio</div>
+    </header>
+
+    <div class="main-container">
+        <!-- لوحة الإعدادات -->
+        <div class="controls-panel">
+            
+            <div class="control-group">
+                <div class="section-title">نوع التصميم</div>
+                <select id="canvasType" onchange="updateCanvasSize()">
+                    <option value="profile">صورة شخصية (1:1)</option>
+                    <option value="wallpaper">خلفية شاشة (16:9)</option>
+                    <option value="story">ستوري / هاتف (9:16)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <div class="section-title">خلفيات جاهزة (Gradients)</div>
+                <div class="preset-grid" id="presetContainer"></div>
+            </div>
+
+            <div class="control-group">
+                <div class="section-title">تخصيص الألوان</div>
+                <label>اللون الأول:</label>
+                <input type="color" id="color1" value="#0f172a" onchange="draw()">
+                <label>اللون الثاني:</label>
+                <input type="color" id="color2" value="#3b82f6" onchange="draw()">
+            </div>
+
+            <div class="control-group">
+                <div class="section-title">النص والشعار</div>
+                <label>اكتب نصاً:</label>
+                <input type="text" id="customText" placeholder="اكتب اسمك أو حرفك..." value="DARK" oninput="draw()">
+                <label>لون النص:</label>
+                <input type="color" id="textColor" value="#ffffff" onchange="draw()">
+            </div>
+
+            <button class="btn-primary" onclick="downloadImage()">تحميل التصميم</button>
+        </div>
+
+        <!-- منطقة العرض -->
+        <div class="preview-panel">
+            <canvas id="designCanvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('designCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // التدرجات الجاهزة
+        const presets = [
+            ['#000000', '#434343'],
+            ['#0f172a', '#3b82f6'],
+            ['#111827', '#f43f5e'],
+            ['#064e3b', '#10b981'],
+            ['#311042', '#7c3aed'],
+            ['#451a03', '#f59e0b'],
+            ['#18181b', '#27272a'],
+            ['#0284c7', '#22d3ee']
+        ];
+
+        // إنشاء أزرار الخلفيات الجاهزة
+        const presetContainer = document.getElementById('presetContainer');
+        presets.forEach(p => {
+            const btn = document.createElement('div');
+            btn.className = 'preset-btn';
+            btn.style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`;
+            btn.onclick = () => {
+                document.getElementById('color1').value = p[0];
+                document.getElementById('color2').value = p[1];
+                draw();
+            };
+            presetContainer.appendChild(btn);
+        });
+
+        // تغيير حجم اللوحة بناءً على الاختيار
+        function updateCanvasSize() {
+            const type = document.getElementById('canvasType').value;
+            if (type === 'profile') {
+                canvas.width = 600;
+                canvas.height = 600;
+            } else if (type === 'wallpaper') {
+                canvas.width = 1280;
+                canvas.height = 720;
+            } else if (type === 'story') {
+                canvas.width = 720;
+                canvas.height = 1280;
+            }
+            draw();
+        }
+
+        // رسم المحتوى داخل اللوحة
+        function draw() {
+            const c1 = document.getElementById('color1').value;
+            const c2 = document.getElementById('color2').value;
+            const text = document.getElementById('customText').value;
+            const textColor = document.getElementById('textColor').value;
+
+            // رسم الخلفية بتدرج داهن
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, c1);
+            gradient.addColorStop(1, c2);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // إضافة تأثيرات خلفية (دوائر عائمة)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.beginPath();
+            ctx.arc(canvas.width * 0.2, canvas.height * 0.2, canvas.width * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+
+            // رسم النص
+            if (text) {
+                const fontSize = Math.min(canvas.width, canvas.height) * 0.15;
+                ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+                ctx.fillStyle = textColor;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // ظل للنص
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 15;
+                
+                ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+                
+                // إعادة ضباط الظل
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // تحميل الصورة
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'DARK_Design.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // التشغيل الأولي
+        updateCanvasSize();
+    </script>
+</body>
+</html>
