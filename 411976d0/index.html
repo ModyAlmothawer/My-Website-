@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050810">
+<title>M_Dark Downloader</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:#fff;
+    background:
+      radial-gradient(circle at 50% 0%,#12324b 0,#07111d 35%,#03050a 75%);
+}
+
+header{
+    height:72px;
+    padding:0 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #182434;
+    background:rgba(3,7,13,.85);
+    backdrop-filter:blur(15px);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    color:#00eaff;
+}
+
+.logo span{
+    color:#fff;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#aab3c0;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00eaff;
+}
+
+.hero{
+    max-width:1000px;
+    margin:80px auto 0;
+    padding:20px;
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+    border:1px solid #12485b;
+    border-radius:30px;
+    color:#00eaff;
+    background:#06151d;
+    margin-bottom:20px;
+    font-size:13px;
+}
+
+h1{
+    font-size:52px;
+    line-height:1.2;
+    margin-bottom:18px;
+}
+
+h1 span{
+    color:#00eaff;
+    text-shadow:0 0 30px #00eaff55;
+}
+
+.hero > p{
+    color:#8f9baa;
+    max-width:700px;
+    margin:auto;
+    line-height:1.9;
+}
+
+.box{
+    margin-top:35px;
+    padding:22px;
+    background:rgba(10,17,28,.9);
+    border:1px solid #1b3346;
+    border-radius:24px;
+    box-shadow:0 25px 80px #0008;
+}
+
+.inputRow{
+    display:flex;
+    gap:10px;
+}
+
+input{
+    flex:1;
+    height:58px;
+    border:1px solid #26394d;
+    outline:none;
+    border-radius:14px;
+    background:#050a12;
+    color:#fff;
+    padding:0 20px;
+    font-size:16px;
+    direction:ltr;
+    text-align:left;
+}
+
+input:focus{
+    border-color:#00eaff;
+    box-shadow:0 0 0 3px #00eaff12;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.analyze{
+    width:160px;
+    border-radius:14px;
+    background:#00d9ff;
+    color:#001018;
+    font-weight:bold;
+    font-size:16px;
+}
+
+.analyze:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px #00eaff44;
+}
+
+.result{
+    display:none;
+    margin-top:20px;
+    text-align:right;
+    background:#050a12;
+    border:1px solid #1b2b3c;
+    border-radius:18px;
+    padding:20px;
+}
+
+.result.show{
+    display:block;
+}
+
+.resultTitle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.status{
+    color:#45ff9a;
+    font-size:13px;
+}
+
+.options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.option{
+    padding:18px;
+    border-radius:14px;
+    border:1px solid #243447;
+    background:#0b121d;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.option:hover,
+.option.selected{
+    border-color:#00eaff;
+    background:#081a23;
+}
+
+.option .big{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.option strong{
+    display:block;
+    margin-bottom:6px;
+}
+
+.option small{
+    color:#7e8997;
+}
+
+.download{
+    width:100%;
+    height:52px;
+    margin-top:15px;
+    border-radius:13px;
+    background:#00eaff;
+    color:#001018;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.download:hover{
+    box-shadow:0 10px 30px #00eaff33;
+}
+
+.message{
+    margin-top:12px;
+    color:#8e99a7;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.features{
+    max-width:1100px;
+    margin:80px auto;
+    padding:20px;
+}
+
+.features h2{
+    text-align:center;
+    font-size:30px;
+    margin-bottom:30px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    padding:28px;
+    background:#080e18cc;
+    border:1px solid #172638;
+    border-radius:18px;
+    text-align:center;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#00eaff;
+}
+
+.icon{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#7f8997;
+    line-height:1.8;
+}
+
+.history{
+    max-width:800px;
+    margin:0 auto 70px;
+    padding:20px;
+}
+
+.history h2{
+    margin-bottom:18px;
+}
+
+.historyList{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.historyItem{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:14px;
+    background:#080e18;
+    border:1px solid #172638;
+    border-radius:12px;
+}
+
+.historyItem span{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    direction:ltr;
+}
+
+.clear{
+    color:#ff667a;
+    background:none;
+    font-size:13px;
+}
+
+footer{
+    text-align:center;
+    padding:35px 20px;
+    color:#606b79;
+    border-top:1px solid #111c29;
+}
+
+footer b{
+    color:#00eaff;
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:0 18px;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        margin-top:45px;
+    }
+
+    h1{
+        font-size:36px;
+    }
+
+    .inputRow{
+        flex-direction:column;
+    }
+
+    .analyze{
+        width:100%;
+        height:52px;
+    }
+
+    .options,
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .box{
+        padding:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        M_Dark <span>Downloader</span>
+    </div>
+
+    <nav>
+        <a href="#home">الرئيسية</a>
+        <a href="#features">المميزات</a>
+        <a href="#history">السجل</a>
+    </nav>
+</header>
+
+
+<section class="hero" id="home">
+
+    <div class="badge">⚡ سريع • بسيط • متجاوب</div>
+
+    <h1>
+        حمّل ملفاتك<br>
+        <span>بسهولة</span>
+    </h1>
+
+    <p>
+        الصق رابط ملف مباشر مسموح بتنزيله،
+        ثم اختر نوع التنزيل وابدأ التحميل.
+    </p>
+
+
+    <div class="box">
+
+        <div class="inputRow">
+
+            <input
+                id="urlInput"
+                type="url"
+                placeholder="https://example.com/video.mp4"
+                autocomplete="off"
+            >
+
+            <button class="analyze" onclick="analyze()">
+                🔍 تحليل الرابط
+            </button>
+
+        </div>
+
+
+        <div class="result" id="result">
+
+            <div class="resultTitle">
+                <h3>خيارات التنزيل</h3>
+                <span class="status">● الرابط جاهز</span>
+            </div>
+
+
+            <div class="options">
+
+                <div class="option selected" onclick="selectOption(this)">
+                    <div class="big">📁</div>
+                    <strong>الملف الأصلي</strong>
+                    <small>تنزيل كما هو</small>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                    <div class="big">🎬</div>
+                    <strong>فيديو</strong>
+                    <small>إذا كان الرابط ملف فيديو مباشر</small>
+                </div>
+
+                <div class="option" onclick="selectOption(this)">
+                    <div class="big">🎵</div>
+                    <strong>صوت</strong>
+                    <small>إذا كان الملف الصوتي مباشرًا</small>
+                </div>
+
+            </div>
+
+
+            <button class="download" onclick="startDownload()">
+                ⬇️ بدء التنزيل
+            </button>
+
+
+            <div class="message">
+                يعمل هذا الإصدار مع روابط الملفات المباشرة التي يسمح الخادم
+                بتنزيلها. لا يتجاوز حماية أو قيود منصات المحتوى.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="features" id="features">
+
+    <h2>مميزات الموقع</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <h3>سرعة</h3>
+            <p>
+                واجهة خفيفة وسريعة ومناسبة للهواتف.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📱</div>
+            <h3>متجاوب</h3>
+            <p>
+                يعمل على الهاتف والكمبيوتر والتابلت.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔒</div>
+            <h3>خصوصية</h3>
+            <p>
+                لا تحتاج الواجهة إلى إنشاء حساب لاستخدامها.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="history" id="history">
+
+    <h2>📋 آخر الروابط</h2>
+
+    <div class="historyList" id="historyList"></div>
+
+</section>
+
+
+<footer>
+    © 2026 <b>M_Dark Downloader</b> — جميع الحقوق محفوظة
+</footer>
+
+
+<script>
+
+let currentURL = "";
+let selectedType = "original";
+
+function analyze(){
+
+    const input = document.getElementById("urlInput");
+    const result = document.getElementById("result");
+
+    const url = input.value.trim();
+
+    if(!url){
+        alert("من فضلك الصق الرابط أولاً.");
+        input.focus();
+        return;
+    }
+
+    try{
+
+        const parsed = new URL(url);
+
+        if(parsed.protocol !== "http:" &&
+           parsed.protocol !== "https:"){
+
+            throw new Error();
+
+        }
+
+        currentURL = url;
+
+        result.classList.add("show");
+
+        saveHistory(url);
+
+    }catch(error){
+
+        alert("❌ الرابط غير صالح.");
+
+    }
+
+}
+
+
+function selectOption(element){
+
+    document
+      .querySelectorAll(".option")
+      .forEach(el => el.classList.remove("selected"));
+
+    element.classList.add("selected");
+
+    const title = element.querySelector("strong").textContent;
+
+    if(title.includes("صوت")){
+        selectedType = "audio";
+    }
+    else if(title.includes("فيديو")){
+        selectedType = "video";
+    }
+    else{
+        selectedType = "original";
+    }
+
+}
+
+
+function startDownload(){
+
+    if(!currentURL){
+
+        alert("قم بتحليل الرابط أولاً.");
+        return;
+
+    }
+
+    /*
+      مهم:
+      download="" يعمل بشكل موثوق مع نفس النطاق
+      أو blob/data URLs. بالنسبة لروابط خارجية،
+      المتصفح قد يفتح الرابط بدل تنزيله حسب
+      الخادم وسياسات CORS/Content-Disposition.
+    */
+
+    const a = document.createElement("a");
+
+    a.href = currentURL;
+    a.download = "";
+
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+}
+
+
+function saveHistory(url){
+
+    let history =
+        JSON.parse(localStorage.getItem("mdark_history") || "[]");
+
+    history = history.filter(item => item !== url);
+
+    history.unshift(url);
+
+    history = history.slice(0,8);
+
+    localStorage.setItem(
+        "mdark_history",
+        JSON.stringify(history)
+    );
+
+    renderHistory();
+
+}
+
+
+function renderHistory(){
+
+    const box = document.getElementById("historyList");
+
+    let history =
+        JSON.parse(localStorage.getItem("mdark_history") || "[]");
+
+    box.innerHTML = "";
+
+    if(history.length === 0){
+
+        box.innerHTML =
+            '<div class="historyItem">لا توجد روابط سابقة.</div>';
+
+        return;
+
+    }
+
+    history.forEach(url => {
+
+        const row = document.createElement("div");
+
+        row.className = "historyItem";
+
+        row.innerHTML = `
+            <span>${escapeHTML(url)}</span>
+            <button class="clear"
+                    onclick="removeHistory('${encodeURIComponent(url)}')">
+                حذف
+            </button>
+        `;
+
+        row.querySelector("span").onclick = () => {
+
+            document.getElementById("urlInput").value = url;
+
+            currentURL = url;
+
+            document
+                .getElementById("result")
+                .classList.add("show");
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+
+        };
+
+        box.appendChild(row);
+
+    });
+
+}
+
+
+function removeHistory(encoded){
+
+    const url = decodeURIComponent(encoded);
+
+    let history =
+        JSON.parse(localStorage.getItem("mdark_history") || "[]");
+
+    history = history.filter(item => item !== url);
+
+    localStorage.setItem(
+        "mdark_history",
+        JSON.stringify(history)
+    );
+
+    renderHistory();
+
+}
+
+
+function escapeHTML(text){
+
+    return text
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+document
+    .getElementById("urlInput")
+    .addEventListener("keydown",function(e){
+
+        if(e.key === "Enter"){
+            analyze();
+        }
+
+    });
+
+
+renderHistory();
+
+</script>
+
+</body>
+</html>
