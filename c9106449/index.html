@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دارك زخرفة الأسماء</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #f59e0b;
+            --text-color: #f8fafc;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #cbd5e1;
+        }
+
+        input[type="text"] {
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #0f172a;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .result-card {
+            background-color: #0f172a;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .result-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .decorated-text {
+            font-size: 1.2rem;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏛️ دارك زخرفة الأسماء</h1>
+    
+    <div class="input-group">
+        <label for="nameInput">أدخل الاسم للزخرفة:</label>
+        <input type="text" id="nameInput" placeholder="اكتب اسمك هنا..." oninput="decorate()">
+    </div>
+
+    <div class="results-grid" id="results">
+        <!-- تظهر النتائج هنا تلقائياً -->
+    </div>
+</div>
+
+<script>
+    // قائمة الإطارات والأنماط المختلفة
+    const frames = [
+        text => `꧁★${text}★꧂`,
+        text => `★彡 [${text}] 彡★`,
+        text => `░${text}░`,
+        text => `╭₪${text}₪╮`,
+        text => `★【${text}】★`,
+        text => `༺${text}༻`,
+        text => `༒${text}༒`,
+        text => `✧○ꊞ○${text}○ꊞ○✧`,
+        text => `▌│█║▌║▌║ ${text} ║▌║▌║█│▌`,
+        text => `┗━┫${text}┣━┛`
+    ];
+
+    // خريطة تحسين واستبدال الأحرف العربية بخطوط مزخرفة
+    const charMap = {
+        'ا': 'آ', 'ب': 'بُ', 'ت': 'تّ', 'ث': 'ثّ', 'ج': 'جـ', 'ح': 'حً',
+        'خ': 'خِ', 'د': 'دٍ', 'ذ': 'ذِ', 'ر': 'رً', 'ز': 'زٍ', 'س': 'سِ',
+        'ش': 'شُ', 'ص': 'صّ', 'ض': 'ضً', 'ط': 'طِ', 'ظ': 'ظُ', 'ع': 'عٌ',
+        'غ': 'غٌ', 'ف': 'فُ', 'ق': 'قٌ', 'ك': 'كـ', 'ل': 'لُ', 'م': 'مً',
+        'ن': 'نِ', 'ه': 'هـ', 'و': 'وٌ', 'ي': 'يُ'
+    };
+
+    function applyCharDecoration(text) {
+        return text.split('').map(char => charMap[char] || char).join('');
+    }
+
+    function decorate() {
+        const input = document.getElementById('nameInput').value.trim();
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        if (!input) return;
+
+        const embellishedText = applyCharDecoration(input);
+
+        // توليد الخيارات المتنوعة
+        frames.forEach((frameFunc, index) => {
+            const resultText = frameFunc(index % 2 === 0 ? input : embellishedText);
+            
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            
+            card.innerHTML = `
+                <span class="decorated-text">${resultText}</span>
+                <button class="copy-btn" onclick="copyToClipboard('${resultText}', this)">نسخ</button>
+            `;
+            
+            resultsDiv.appendChild(card);
+        });
+    }
+
+    function copyToClipboard(text, btn) {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = 'تم النسخ!';
+            btn.style.backgroundColor = '#22c55e';
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = 'var(--accent-color)';
+            }, 1500);
+        });
+    }
+</script>
+
+</body>
+</html>
