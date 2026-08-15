@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>꧁★M_dark★꧂</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Tahoma,sans-serif
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    background:
+    radial-gradient(circle at 50% -10%,#163c2d,#080b09 35%,#000 75%);
+}
+
+header{
+    text-align:center;
+    padding:25px 15px 20px;
+    border-bottom:1px solid #202020;
+    background:rgba(0,0,0,.65);
+}
+
+.logo{
+    font-size:27px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#00ff88;
+    text-shadow:0 0 15px #00ff8866;
+}
+
+header p{
+    color:#888;
+    margin-top:8px;
+    font-size:13px;
+}
+
+.container{
+    width:92%;
+    max-width:600px;
+    margin:35px auto;
+}
+
+.card{
+    background:rgba(15,15,15,.94);
+    border:1px solid #292929;
+    border-radius:24px;
+    padding:24px;
+    box-shadow:0 20px 60px #000;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.title h1{
+    font-size:23px;
+    margin-bottom:8px;
+}
+
+.title p{
+    color:#777;
+    font-size:13px;
+}
+
+.input{
+    width:100%;
+    padding:17px;
+    border-radius:15px;
+    border:1px solid #333;
+    outline:none;
+    background:#050505;
+    color:#fff;
+    font-size:15px;
+    direction:ltr;
+}
+
+.input:focus{
+    border-color:#00ff88;
+    box-shadow:0 0 15px #00ff8822;
+}
+
+.platforms{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin:15px 0;
+    padding-bottom:4px;
+}
+
+.platform{
+    flex:0 0 auto;
+    background:#171717;
+    border:1px solid #292929;
+    color:#aaa;
+    padding:9px 13px;
+    border-radius:30px;
+    font-size:12px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+button{
+    border:none;
+    border-radius:14px;
+    padding:16px 10px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+.video{
+    background:#00ff88;
+    color:#000;
+}
+
+.audio{
+    background:#222;
+    color:#fff;
+    border:1px solid #333;
+}
+
+.clear{
+    width:100%;
+    margin-top:10px;
+    background:#111;
+    color:#888;
+    border:1px solid #252525;
+}
+
+.status{
+    display:none;
+    margin-top:18px;
+    padding:15px;
+    border-radius:14px;
+    text-align:center;
+    line-height:1.7;
+    font-size:13px;
+}
+
+.success{
+    background:#092117;
+    color:#75ffb4;
+    border:1px solid #155d3c;
+}
+
+.error{
+    background:#241010;
+    color:#ff8d8d;
+    border:1px solid #632626;
+}
+
+.loading{
+    background:#151c18;
+    color:#c5ffe0;
+    border:1px solid #315542;
+}
+
+.history{
+    margin-top:25px;
+}
+
+.history h3{
+    font-size:16px;
+    margin-bottom:12px;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#090909;
+    border:1px solid #202020;
+    padding:10px;
+    border-radius:12px;
+    margin-bottom:7px;
+}
+
+.item-url{
+    flex:1;
+    direction:ltr;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    color:#777;
+    font-size:11px;
+}
+
+.use{
+    padding:8px 10px;
+    background:#00ff88;
+    color:#000;
+    font-size:11px;
+}
+
+.empty{
+    text-align:center;
+    color:#555;
+    padding:15px;
+}
+
+.note{
+    margin-top:20px;
+    padding:12px;
+    border-radius:12px;
+    background:#101010;
+    border:1px solid #222;
+    color:#666;
+    font-size:11px;
+    line-height:1.7;
+    text-align:center;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#444;
+    font-size:11px;
+}
+
+@media(max-width:430px){
+    .card{
+        padding:18px;
+    }
+
+    .buttons{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">꧁★<span>M_dark</span>★꧂</div>
+    <p>Video & Audio Downloader</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="title">
+    <h1>⬇️ تنزيل الفيديو والصوت</h1>
+    <p>ضع رابط الملف ثم اختر نوع التنزيل</p>
+</div>
+
+<input
+    id="url"
+    class="input"
+    type="url"
+    placeholder="https://example.com/video.mp4"
+    autocomplete="off">
+
+<div class="platforms">
+    <div class="platform">▶️ Video</div>
+    <div class="platform">🎵 Audio</div>
+    <div class="platform">📱 Mobile</div>
+    <div class="platform">⚡ Fast</div>
+</div>
+
+<div class="buttons">
+
+    <button class="video" onclick="downloadFile('video')">
+        🎬 تنزيل فيديو
+    </button>
+
+    <button class="audio" onclick="downloadFile('audio')">
+        🎵 تنزيل صوت
+    </button>
+
+</div>
+
+<button class="clear" onclick="clearURL()">
+    🗑️ مسح
+</button>
+
+<div id="status" class="status"></div>
+
+<div class="history">
+
+<h3>📥 سجل التنزيلات</h3>
+
+<div id="historyList"></div>
+
+</div>
+
+<div class="note">
+    ملاحظة: هذه النسخة تتعامل مع روابط الملفات المباشرة.
+    روابط صفحات المنصات تحتاج إلى Backend/API يسمح بالوصول إليها.
+</div>
+
+</div>
+</div>
+
+<footer>
+    ꧁★M_dark★꧂ © 2026
+</footer>
+
+
+<script>
+
+const input = document.getElementById("url");
+const status = document.getElementById("status");
+const historyList = document.getElementById("historyList");
+
+let history =
+JSON.parse(localStorage.getItem("mdark_downloads") || "[]");
+
+
+function showStatus(text,type){
+
+    status.style.display = "block";
+
+    status.className =
+        "status " + type;
+
+    status.innerHTML = text;
+}
+
+
+function validURL(value){
+
+    try{
+
+        const url = new URL(value);
+
+        return (
+            url.protocol === "http:" ||
+            url.protocol === "https:"
+        );
+
+    }catch(e){
+
+        return false;
+    }
+}
+
+
+async function downloadFile(type){
+
+    const url = input.value.trim();
+
+    if(!url){
+
+        showStatus(
+            "⚠️ اكتب الرابط أولاً.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!validURL(url)){
+
+        showStatus(
+            "❌ الرابط غير صحيح.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    showStatus(
+        "⏳ جاري تحميل الملف...",
+        "loading"
+    );
+
+
+    try{
+
+        /*
+        نطلب الملف مباشرة من الرابط.
+        هذا يعمل فقط إذا كان السيرفر يسمح
+        بالوصول إليه من المتصفح (CORS).
+        */
+
+        const response =
+        await fetch(url);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+        }
+
+
+        const blob =
+        await response.blob();
+
+
+        let extension = "mp4";
+
+
+        if(type === "audio"){
+
+            extension = "mp3";
+        }
+
+
+        const objectURL =
+        URL.createObjectURL(blob);
+
+
+        const link =
+        document.createElement("a");
+
+
+        link.href = objectURL;
+
+        link.download =
+            "M_dark_" +
+            Date.now() +
+            "." +
+            extension;
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        setTimeout(()=>{
+
+            URL.revokeObjectURL(objectURL);
+
+        },2000);
+
+
+        saveHistory(url);
+
+
+        showStatus(
+            "✅ بدأ تنزيل الملف.<br>" +
+            "ستجده غالبًا داخل مجلد Downloads في الهاتف.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        showStatus(
+            "❌ لم يتم تنزيل الملف.<br><br>" +
+            "الرابط قد يكون صفحة وليس ملفًا مباشرًا، " +
+            "أو أن الموقع يمنع الوصول إليه من المتصفح.",
+            "error"
+        );
+    }
+}
+
+
+function saveHistory(url){
+
+    history =
+    history.filter(x => x !== url);
+
+    history.unshift(url);
+
+    history =
+    history.slice(0,10);
+
+
+    localStorage.setItem(
+        "mdark_downloads",
+        JSON.stringify(history)
+    );
+
+
+    renderHistory();
+}
+
+
+function renderHistory(){
+
+    if(history.length === 0){
+
+        historyList.innerHTML =
+        '<div class="empty">لا يوجد تنزيلات بعد</div>';
+
+        return;
+    }
+
+
+    historyList.innerHTML =
+    history.map((url,index)=>{
+
+        return `
+        <div class="item">
+
+            <div class="item-url">
+                ${escapeHTML(url)}
+            </div>
+
+            <button
+                class="use"
+                onclick="useURL(${index})">
+                استخدام
+            </button>
+
+        </div>
+        `;
+
+    }).join("");
+}
+
+
+function useURL(index){
+
+    input.value =
+    history[index];
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function clearURL(){
+
+    input.value = "";
+
+    status.style.display =
+    "none";
+
+    input.focus();
+}
+
+
+function escapeHTML(text){
+
+    return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+renderHistory();
+
+</script>
+
+</body>
+</html>
