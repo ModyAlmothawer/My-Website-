@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M_dark Gaming</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+body{
+    background:#070b12;
+    color:#fff;
+    min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(7,11,18,.96);
+    border-bottom:1px solid #182231;
+    backdrop-filter:blur(10px);
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    color:#00e5ff;
+    text-shadow:0 0 15px rgba(0,229,255,.5);
+    white-space:nowrap;
+}
+
+.logo span{
+    color:#fff;
+}
+
+.nav-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:0;
+    padding:10px 16px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.login-btn{
+    background:#00e5ff;
+    color:#001016;
+}
+
+.logout-btn{
+    background:#ff3d5a;
+    color:white;
+    display:none;
+}
+
+/* ===== HERO ===== */
+.hero{
+    max-width:1200px;
+    margin:35px auto 20px;
+    padding:55px 25px;
+    border-radius:20px;
+    background:
+    linear-gradient(135deg,rgba(0,229,255,.12),rgba(124,58,237,.12)),
+    #0c131e;
+    border:1px solid #1b2b3d;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.hero h1 span{
+    color:#00e5ff;
+}
+
+.hero p{
+    color:#aeb8c6;
+    font-size:17px;
+}
+
+/* ===== SEARCH ===== */
+.search-area{
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 20px;
+}
+
+.search-box{
+    width:100%;
+    padding:16px 20px;
+    border-radius:12px;
+    border:1px solid #223247;
+    outline:none;
+    background:#0d1520;
+    color:#fff;
+    font-size:16px;
+}
+
+.search-box:focus{
+    border-color:#00e5ff;
+}
+
+/* ===== CATEGORIES ===== */
+.categories{
+    max-width:1200px;
+    margin:20px auto;
+    padding:0 20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.category{
+    padding:9px 15px;
+    border-radius:20px;
+    background:#101a27;
+    border:1px solid #203044;
+    color:#b8c4d3;
+    cursor:pointer;
+}
+
+.category.active,
+.category:hover{
+    background:#00e5ff;
+    color:#001016;
+}
+
+/* ===== GAMES ===== */
+.games-container{
+    max-width:1200px;
+    margin:30px auto;
+    padding:0 20px 50px;
+}
+
+.section-title{
+    margin-bottom:20px;
+    font-size:25px;
+}
+
+.games-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:20px;
+}
+
+.game-card{
+    overflow:hidden;
+    background:#0d1520;
+    border:1px solid #1d2b3c;
+    border-radius:15px;
+    transition:.25s;
+}
+
+.game-card:hover{
+    transform:translateY(-6px);
+    border-color:#00e5ff;
+    box-shadow:0 10px 30px rgba(0,229,255,.08);
+}
+
+.game-image{
+    height:150px;
+    width:100%;
+    object-fit:cover;
+    background:#111b29;
+}
+
+.game-content{
+    padding:15px;
+}
+
+.game-content h3{
+    margin-bottom:8px;
+}
+
+.game-content p{
+    color:#8996a7;
+    font-size:14px;
+    min-height:40px;
+}
+
+.game-meta{
+    display:flex;
+    justify-content:space-between;
+    margin:12px 0;
+    font-size:12px;
+    color:#7e8da0;
+}
+
+.download-btn{
+    width:100%;
+    background:#00e5ff;
+    color:#001016;
+}
+
+.download-btn:hover{
+    background:#fff;
+}
+
+/* ===== ADMIN ===== */
+.admin-panel{
+    display:none;
+    max-width:1200px;
+    margin:25px auto;
+    padding:20px;
+}
+
+.admin-box{
+    background:#0d1520;
+    border:1px solid #26374b;
+    border-radius:15px;
+    padding:22px;
+}
+
+.admin-box h2{
+    margin-bottom:20px;
+    color:#00e5ff;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    color:#b8c4d3;
+    font-size:14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    background:#080e17;
+    border:1px solid #26374b;
+    color:white;
+    padding:12px;
+    border-radius:9px;
+    outline:none;
+}
+
+.form-group textarea{
+    resize:vertical;
+    min-height:90px;
+}
+
+.add-game-btn{
+    margin-top:18px;
+    background:#00e5ff;
+    color:#001016;
+}
+
+/* ===== LOGIN MODAL ===== */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:400px;
+    background:#0d1520;
+    border:1px solid #26374b;
+    border-radius:16px;
+    padding:25px;
+}
+
+.modal-box h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#00e5ff;
+}
+
+.modal-box input{
+    width:100%;
+    margin-bottom:12px;
+    padding:13px;
+    background:#080e17;
+    border:1px solid #26374b;
+    color:white;
+    border-radius:9px;
+    outline:none;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+}
+
+.modal-actions button{
+    flex:1;
+}
+
+.close-btn{
+    background:#263344;
+    color:white;
+}
+
+.error{
+    color:#ff536b;
+    text-align:center;
+    margin:10px 0;
+    display:none;
+}
+
+/* ===== EMPTY ===== */
+.empty{
+    display:none;
+    text-align:center;
+    color:#7f8c9d;
+    padding:40px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    border-top:1px solid #182231;
+    padding:25px;
+    text-align:center;
+    color:#69788b;
+    background:#05080d;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:700px){
+
+    .navbar{
+        padding:13px 12px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .nav-buttons .btn{
+        padding:8px 10px;
+        font-size:12px;
+    }
+
+    .hero{
+        margin:20px 12px;
+        padding:40px 15px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .games-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .game-image{
+        height:110px;
+    }
+
+    .game-content{
+        padding:10px;
+    }
+
+    .game-content h3{
+        font-size:15px;
+    }
+
+    .game-content p{
+        font-size:12px;
+    }
+
+    .download-btn{
+        padding:8px;
+        font-size:12px;
+    }
+}
+
+@media(max-width:400px){
+    .games-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="navbar">
+
+        <div class="logo">
+            M_dark <span>Gaming</span>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn login-btn" id="loginButton">
+                🔐 دخول المطور
+            </button>
+
+            <button class="btn logout-btn" id="logoutButton">
+                تسجيل خروج
+            </button>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+    <h1>مرحباً بك في <span>M_dark Gaming</span></h1>
+    <p>
+        أفضل مكان لاكتشاف ألعابك المفضلة وتحميلها بسهولة 🎮
+    </p>
+</section>
+
+
+<!-- SEARCH -->
+<div class="search-area">
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="🔎 ابحث عن لعبة..."
+    >
+</div>
+
+
+<!-- CATEGORIES -->
+<div class="categories">
+
+    <div class="category active" data-category="all">
+        كل الألعاب
+    </div>
+
+    <div class="category" data-category="battle">
+        🔥 باتل رويال
+    </div>
+
+    <div class="category" data-category="football">
+        ⚽ كرة القدم
+    </div>
+
+    <div class="category" data-category="action">
+        🎯 أكشن
+    </div>
+
+</div>
+
+
+<!-- ADMIN PANEL -->
+<section class="admin-panel" id="adminPanel">
+
+    <div class="admin-box">
+
+        <h2>⚙️ لوحة المطور</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>اسم اللعبة</label>
+                <input
+                    type="text"
+                    id="gameName"
+                    placeholder="مثال: PUBG Mobile"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>التصنيف</label>
+
+                <select id="gameCategory">
+
+                    <option value="battle">
+                        باتل رويال
+                    </option>
+
+                    <option value="football">
+                        كرة القدم
+                    </option>
+
+                    <option value="action">
+                        أكشن
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="form-group full">
+
+                <label>رابط صورة اللعبة</label>
+
+                <input
+                    type="url"
+                    id="gameImage"
+                    placeholder="https://example.com/image.jpg"
+                >
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>وصف اللعبة</label>
+
+                <textarea
+                    id="gameDescription"
+                    placeholder="اكتب وصف اللعبة..."
+                ></textarea>
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>رابط التحميل</label>
+
+                <input
+                    type="url"
+                    id="gameLink"
+                    placeholder="https://example.com/download"
+                >
+
+            </div>
+
+        </div>
+
+        <button
+            class="btn add-game-btn"
+            id="addGameButton"
+        >
+            ➕ إضافة اللعبة
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- GAMES -->
+<section class="games-container">
+
+    <h2 class="section-title">
+        🎮 الألعاب
+    </h2>
+
+    <div
+        class="games-grid"
+        id="gamesGrid"
+    ></div>
+
+    <div
+        class="empty"
+        id="emptyMessage"
+    >
+        لا توجد ألعاب مطابقة للبحث.
+    </div>
+
+</section>
+
+
+<!-- LOGIN MODAL -->
+<div
+    class="modal"
+    id="loginModal"
+>
+
+    <div class="modal-box">
+
+        <h2>🔐 دخول المطور</h2>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="اسم المستخدم"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="كلمة المرور"
+        >
+
+        <div
+            class="error"
+            id="loginError"
+        >
+            بيانات الدخول غير صحيحة
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn login-btn"
+                id="submitLogin"
+            >
+                دخول
+            </button>
+
+            <button
+                class="btn close-btn"
+                id="closeModal"
+            >
+                إلغاء
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    © 2026 M_dark Gaming — جميع الحقوق محفوظة
+</footer>
+
+
+<script>
+
+/* =========================================
+   إعدادات المطور التجريبية
+========================================= */
+
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "Mdark2026";
+
+
+/* =========================================
+   الألعاب الافتراضية
+========================================= */
+
+const defaultGames = [
+
+    {
+        id: 1,
+        name: "PUBG Mobile",
+        category: "battle",
+        description: "لعبة باتل رويال شهيرة ومليئة بالإثارة.",
+        image:
+        "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+        link: "https://www.pubgmobile.com/"
+    },
+
+    {
+        id: 2,
+        name: "eFootball",
+        category: "football",
+        description: "استمتع بتجربة كرة القدم الإلكترونية.",
+        image:
+        "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80",
+        link: "https://www.konami.com/efootball/"
+    },
+
+    {
+        id: 3,
+        name: "Free Fire",
+        category: "battle",
+        description: "باتل رويال سريعة ومناسبة للهواتف.",
+        image:
+        "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80",
+        link: "https://ff.garena.com/"
+    },
+
+    {
+        id: 4,
+        name: "Call of Duty",
+        category: "action",
+        description: "معارك وأكشن وتجربة تصويب قوية.",
+        image:
+        "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=800&q=80",
+        link: "https://www.callofduty.com/"
+    },
+
+    {
+        id: 5,
+        name: "Football League",
+        category: "football",
+        description: "لعبة كرة قدم ممتعة وسريعة.",
+        image:
+        "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=800&q=80",
+        link: "#"
+    }
+
+];
+
+
+/* =========================================
+   تحميل الألعاب
+========================================= */
+
+let savedGames =
+    JSON.parse(localStorage.getItem("mdark_games")) || [];
+
+let games = [
+    ...defaultGames,
+    ...savedGames
+];
+
+
+/* =========================================
+   عناصر الصفحة
+========================================= */
+
+const gamesGrid =
+    document.getElementById("gamesGrid");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const emptyMessage =
+    document.getElementById("emptyMessage");
+
+const categories =
+    document.querySelectorAll(".category");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+const loginModal =
+    document.getElementById("loginModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const submitLogin =
+    document.getElementById("submitLogin");
+
+const adminPanel =
+    document.getElementById("adminPanel");
+
+const loginError =
+    document.getElementById("loginError");
+
+
+let currentCategory = "all";
+
+
+/* =========================================
+   حالة المدير
+========================================= */
+
+let isAdmin =
+    sessionStorage.getItem("mdark_admin") === "true";
+
+
+function updateAdminUI(){
+
+    if(isAdmin){
+
+        adminPanel.style.display = "block";
+
+        loginButton.style.display = "none";
+
+        logoutButton.style.display = "inline-block";
+
+    }else{
+
+        adminPanel.style.display = "none";
+
+        loginButton.style.display = "inline-block";
+
+        logoutButton.style.display = "none";
+
+    }
+
+}
+
+
+/* =========================================
+   عرض الألعاب
+========================================= */
+
+function renderGames(){
+
+    const search =
+        searchInput.value.trim().toLowerCase();
+
+    const filtered =
+        games.filter(game => {
+
+            const matchesSearch =
+                game.name.toLowerCase().includes(search) ||
+                game.description.toLowerCase().includes(search);
+
+            const matchesCategory =
+                currentCategory === "all" ||
+                game.category === currentCategory;
+
+            return matchesSearch && matchesCategory;
+
+        });
+
+
+    gamesGrid.innerHTML = "";
+
+
+    if(filtered.length === 0){
+
+        emptyMessage.style.display = "block";
+
+        return;
+
+    }
+
+    emptyMessage.style.display = "none";
+
+
+    filtered.forEach(game => {
+
+        const card =
+        document.createElement("div");
+
+        card.className = "game-card";
+
+
+        card.innerHTML = `
+
+            <img
+                class="game-image"
+                src="${escapeHTML(game.image)}"
+                alt="${escapeHTML(game.name)}"
+                onerror="this.src='https://via.placeholder.com/800x450/101820/00e5ff?text=Game'"
+            >
+
+            <div class="game-content">
+
+                <h3>
+                    ${escapeHTML(game.name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(game.description)}
+                </p>
+
+                <div class="game-meta">
+
+                    <span>
+                        🎮 لعبة
+                    </span>
+
+                    <span>
+                        ${getCategoryName(game.category)}
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn download-btn"
+                    onclick="openGame('${encodeURI(game.link)}')"
+                >
+                    ⬇️ تحميل / زيارة
+                </button>
+
+            </div>
+
+        `;
+
+
+        gamesGrid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================
+   حماية عرض النصوص
+========================================= */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================
+   اسم التصنيف
+========================================= */
+
+function getCategoryName(category){
+
+    if(category === "battle")
+        return "باتل رويال";
+
+    if(category === "football")
+        return "كرة القدم";
+
+    if(category === "action")
+        return "أكشن";
+
+    return "أخرى";
+
+}
+
+
+/* =========================================
+   فتح رابط اللعبة
+========================================= */
+
+function openGame(link){
+
+    if(!link || link === "#"){
+
+        alert("رابط التحميل غير متوفر حالياً.");
+
+        return;
+
+    }
+
+    window.open(
+        decodeURI(link),
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =========================================
+   البحث
+========================================= */
+
+searchInput.addEventListener(
+    "input",
+    renderGames
+);
+
+
+/* =========================================
+   التصنيفات
+========================================= */
+
+categories.forEach(category => {
+
+    category.addEventListener(
+        "click",
+        () => {
+
+            categories.forEach(item =>
+                item.classList.remove("active")
+            );
+
+            category.classList.add("active");
+
+            currentCategory =
+                category.dataset.category;
+
+            renderGames();
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   فتح تسجيل الدخول
+========================================= */
+
+loginButton.addEventListener(
+    "click",
+    () => {
+
+        loginModal.style.display = "flex";
+
+        document.getElementById("username").focus();
+
+    }
+);
+
+
+/* =========================================
+   إغلاق تسجيل الدخول
+========================================= */
+
+closeModal.addEventListener(
+    "click",
+    () => {
+
+        loginModal.style.display = "none";
+
+        loginError.style.display = "none";
+
+    }
+);
+
+
+/* =========================================
+   تسجيل الدخول
+========================================= */
+
+submitLogin.addEventListener(
+    "click",
+    login
+);
+
+
+document
+.getElementById("password")
+.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter")
+            login();
+
+    }
+);
+
+
+function login(){
+
+    const username =
+        document
+        .getElementById("username")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+
+    if(
+        username === ADMIN_USERNAME &&
+        password === ADMIN_PASSWORD
+    ){
+
+        isAdmin = true;
+
+        sessionStorage.setItem(
+            "mdark_admin",
+            "true"
+        );
+
+        loginModal.style.display = "none";
+
+        updateAdminUI();
+
+        alert("تم تسجيل دخول المطور بنجاح ✅");
+
+    }else{
+
+        loginError.style.display = "block";
+
+    }
+
+}
+
+
+/* =========================================
+   تسجيل الخروج
+========================================= */
+
+logoutButton.addEventListener(
+    "click",
+    () => {
+
+        isAdmin = false;
+
+        sessionStorage.removeItem(
+            "mdark_admin"
+        );
+
+        updateAdminUI();
+
+        alert("تم تسجيل الخروج.");
+
+    }
+);
+
+
+/* =========================================
+   إضافة لعبة
+========================================= */
+
+document
+.getElementById("addGameButton")
+.addEventListener(
+    "click",
+    addGame
+);
+
+
+function addGame(){
+
+    /* تحقق إضافي */
+
+    if(!isAdmin){
+
+        alert(
+            "غير مسموح! يجب تسجيل الدخول كمطور."
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        document
+        .getElementById("gameName")
+        .value
+        .trim();
+
+    const category =
+        document
+        .getElementById("gameCategory")
+        .value;
+
+    const image =
+        document
+        .getElementById("gameImage")
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById("gameDescription")
+        .value
+        .trim();
+
+    const link =
+        document
+        .getElementById("gameLink")
+        .value
+        .trim();
+
+
+    if(
+        !name ||
+        !image ||
+        !description ||
+        !link
+    ){
+
+        alert(
+            "من فضلك أكمل جميع بيانات اللعبة."
+        );
+
+        return;
+
+    }
+
+
+    const newGame = {
+
+        id: Date.now(),
+
+        name,
+
+        category,
+
+        image,
+
+        description,
+
+        link
+
+    };
+
+
+    games.push(newGame);
+
+
+    /*
+       نحفظ فقط الألعاب التي أضافها المدير
+       وليس الألعاب الافتراضية
+    */
+
+    savedGames.push(newGame);
+
+    localStorage.setItem(
+        "mdark_games",
+        JSON.stringify(savedGames)
+    );
+
+
+    /* تنظيف الحقول */
+
+    document
+    .getElementById("gameName")
+    .value = "";
+
+    document
+    .getElementById("gameImage")
+    .value = "";
+
+    document
+    .getElementById("gameDescription")
+    .value = "";
+
+    document
+    .getElementById("gameLink")
+    .value = "";
+
+
+    renderGames();
+
+    alert(
+        "تمت إضافة اللعبة بنجاح 🎮"
+    );
+
+}
+
+
+/* =========================================
+   تشغيل الموقع
+========================================= */
+
+updateAdminUI();
+
+renderGames();
+
+</script>
+
+</body>
+</html>
