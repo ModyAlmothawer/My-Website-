@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>꧁★M_dark★꧂</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:Cairo,Arial,sans-serif;
+    color:white;
+    background:
+        radial-gradient(circle at 50% 15%,rgba(55,90,180,.22),transparent 30%),
+        linear-gradient(180deg,#080e20,#061225 60%,#04182b);
+    overflow-x:hidden;
+}
+
+/* النجوم */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+        radial-gradient(circle,#2fa8ff 1px,transparent 2px),
+        radial-gradient(circle,#6d5cff 1px,transparent 2px);
+    background-size:150px 150px,220px 220px;
+    background-position:20px 30px,90px 100px;
+    opacity:.35;
+    animation:stars 12s linear infinite;
+}
+
+@keyframes stars{
+    from{
+        background-position:20px 30px,90px 100px;
+    }
+    to{
+        background-position:20px 220px,90px 300px;
+    }
+}
+
+.container{
+    width:min(680px,94%);
+    margin:auto;
+    padding:35px 0 25px;
+    position:relative;
+    z-index:2;
+}
+
+/* الصورة */
+.profile{
+    text-align:center;
+}
+
+.avatar{
+    width:155px;
+    height:155px;
+    margin:auto;
+    padding:5px;
+    border-radius:50%;
+    background:linear-gradient(
+        135deg,
+        #fff,
+        #625cff,
+        #00eaff,
+        #fff
+    );
+    box-shadow:
+        0 0 15px #4e6cff,
+        0 0 45px rgba(58,105,255,.5);
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    background:#101a32;
+}
+
+/* الاسم */
+.name{
+    margin-top:25px;
+    margin-bottom:17px;
+    font-family:"Playfair Display",serif;
+    font-size:43px;
+    letter-spacing:2px;
+    text-align:center;
+    text-shadow:0 0 15px rgba(255,255,255,.15);
+}
+
+.name span{
+    margin:0 6px;
+}
+
+/* الوصف */
+.bio{
+    text-align:center;
+    color:#aeb7ca;
+    font-size:17px;
+    line-height:2.35;
+    margin-bottom:28px;
+}
+
+.bio b{
+    color:#c9d1df;
+}
+
+/* صندوق الروابط */
+.links{
+    padding:25px 18px;
+    border-radius:34px;
+    background:rgba(6,14,31,.68);
+    border:1px solid rgba(110,130,180,.18);
+    box-shadow:
+        0 15px 60px rgba(0,0,0,.4),
+        inset 0 0 30px rgba(70,90,150,.08);
+    backdrop-filter:blur(12px);
+}
+
+/* الأزرار */
+.link{
+    min-height:80px;
+    width:100%;
+    margin-bottom:18px;
+    padding:10px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:white;
+    border-radius:26px;
+    position:relative;
+    overflow:hidden;
+    transition:.25s;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.link:last-child{
+    margin-bottom:0;
+}
+
+.link:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.link:active{
+    transform:scale(.98);
+}
+
+.link::before{
+    content:"";
+    position:absolute;
+    width:80px;
+    height:180%;
+    top:-40%;
+    left:-100px;
+    transform:rotate(20deg);
+    background:rgba(255,255,255,.18);
+    transition:.6s;
+}
+
+.link:hover::before{
+    left:120%;
+}
+
+.icon{
+    width:53px;
+    height:53px;
+    flex-shrink:0;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    color:#111;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.arrow{
+    font-size:34px;
+    line-height:1;
+    opacity:.9;
+}
+
+.label{
+    flex:1;
+    text-align:center;
+    direction:ltr;
+    font-family:"Playfair Display",Cairo,serif;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.arabic{
+    direction:rtl;
+    font-family:Cairo,sans-serif;
+}
+
+/* ألوان */
+.tiktok{
+    background:#020202;
+    border:2px solid #ff207b;
+    box-shadow:
+        0 0 12px rgba(255,30,110,.35),
+        0 8px 25px rgba(0,0,0,.3);
+}
+
+.telegram{
+    background:linear-gradient(135deg,#2da9e7,#168bc9);
+}
+
+.instagram{
+    background:linear-gradient(
+        110deg,
+        #ff9d28,
+        #f50072,
+        #b800a8
+    );
+}
+
+.quran{
+    background:linear-gradient(135deg,#146b38,#1f8d4c);
+}
+
+.youtube{
+    background:linear-gradient(135deg,#ff2929,#c90000);
+}
+
+.contact{
+    background:linear-gradient(135deg,#24d66c,#16b958);
+}
+
+/* الفوتر */
+.footer{
+    text-align:center;
+    color:#778397;
+    font-size:14px;
+    line-height:2;
+    padding:28px 5px 10px;
+}
+
+.footer strong{
+    color:#aeb7c8;
+}
+
+.heart{
+    color:#ff5f5f;
+}
+
+/* زر المطور */
+.developer{
+    position:fixed;
+    bottom:18px;
+    right:18px;
+    z-index:10;
+    width:auto;
+    min-height:62px;
+    padding:7px 17px;
+    border-radius:40px;
+    margin:0;
+    box-shadow:0 5px 25px rgba(0,0,0,.4);
+}
+
+.developer .label{
+    font-family:Cairo,sans-serif;
+    font-size:17px;
+    white-space:nowrap;
+}
+
+.developer .icon{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+}
+
+/* الهاتف */
+@media(max-width:520px){
+
+    .container{
+        width:94%;
+        padding-top:25px;
+    }
+
+    .avatar{
+        width:145px;
+        height:145px;
+    }
+
+    .name{
+        font-size:36px;
+    }
+
+    .bio{
+        font-size:15px;
+    }
+
+    .links{
+        padding:20px 12px;
+        border-radius:30px;
+    }
+
+    .link{
+        min-height:73px;
+        border-radius:23px;
+        padding:9px 13px;
+        margin-bottom:15px;
+    }
+
+    .icon{
+        width:48px;
+        height:48px;
+        font-size:24px;
+    }
+
+    .label{
+        font-size:18px;
+    }
+
+    .arrow{
+        font-size:28px;
+    }
+
+    .developer{
+        right:12px;
+        bottom:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- البروفايل -->
+    <section class="profile">
+
+        <!-- ضع رابط صورتك مكان الرابط الموجود هنا -->
+        <div class="avatar">
+            <img
+                src="https://i.postimg.cc/0y7kW5GQ/profile-placeholder.jpg"
+                alt="M_dark"
+                onerror="this.style.display='none';"
+            >
+        </div>
+
+        <h1 class="name">
+            <span>꧁</span>M_dark<span>꧂</span>
+        </h1>
+
+        <div class="bio">
+            <div>🥀 <b>Lost in silence...</b></div>
+            <div>☠️ <b>Ego above all.</b></div>
+            <div>♛ <b>No second chances.</b></div>
+        </div>
+
+    </section>
+
+
+    <!-- الروابط -->
+    <section class="links">
+
+        <!-- TikTok -->
+        <a
+            class="link tiktok"
+            href="https://www.tiktok.com/"
+            target="_blank"
+        >
+            <span class="arrow">‹</span>
+
+            <span class="label">
+                ✦ My TikTok ✦
+            </span>
+
+            <span class="icon">
+                ♪
+            </span>
+        </a>
+
+
+        <!-- Telegram -->
+        <a
+            class="link telegram"
+            href="https://t.me/"
+            target="_blank"
+        >
+            <span class="arrow">‹</span>
+
+            <span class="label">
+                ☬ Telegram Channel ☬
+            </span>
+
+            <span class="icon">
+                ➤
+            </span>
+        </a>
+
+
+        <!-- Instagram -->
+        <a
+            class="link instagram"
+            href="https://www.instagram.com/"
+            target="_blank"
+        >
+            <span class="arrow">‹</span>
+
+            <span class="label">
+                ♛ Insta Profile ♛
+            </span>
+
+            <span class="icon">
+                ◎
+            </span>
+        </a>
+
+
+        <!-- Telegram الشخصي -->
+        <a
+            class="link telegram"
+            href="https://t.me/"
+            target="_blank"
+        >
+            <span class="arrow">‹</span>
+
+            <span class="label">
+                ☬ My Telegram ☬
+            </span>
+
+            <span class="icon">
+                ➤
+            </span>
+        </a>
+
+
+        <!-- الموقع القرآني -->
+        <a
+            class="link quran"
+            href="#"
+            onclick="showMessage('ضع رابط الموقع القرآني داخل href'); return false;"
+        >
+            <span class="arrow">‹</span>
+
+            <span class="label arabic">
+                ☪ الموقع القرآني ☪
+            </span>
+
+            <span class="icon">
+                ☪
+            </span>
+        </a>
+
+
+        <!-- YouTube -->
+        <a
+            class="link youtube"
+            href="https://www.youtube.com/"
+            target="_blank"
+        >
+            <span class="arrow">‹</span>
+
+            <span class="label">
+                YouTube Channel
+            </span>
+
+            <span class="icon">
+                ▶
+            </span>
+        </a>
+
+    </section>
+
+
+    <!-- الفوتر -->
+    <footer class="footer">
+
+        <div>
+            <strong>✦ M_DARK LINKS ✦</strong>
+            — All Rights Reserved.
+        </div>
+
+        <div>
+            Proudly Designed With
+            <span class="heart">♥</span>
+            By
+            <strong>꧁★M_dark★꧂</strong>
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- زر التواصل -->
+<a
+    class="link contact developer"
+    href="https://wa.me/201000000000"
+    target="_blank"
+>
+    <span class="label">
+        تواصل مع المطور
+    </span>
+
+    <span class="icon">
+        ☏
+    </span>
+</a>
+
+
+<!-- رسالة صغيرة -->
+<div id="message"></div>
+
+<script>
+
+function showMessage(text){
+
+    const message = document.getElementById("message");
+
+    message.innerText = text;
+
+    message.style.position = "fixed";
+    message.style.bottom = "25px";
+    message.style.left = "50%";
+    message.style.transform = "translateX(-50%)";
+    message.style.background = "#10182d";
+    message.style.color = "#fff";
+    message.style.padding = "12px 22px";
+    message.style.borderRadius = "30px";
+    message.style.zIndex = "100";
+    message.style.boxShadow = "0 10px 30px rgba(0,0,0,.5)";
+
+    setTimeout(function(){
+        message.style.display = "none";
+    },2500);
+}
+
+</script>
+
+</body>
+</html>
