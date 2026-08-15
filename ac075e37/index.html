@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameZone - ألعاب أونلاين</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+body{
+    background:#090b12;
+    color:#fff;
+}
+
+/* Header */
+header{
+    height:75px;
+    background:#111522;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    border-bottom:1px solid #252a3a;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:#7c5cff;
+}
+
+.logo span{
+    color:#00e5ff;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#ddd;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00e5ff;
+}
+
+.admin-btn{
+    background:#7c5cff;
+    border:0;
+    color:#fff;
+    padding:11px 18px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* Hero */
+.hero{
+    min-height:430px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+    background:
+      radial-gradient(circle at center,#252052 0,#101321 45%,#090b12 80%);
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#00e5ff;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:19px;
+    margin-bottom:30px;
+}
+
+.search{
+    width:min(600px,90vw);
+    display:flex;
+    margin:auto;
+}
+
+.search input{
+    flex:1;
+    padding:17px;
+    border:0;
+    outline:none;
+    background:#fff;
+    color:#111;
+    border-radius:12px 0 0 12px;
+    font-size:16px;
+}
+
+.search button{
+    width:100px;
+    border:0;
+    background:#7c5cff;
+    color:white;
+    border-radius:0 12px 12px 0;
+    cursor:pointer;
+}
+
+/* Categories */
+.categories{
+    padding:30px 6%;
+}
+
+.categories h2,
+.games-section h2{
+    margin-bottom:20px;
+}
+
+.category-list{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.category{
+    background:#171b29;
+    padding:12px 20px;
+    border-radius:30px;
+    cursor:pointer;
+    color:#ccc;
+    transition:.3s;
+}
+
+.category:hover,
+.category.active{
+    background:#7c5cff;
+    color:#fff;
+}
+
+/* Games */
+.games-section{
+    padding:20px 6% 60px;
+}
+
+.games-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:22px;
+}
+
+.game-card{
+    background:#131722;
+    border:1px solid #24293a;
+    border-radius:15px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.game-card:hover{
+    transform:translateY(-7px);
+    border-color:#7c5cff;
+}
+
+.game-image{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    background:#202538;
+}
+
+.game-info{
+    padding:15px;
+}
+
+.game-info h3{
+    margin-bottom:8px;
+}
+
+.game-info p{
+    color:#888;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.play-btn{
+    width:100%;
+    padding:11px;
+    border:0;
+    border-radius:8px;
+    background:#7c5cff;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+}
+
+/* Modal */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    z-index:200;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-content{
+    width:min(900px,100%);
+    background:#111522;
+    border-radius:15px;
+    padding:20px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    left:20px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.game-frame{
+    margin-top:40px;
+    width:100%;
+    height:500px;
+    background:#050505;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#777;
+}
+
+/* Admin */
+.admin-panel{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#090b12;
+    z-index:300;
+    padding:30px;
+    overflow:auto;
+}
+
+.admin-box{
+    max-width:700px;
+    margin:30px auto;
+    background:#131722;
+    padding:30px;
+    border-radius:15px;
+}
+
+.admin-box h2{
+    margin-bottom:25px;
+}
+
+.admin-box input,
+.admin-box textarea,
+.admin-box select{
+    width:100%;
+    padding:13px;
+    margin-bottom:15px;
+    border:1px solid #292e40;
+    border-radius:8px;
+    background:#0d1019;
+    color:white;
+    outline:none;
+}
+
+.admin-box textarea{
+    height:100px;
+    resize:none;
+}
+
+.save-btn{
+    width:100%;
+    padding:13px;
+    background:#00b894;
+    color:#fff;
+    border:0;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.back-btn{
+    background:#292e40;
+    border:0;
+    color:white;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+/* Footer */
+footer{
+    background:#111522;
+    padding:30px;
+    text-align:center;
+    color:#777;
+}
+
+@media(max-width:700px){
+    header{
+        padding:0 20px;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .game-frame{
+        height:350px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Game<span>Zone</span> 🎮</div>
+
+    <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#games">الألعاب</a>
+        <a href="#categories">التصنيفات</a>
+    </nav>
+
+    <button class="admin-btn" onclick="openAdmin()">
+        ⚙️ إضافة لعبة
+    </button>
+</header>
+
+<section class="hero">
+
+    <div>
+        <h1>
+            العب <span>أونلاين</span><br>
+            بدون تحميل 🎮
+        </h1>
+
+        <p>
+            اكتشف مجموعة كبيرة من الألعاب والعب مباشرة من المتصفح
+        </p>
+
+        <div class="search">
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="ابحث عن لعبة..."
+                oninput="searchGames()"
+            >
+            <button onclick="searchGames()">بحث</button>
+        </div>
+    </div>
+
+</section>
+
+<section class="categories" id="categories">
+
+    <h2>التصنيفات</h2>
+
+    <div class="category-list">
+
+        <div class="category active" onclick="filterGames('الكل',this)">
+            الكل
+        </div>
+
+        <div class="category" onclick="filterGames('أكشن',this)">
+            🔥 أكشن
+        </div>
+
+        <div class="category" onclick="filterGames('رياضة',this)">
+            ⚽ رياضة
+        </div>
+
+        <div class="category" onclick="filterGames('سباق',this)">
+            🏎️ سباق
+        </div>
+
+        <div class="category" onclick="filterGames('مغامرات',this)">
+            🗺️ مغامرات
+        </div>
+
+    </div>
+
+</section>
+
+<section class="games-section" id="games">
+
+    <h2>🎮 أحدث الألعاب</h2>
+
+    <div class="games-grid" id="gamesGrid"></div>
+
+</section>
+
+<footer>
+    © 2026 GameZone — جميع الحقوق محفوظة
+</footer>
+
+
+<!-- تشغيل اللعبة -->
+
+<div class="modal" id="gameModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeGame()">×</span>
+
+        <h2 id="modalTitle">اللعبة</h2>
+
+        <div class="game-frame" id="gameFrame">
+            سيتم تشغيل اللعبة هنا
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- لوحة التحكم -->
+
+<div class="admin-panel" id="adminPanel">
+
+    <div class="admin-box">
+
+        <button class="back-btn" onclick="closeAdmin()">
+            ← العودة للموقع
+        </button>
+
+        <h2>➕ إضافة لعبة جديدة</h2>
+
+        <input
+            id="gameName"
+            placeholder="اسم اللعبة"
+        >
+
+        <input
+            id="gameImage"
+            placeholder="رابط صورة اللعبة"
+        >
+
+        <textarea
+            id="gameDescription"
+            placeholder="وصف اللعبة"
+        ></textarea>
+
+        <select id="gameCategory">
+
+            <option value="أكشن">أكشن</option>
+            <option value="رياضة">رياضة</option>
+            <option value="سباق">سباق</option>
+            <option value="مغامرات">مغامرات</option>
+
+        </select>
+
+        <input
+            id="gameURL"
+            placeholder="رابط لعبة HTML5 / WebGL"
+        >
+
+        <button
+            class="save-btn"
+            onclick="addGame()"
+        >
+            حفظ اللعبة
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let games = [
+
+    {
+        name:"PUBG",
+        category:"أكشن",
+        image:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600",
+        description:"لعبة باتل رويال مليئة بالإثارة.",
+        url:""
+    },
+
+    {
+        name:"Free Fire",
+        category:"أكشن",
+        image:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600",
+        description:"معارك سريعة وممتعة.",
+        url:""
+    },
+
+    {
+        name:"Dream League Soccer",
+        category:"رياضة",
+        image:"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600",
+        description:"كوّن فريقك وخض مباريات كرة القدم.",
+        url:""
+    },
+
+    {
+        name:"eFootball",
+        category:"رياضة",
+        image:"https://images.unsplash.com/photo-1553778263-73a05d6f2e8b?w=600",
+        description:"كرة القدم بطريقة مختلفة.",
+        url:""
+    },
+
+    {
+        name:"Speed Racing",
+        category:"سباق",
+        image:"https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=600",
+        description:"سباقات سيارات سريعة.",
+        url:""
+    },
+
+    {
+        name:"Adventure World",
+        category:"مغامرات",
+        image:"https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600",
+        description:"ابدأ مغامرتك الآن.",
+        url:""
+    }
+
+];
+
+let currentCategory = "الكل";
+
+
+function displayGames(list){
+
+    const grid = document.getElementById("gamesGrid");
+
+    grid.innerHTML = "";
+
+    if(list.length === 0){
+
+        grid.innerHTML =
+        "<p style='color:#888'>لم يتم العثور على ألعاب.</p>";
+
+        return;
+    }
+
+    list.forEach((game,index)=>{
+
+        grid.innerHTML += `
+
+        <div class="game-card">
+
+            <img
+                class="game-image"
+                src="${game.image}"
+                alt="${game.name}"
+            >
+
+            <div class="game-info">
+
+                <h3>${game.name}</h3>
+
+                <p>${game.description}</p>
+
+                <button
+                    class="play-btn"
+                    onclick="playGame(${index})"
+                >
+                    ▶️ العب الآن
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+function playGame(index){
+
+    const game = games[index];
+
+    document.getElementById("gameModal").style.display="flex";
+
+    document.getElementById("modalTitle").innerText=game.name;
+
+    const frame = document.getElementById("gameFrame");
+
+    if(game.url){
+
+        frame.innerHTML = `
+            <iframe
+                src="${game.url}"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allowfullscreen
+            ></iframe>
+        `;
+
+    }else{
+
+        frame.innerHTML = `
+            <div>
+                <h3>🎮 ${game.name}</h3>
+                <p style="margin-top:10px">
+                    أضف رابط لعبة HTML5 أو WebGL من لوحة التحكم
+                </p>
+            </div>
+        `;
+
+    }
+
+}
+
+
+function closeGame(){
+
+    document.getElementById("gameModal").style.display="none";
+
+    document.getElementById("gameFrame").innerHTML =
+    "سيتم تشغيل اللعبة هنا";
+
+}
+
+
+function filterGames(category,element){
+
+    currentCategory = category;
+
+    document.querySelectorAll(".category")
+    .forEach(x=>x.classList.remove("active"));
+
+    element.classList.add("active");
+
+    searchGames();
+
+}
+
+
+function searchGames(){
+
+    const text =
+    document.getElementById("searchInput").value
+    .toLowerCase();
+
+    let result = games.filter(game=>{
+
+        const matchName =
+        game.name.toLowerCase().includes(text);
+
+        const matchCategory =
+        currentCategory==="الكل" ||
+        game.category===currentCategory;
+
+        return matchName && matchCategory;
+
+    });
+
+    displayGames(result);
+
+}
+
+
+function openAdmin(){
+
+    document.getElementById("adminPanel").style.display="block";
+
+}
+
+
+function closeAdmin(){
+
+    document.getElementById("adminPanel").style.display="none";
+
+}
+
+
+function addGame(){
+
+    const name =
+    document.getElementById("gameName").value;
+
+    const image =
+    document.getElementById("gameImage").value;
+
+    const description =
+    document.getElementById("gameDescription").value;
+
+    const category =
+    document.getElementById("gameCategory").value;
+
+    const url =
+    document.getElementById("gameURL").value;
+
+    if(!name || !image){
+
+        alert("اكتب اسم اللعبة ورابط الصورة أولاً");
+
+        return;
+    }
+
+    games.push({
+
+        name:name,
+        image:image,
+        description:description,
+        category:category,
+        url:url
+
+    });
+
+    displayGames(games);
+
+    document.getElementById("gameName").value="";
+    document.getElementById("gameImage").value="";
+    document.getElementById("gameDescription").value="";
+    document.getElementById("gameURL").value="";
+
+    alert("✅ تمت إضافة اللعبة بنجاح");
+
+    closeAdmin();
+
+}
+
+
+displayGames(games);
+
+</script>
+
+</body>
+</html>
