@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="description" content="صلي على النبي ومتنساش الفولو" />
+    <title data-i18n="pageTitle">جميع حساباتي علي السوشيال ميديا</title>
+    
+    <!-- FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- ملف الاستايل المحدث -->
+    <link rel="stylesheet" href="style.css?v=20260818-5" />
+</head>
+<body class="aqua-theme">
+    <!-- خلفية التساقط المائي/الجمادي -->
+    <div class="background-animation golden-snow" aria-hidden="true">
+        <span class="snowflake snowflake-1">✦</span>
+        <span class="snowflake snowflake-2">•</span>
+        <span class="snowflake snowflake-3">✦</span>
+        <span class="snowflake snowflake-4">•</span>
+        <span class="snowflake snowflake-5">✧</span>
+        <span class="snowflake snowflake-6">•</span>
+        <span class="snowflake snowflake-7">✦</span>
+        <span class="snowflake snowflake-8">•</span>
+        <span class="snowflake snowflake-9">✧</span>
+        <span class="snowflake snowflake-10">•</span>
+        <span class="snowflake snowflake-11">✦</span>
+        <span class="snowflake snowflake-12">•</span>
+    </div>
+
+    <div class="container">
+        <!-- الشريط العلوي للأزرار (اللغة + الثيم) -->
+        <div class="top-bar">
+            <!-- زر تبديل اللغة -->
+            <button class="lang-toggle-btn" id="lang-toggle" type="button" aria-label="تغيير اللغة">
+                <i class="fas fa-globe"></i>
+                <span class="lang-label" id="lang-label">English</span>
+            </button>
+
+            <!-- زر تبديل الثيم -->
+            <button class="theme-toggle-btn" id="theme-toggle" type="button" aria-label="تبديل الوضع النهاري والليلي">
+                <div class="toggle-track">
+                    <div class="toggle-thumb">
+                        <i class="fas fa-moon moon-icon"></i>
+                        <i class="fas fa-sun sun-icon"></i>
+                    </div>
+                </div>
+                <span class="theme-label" id="theme-label" data-i18n="themeDark">الوضع الليلي</span>
+            </button>
+        </div>
+
+        <header>
+            <h1 data-i18n="headerTitle">حـسابـاتي</h1>
+        </header>
+        
+        <div class="profile-section">
+            <div class="profile-img-container">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663345164816/vsDjTnyYjQCtSOre.jpg" alt="الصورة الشخصية" class="profile-img" />
+            </div>
+            <h2 class="profile-name" data-i18n="profileName">(احمد) ربنا اني معبركم</h2>
+            
+            <!-- زر النسخ الحديث -->
+            <button class="copy-btn-modern" type="button" data-username="@hmwooo" aria-label="نسخ اسم المستخدم @hmwooo">
+                <i class="far fa-copy"></i>
+                <span class="username-text">@hmwooo</span>
+            </button>
+
+            <!-- مستطيل الزوار المستقل -->
+            <div class="visitor-box">
+                <i class="fas fa-eye visitor-icon"></i>
+                <div class="visitor-info">
+                    <strong id="visitor-count">0</strong>
+                    <span data-i18n="visitorLabel">زائر للموقع</span>
+                </div>
+            </div>
+            
+            <p class="profile-bio" data-i18n="bio">ولـسـوف يـعـطـيـك ربــك فـتـرضـي ❤️‍🩹</p>
+        </div>
+        
+        <div class="social-grid">
+            <!-- كارت التيك توك -->
+            <a href="https://vm.tiktok.com/ZS9kQ7CXFH2tt-8Kj50/" class="social-card tiktok" target="_blank" rel="noopener noreferrer">
+                <div class="social-icon-wrapper">
+                    <i class="fab fa-tiktok social-icon"></i>
+                </div>
+                <h3 class="social-title" data-i18n="tiktokTitle">تيك توك</h3>
+                <p class="social-desc" data-i18n="tiktokDesc">تابعني على تيك توك لمشاهدة الفيديوهات</p>
+                <div class="social-link-btn" data-i18n="tiktokBtn">متابعة على تيك توك</div>
+            </a>
+
+            <!-- كارت انستجرام -->
+            <a href="https://www.instagram.com/hmwooo?igsh=M2d3aWo1Yjg5NHdk" class="social-card instagram" target="_blank" rel="noopener noreferrer">
+                <div class="social-icon-wrapper">
+                    <i class="fab fa-instagram social-icon"></i>
+                </div>
+                <h3 class="social-title" data-i18n="instaTitle">انستا</h3>
+                <p class="social-desc" data-i18n="instaDesc">تابعني على انستجرام لمشاهدة المزيد</p>
+                <div class="social-link-btn" data-i18n="instaBtn">تابعني على إنستجرام</div>
+            </a>
+            
+            <!-- كارت ثريدز -->
+            <a href="https://www.threads.com/@hmwooo" class="social-card threads" target="_blank" rel="noopener noreferrer">
+                <div class="social-icon-wrapper">
+                    <img class="threads-logo" src="https://cdn.simpleicons.org/threads/ffffff" alt="Threads" />
+                </div>
+                <h3 class="social-title" data-i18n="threadsTitle">ثريدز</h3>
+                <p class="social-desc" data-i18n="threadsDesc">تابعني على Threads لمشاهدة المزيد</p>
+                <div class="social-link-btn" data-i18n="threadsBtn">تابعني على ثريدز</div>
+            </a>
+            
+            <!-- كارت شات تليجرام -->
+            <a href="https://t.me/hu_om" class="social-card telegram" target="_blank" rel="noopener noreferrer">
+                <div class="social-icon-wrapper">
+                    <i class="fab fa-telegram social-icon"></i>
+                </div>
+                <h3 class="social-title" data-i18n="teleChatTitle">شاتـي تليجرام</h3>
+                <p class="social-desc" data-i18n="teleChatDesc">تواصل معي مباشرة لطلب ريكوردات</p>
+                <div class="social-link-btn" data-i18n="teleChatBtn">تواصل عبر تليجرام</div>
+            </a>
+            
+            <!-- كارت قناة الريكوردات -->
+            <a href="https://t.me/Record_Ws" class="social-card telegram" target="_blank" rel="noopener noreferrer">
+                <div class="social-icon-wrapper">
+                    <i class="fab fa-telegram social-icon"></i>
+                </div>
+                <h3 class="social-title" data-i18n="teleChanTitle">قناة الريكوردات</h3>
+                <p class="social-desc" data-i18n="teleChanDesc">اشترك في القناة ليصلك كل جديد</p>
+                <div class="social-link-btn" data-i18n="teleChanBtn">قناة التليجرام</div>
+            </a>
+        </div>
+        
+        <div class="footer" data-i18n="footer">
+            صلي على النبي ومتنساش الفولو ❤️
+        </div>
+    </div>
+
+    <script>
+        (() => {
+            // === قاموس اللغات (العربية والإنجليزية) ===
+            const translations = {
+                ar: {
+                    pageTitle: "جميع حساباتي علي السوشيال ميديا",
+                    headerTitle: "حـسابـاتي",
+                    themeDark: "الوضع الليلي",
+                    themeLight: "الوضع النهاري",
+                    profileName: "(احمد) ربنا اني معبركم",
+                    copySuccess: "تم النسخ!",
+                    visitorLabel: "زائر للموقع",
+                    bio: "ولـسـوف يـعـطـيـك ربــك فـتـرضـي ❤️‍🩹",
+                    tiktokTitle: "تيك توك",
+                    tiktokDesc: "تابعني على تيك توك لمشاهدة الفيديوهات",
+                    tiktokBtn: "متابعة على تيك توك",
+                    instaTitle: "انستا",
+                    instaDesc: "تابعني على انستجرام لمشاهدة المزيد",
+                    instaBtn: "تابعني على إنستجرام",
+                    threadsTitle: "ثريدز",
+                    threadsDesc: "تابعني على Threads لمشاهدة المزيد",
+                    threadsBtn: "تابعني على ثريدز",
+                    teleChatTitle: "شاتـي تليجرام",
+                    teleChatDesc: "تواصل معي مباشرة لطلب ريكوردات",
+                    teleChatBtn: "تواصل عبر تليجرام",
+                    teleChanTitle: "قناة الريكوردات",
+                    teleChanDesc: "اشترك في القناة ليصلك كل جديد",
+                    teleChanBtn: "قناة التليجرام",
+                    footer: "صلي على النبي ومتنساش الفولو ❤️"
+                },
+                en: {
+                    pageTitle: "All My Social Media Accounts",
+                    headerTitle: "My Accounts",
+                    themeDark: "Dark Mode",
+                    themeLight: "Light Mode",
+                    profileName: "(Ahmed) Blessed & Grateful",
+                    copySuccess: "Copied!",
+                    visitorLabel: "Site Visitors",
+                    bio: "And your Lord is going to give you, and you will be satisfied ❤️‍🩹",
+                    tiktokTitle: "TikTok",
+                    tiktokDesc: "Follow me on TikTok for new videos",
+                    tiktokBtn: "Follow on TikTok",
+                    instaTitle: "Instagram",
+                    instaDesc: "Follow me on Instagram for more posts",
+                    instaBtn: "Follow on Instagram",
+                    threadsTitle: "Threads",
+                    threadsDesc: "Follow me on Threads for updates",
+                    threadsBtn: "Follow on Threads",
+                    teleChatTitle: "Telegram Chat",
+                    teleChatDesc: "Contact me directly for voice notes",
+                    teleChatBtn: "Chat on Telegram",
+                    teleChanTitle: "Audio Channel",
+                    teleChanDesc: "Subscribe to get all new updates",
+                    teleChanBtn: "Join Channel",
+                    footer: "Blessings upon the Prophet & don't forget to follow ❤️"
+                }
+            };
+
+            // === 1. إدارة اللغة (Language Switcher) ===
+            const langToggleBtn = document.getElementById("lang-toggle");
+            const langLabel = document.getElementById("lang-label");
+            let currentLang = localStorage.getItem("hmwooo_lang") || "ar";
+
+            function applyLanguage(lang) {
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+                
+                // تحديث النصوص ذات الخاصية data-i18n
+                document.querySelectorAll("[data-i18n]").forEach(el => {
+                    const key = el.getAttribute("data-i18n");
+                    if (translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+
+                // تحديث تسمية الثيم حسب اللغة الحالية
+                const isLight = document.body.classList.contains("light-theme");
+                const themeLabel = document.getElementById("theme-label");
+                if (themeLabel) {
+                    themeLabel.textContent = isLight ? translations[lang].themeLight : translations[lang].themeDark;
+                }
+
+                // تغيير نص الزر
+                langLabel.textContent = lang === "ar" ? "English" : "عربي";
+            }
+
+            langToggleBtn.addEventListener("click", () => {
+                currentLang = currentLang === "ar" ? "en" : "ar";
+                localStorage.setItem("hmwooo_lang", currentLang);
+                applyLanguage(currentLang);
+            });
+
+            // === 2. إدارة وضع النهار والليل (Theme Toggle) ===
+            const themeToggleBtn = document.getElementById("theme-toggle");
+            const savedTheme = localStorage.getItem("hmwooo_theme") || "dark";
+
+            function applyTheme(theme) {
+                if (theme === "light") {
+                    document.body.classList.add("light-theme");
+                } else {
+                    document.body.classList.remove("light-theme");
+                }
+                applyLanguage(currentLang);
+            }
+
+            applyTheme(savedTheme);
+
+            themeToggleBtn.addEventListener("click", () => {
+                const isLight = document.body.classList.toggle("light-theme");
+                const currentTheme = isLight ? "light" : "dark";
+                localStorage.setItem("hmwooo_theme", currentTheme);
+                applyTheme(currentTheme);
+            });
+
+            // === 3. عداد الزوار بالإنجليزية ===
+            const visitorKey = "hmwooo_profile_visitors";
+            const sessionKey = "hmwooo_profile_session_counted";
+            const visitorCount = document.getElementById("visitor-count");
+
+            let count = Number(localStorage.getItem(visitorKey) || 0);
+            if (!sessionStorage.getItem(sessionKey)) {
+                count += 1;
+                localStorage.setItem(visitorKey, String(count));
+                sessionStorage.setItem(sessionKey, "1");
+            }
+            visitorCount.textContent = count.toLocaleString("en-US");
+
+            // === 4. زر النسخ المطور ===
+            const copyButton = document.querySelector(".copy-btn-modern");
+            copyButton.addEventListener("click", async () => {
+                const username = copyButton.dataset.username;
+                try {
+                    await navigator.clipboard.writeText(username);
+                } catch {
+                    const helper = document.createElement("textarea");
+                    helper.value = username;
+                    document.body.appendChild(helper);
+                    helper.select();
+                    document.execCommand("copy");
+                    helper.remove();
+                }
+
+                const successText = translations[currentLang].copySuccess;
+                const originalHTML = copyButton.innerHTML;
+                copyButton.innerHTML = `<i class="fas fa-check" style="color: #00f2fe;"></i> <span class="username-text">${successText}</span>`;
+                setTimeout(() => {
+                    copyButton.innerHTML = originalHTML;
+                }, 1800);
+            });
+
+            // تطبيق اللغة الابتدائية
+            applyLanguage(currentLang);
+        })();
+    </script>
+</body>
+</html>
