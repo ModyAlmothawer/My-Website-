@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة Viper للاستضافة الحقيقية والمباشرة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            brown: '#4A3B32',
+                            lightbrown: '#8B7355',
+                            cream: '#FDFCFA',
+                            sky: '#0284c7',
+                            lightsky: '#e0f2fe',
+                            dark: '#2A201A'
+                        }
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #FDFCFA;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFCFA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8B7355;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4A3B32;
+        }
+        .btn-premium {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .btn-premium::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+        }
+        .btn-premium:hover::after {
+            left: 125%;
+        }
+    </style>
+<link rel="me" href="https://www.blogger.com/profile/17064291283628210132" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+</head>
+<body class="min-h-screen flex flex-col text-brand-dark">
+
+    <div id="toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <nav class="bg-brand-brown text-white shadow-lg sticky top-0 z-40 border-b-4 border-brand-sky">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('main-upload')">
+                    <div class="bg-white p-2 rounded-full border-2 border-brand-sky">
+                        <i class="fa-solid fa-cloud-arrow-up text-brand-sky text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-black text-xl tracking-wider block" id="nav-logo-title">Viper Host</span>
+                        <span class="text-xs text-brand-lightsky block" id="nav-logo-sub">سيرفرات سحابية حقيقية 100%</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <div class="relative inline-block text-left">
+                        <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-brand-dark text-white border border-brand-lightbrown rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-sky cursor-pointer">
+                            <option value="ar">العربية 🇸🇦</option>
+                            <option value="en">English 🇺🇸</option>
+                            <option value="fr">Français 🇫🇷</option>
+                        </select>
+                    </div>
+
+                    <button onclick="showSection('main-upload')" class="hover:bg-brand-lightbrown px-3 py-2 rounded-md text-sm font-medium transition duration-300" id="nav-home">
+                        <i class="fa-solid fa-home ml-1"></i> الرئيسة
+                    </button>
+                    
+                    <button onclick="showSection('developer-section')" class="bg-brand-sky text-white hover:bg-sky-600 px-4 py-2 rounded-md text-sm font-bold transition duration-300 shadow-md flex items-center gap-1 btn-premium">
+                        <i class="fa-solid fa-code"></i> <span id="nav-dev">قسم المطور</span>
+                    </button>
+
+                    <div id="auth-nav-area" class="flex gap-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-4xl">
+
+        <div class="bg-gradient-to-r from-brand-brown to-brand-lightbrown text-white rounded-2xl p-6 mb-8 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-right md:text-right">
+                    <h1 class="text-2xl sm:text-3xl font-black mb-2" id="hero-title">ارفع صورك وفيديوهاتك واحصل على روابط مباشرة فوراً!</h1>
+                    <p class="text-brand-lightsky text-sm sm:text-base" id="hero-desc">خوادم رفع حقيقية، حماية متقدمة، وتحكم كامل بمدة بقاء ملفاتك مع خيارات الحذف التلقائي.</p>
+                </div>
+                <div class="bg-brand-sky text-white px-6 py-3 rounded-xl shadow-lg border-2 border-white flex items-center gap-3 animate-pulse">
+                    <i class="fa-solid fa-server text-2xl"></i>
+                    <div>
+                        <div class="font-bold text-xs" id="hero-badge-title">استضافة حقيقية مجانية</div>
+                        <div class="text-[10px]" id="hero-badge-sub">خوادم عالية السرعة 2026</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="lock-section" class="section-container bg-white rounded-2xl shadow-xl p-8 border-t-8 border-brand-brown text-center mb-8">
+            <div class="w-20 h-20 bg-brand-lightsky text-brand-sky rounded-full flex items-center justify-center mx-auto mb-6 border border-brand-sky/20">
+                <i class="fa-solid fa-user-lock text-3xl"></i>
+            </div>
+            <h2 class="text-2xl font-black mb-2" id="lock-title">يرجى تسجيل الدخول أو إنشاء حساب للبدء بالرفع</h2>
+            <p class="text-sm text-gray-500 max-w-md mx-auto mb-6" id="lock-desc">لضمان حماية خصوصيتك وإدارة ملفاتك، تتطلب خوادم الاستضافة الحقيقية تسجيل دخول آمن وحفظ حسابك تلقائياً.</p>
+            <div class="flex justify-center gap-4">
+                <button onclick="openAuthModal('login')" class="bg-brand-brown hover:bg-brand-lightbrown text-white font-bold px-6 py-3 rounded-xl text-sm transition duration-300 shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-sign-in"></i> <span id="btn-lock-login">تسجيل الدخول</span>
+                </button>
+                <button onclick="openAuthModal('signup')" class="bg-brand-sky hover:bg-sky-600 text-white font-bold px-6 py-3 rounded-xl text-sm transition duration-300 shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus"></i> <span id="btn-lock-signup">إنشاء حساب جديد</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="main-upload" class="section-container hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border-t-8 border-brand-brown">
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <button onclick="setUploadType('image')" id="btn-type-image" class="flex items-center justify-center gap-3 py-4 rounded-xl font-bold border-2 transition-all duration-300 shadow-md bg-brand-lightsky border-brand-sky text-brand-sky">
+                        <i class="fa-regular fa-image text-2xl"></i>
+                        <span id="label-upload-image-tab">رفع صور</span>
+                    </button>
+                    <button onclick="setUploadType('video')" id="btn-type-video" class="flex items-center justify-center gap-3 py-4 rounded-xl font-bold border-2 transition-all duration-300 shadow-md bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100">
+                        <i class="fa-regular fa-square-caret-right text-2xl"></i>
+                        <span id="label-upload-video-tab">رفع فيديو</span>
+                    </button>
+                </div>
+
+                <div class="bg-brand-lightsky/40 border border-brand-sky/20 rounded-xl p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <div class="bg-white p-2 rounded-lg text-brand-sky shadow">
+                            <i class="fa-regular fa-clock text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <label for="expiry-select" class="block text-xs font-bold text-brand-brown" id="label-expiry">مدة بقاء الرابط</label>
+                            <span class="text-[10px] text-gray-500" id="label-expiry-desc">سيتم حذف الملف تلقائياً بعد انتهاء المدة</span>
+                        </div>
+                    </div>
+                    <select id="expiry-select" class="w-full sm:w-48 bg-white border border-brand-lightbrown rounded-lg py-2 px-3 text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-sky cursor-pointer shadow-sm font-semibold">
+                        <option value="forever" id="opt-forever">مدى الحياة (بدون حذف)</option>
+                        <option value="1h" id="opt-1h">ساعة واحدة</option>
+                        <option value="1d" id="opt-1d">يوم واحد</option>
+                        <option value="1y" id="opt-1y">سنة كاملة</option>
+                    </select>
+                </div>
+
+                <div id="drop-zone" class="border-4 border-dashed border-brand-lightbrown/40 hover:border-brand-sky bg-brand-cream hover:bg-brand-lightsky/10 rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 relative group">
+                    <input type="file" id="file-input" class="hidden" accept="image/*">
+                    <div class="flex flex-col items-center justify-center py-6">
+                        <div class="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center mb-4 border border-brand-lightbrown/20 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-cloud-arrow-up text-brand-sky text-3xl" id="upload-icon-status"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-1" id="label-drag-title">اضغط هنا أو اسحب الملفات لرفعها</h3>
+                        <p class="text-xs text-gray-500 mb-4" id="label-drag-sub">يدعم JPG, PNG, GIF, MP4, WEBM (الحد الأقصى 50 ميجا بايت)</p>
+                        
+                        <button type="button" class="bg-brand-brown text-white hover:bg-brand-lightbrown font-bold px-6 py-2.5 rounded-xl text-sm transition duration-300 shadow-md flex items-center gap-2 border border-brand-lightbrown/30 btn-premium">
+                            <i class="fa-solid fa-folder-open"></i> <span id="btn-browse">تصفح الملفات المحلية</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="upload-progress-container" class="mt-6 hidden bg-gray-50 border border-gray-100 rounded-xl p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-brand-brown flex items-center gap-2">
+                            <i class="fa-solid fa-spinner animate-spin text-brand-sky"></i>
+                            <span id="label-uploading-progress">جاري الرفع والتحويل إلى خوادمنا الحقيقية...</span>
+                        </span>
+                        <span id="upload-percentage" class="text-xs font-bold text-brand-sky">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden shadow-inner">
+                        <div id="upload-progress-bar" class="bg-brand-sky h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-2 text-right" id="label-upload-note">يرجى عدم إغلاق هذه الصفحة حتى تكتمل العملية.</p>
+                </div>
+
+                <div id="upload-result" class="mt-8 bg-brand-lightsky/30 border-2 border-brand-sky/20 rounded-2xl p-6 hidden">
+                    <div class="flex items-center gap-3 mb-6 border-b border-brand-sky/20 pb-4">
+                        <div class="bg-emerald-500 text-white p-2 rounded-full">
+                            <i class="fa-solid fa-check text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <h3 class="text-lg font-bold text-emerald-600" id="label-upload-success">تم التحويل إلى رابط مباشر حقيقي بنجاح!</h3>
+                            <p class="text-xs text-gray-500" id="label-upload-success-sub">يمكنك مشاركة الرابط واستخدامه مباشرة في أي موقع أو تطبيق.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-brand-lightbrown/15 mb-6 flex flex-col sm:flex-row items-center gap-4">
+                        <div id="file-preview-container" class="w-full sm:w-32 h-24 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
+                        </div>
+                        <div class="text-right flex-grow">
+                            <h4 id="result-filename" class="font-bold text-sm text-brand-dark break-all">image.jpg</h4>
+                            <p id="result-filesize" class="text-xs text-gray-500 mt-1">1.2 MB</p>
+                            <span id="result-expiry" class="inline-block bg-brand-lightbrown/10 text-brand-lightbrown text-[10px] font-bold px-2 py-0.5 rounded-full mt-2">ينتهي بعد: يوم واحد</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right flex items-center gap-1">
+                                <i class="fa-solid fa-link text-brand-sky"></i> <span id="lbl-direct-link">الرابط المباشر (Direct Link)</span>
+                            </label>
+                            <div class="flex">
+                                <input type="text" id="link-direct" readonly class="flex-grow bg-white border border-gray-200 rounded-r-lg px-3 py-2 text-xs text-brand-dark focus:outline-none focus:ring-1 focus:ring-brand-sky ltr" value="">
+                                <button onclick="copyToClipboard('link-direct')" class="bg-brand-sky hover:bg-sky-600 text-white font-bold px-4 py-2 rounded-l-lg text-xs transition duration-300 flex items-center gap-1">
+                                    <i class="fa-regular fa-copy"></i> <span class="lbl-copy">نسخ</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right flex items-center gap-1">
+                                <i class="fa-solid fa-code text-brand-sky"></i> <span id="lbl-html-code">كود HTML للمواقع</span>
+                            </label>
+                            <div class="flex">
+                                <input type="text" id="link-html" readonly class="flex-grow bg-white border border-gray-200 rounded-r-lg px-3 py-2 text-xs text-brand-dark focus:outline-none focus:ring-1 focus:ring-brand-sky ltr" value="">
+                                <button onclick="copyToClipboard('link-html')" class="bg-brand-sky hover:bg-sky-600 text-white font-bold px-4 py-2 rounded-l-lg text-xs transition duration-300 flex items-center gap-1">
+                                    <i class="fa-regular fa-copy"></i> <span class="lbl-copy">نسخ</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right flex items-center gap-1">
+                                <i class="fa-regular fa-message text-brand-sky"></i> <span id="lbl-bb-code">كود BBCode للمنتديات</span>
+                            </label>
+                            <div class="flex">
+                                <input type="text" id="link-bbcode" readonly class="flex-grow bg-white border border-gray-200 rounded-r-lg px-3 py-2 text-xs text-brand-dark focus:outline-none focus:ring-1 focus:ring-brand-sky ltr" value="">
+                                <button onclick="copyToClipboard('link-bbcode')" class="bg-brand-sky hover:bg-sky-600 text-white font-bold px-4 py-2 rounded-l-lg text-xs transition duration-300 flex items-center gap-1">
+                                    <i class="fa-regular fa-copy"></i> <span class="lbl-copy">نسخ</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-end">
+                        <button onclick="resetUploadForm()" class="bg-brand-brown hover:bg-brand-lightbrown text-white font-bold px-6 py-2.5 rounded-xl text-xs transition duration-300 shadow-md flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i> <span id="btn-upload-more">رفع ملف جديد</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="developer-section" class="section-container hidden">
+            <div class="bg-white rounded-2xl shadow-xl border-t-8 border-brand-sky overflow-hidden">
+                <div class="relative bg-gradient-to-br from-brand-brown via-brand-dark to-brand-lightbrown text-white py-16 px-6 text-center">
+                    <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#0284c7_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-36 h-36 mx-auto rounded-full border-4 border-brand-sky overflow-hidden bg-white shadow-2xl mb-4 flex items-center justify-center">
+                            <img src="https://i.ibb.co/B5pNbyb6/welcome-image.png" alt="Viper" onerror="this.src='https://placehold.co/150x150/4A3B32/ffffff?text=Viper'" class="w-full h-full object-cover">
+                        </div>
+                        <h2 class="text-3xl font-black tracking-wide" id="dev-name">Viper</h2>
+                        <span class="inline-block bg-brand-sky text-white text-xs font-bold px-4 py-1.5 rounded-full mt-2 animate-bounce" id="dev-badge">المطور والمالك الرئيسي للمنصة</span>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:p-10 space-y-10">
+                    <div class="text-center max-w-2xl mx-auto">
+                        <h3 class="text-2xl font-bold mb-4 text-brand-brown border-b-2 border-brand-lightbrown/20 pb-2 inline-block" id="dev-about-title">نبذة عن المطور Viper</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="dev-about-text">
+                            مطور برمجيات يمني مبدع ذو خبرة متقدمة في تصميم وبرمجة تطبيقات الويب والمنصات السحابية. تم إنشاء وتطوير منصة "Viper Host" بهدف سد فجوة استضافة الميديا وتوفير خوادم عالية الكفاءة تقوم بتحويل الصور ومقاطع الفيديو إلى روابط مباشرة وصريحة (Direct Link) في ثوانٍ معدودة. نتميز دائماً بتقديم برمجيات آمنة، سريعة ومستقرة تلبي تطلعات كافة المستخدمين والمطورين على حدٍ سواء.
+                        </p>
+                    </div>
+
+                    <div class="bg-brand-cream border border-brand-lightbrown/20 rounded-xl p-6">
+                        <h4 class="font-bold text-lg text-brand-brown mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-star text-brand-sky"></i> خدمات ومميزات المنصة
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-700">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-check-double text-emerald-600 mt-0.5"></i>
+                                <span>رفع مباشر وآمن لجميع امتدادات الصور وبدقة عالية دون ضغط أو تقليل الجودة.</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-check-double text-emerald-600 mt-0.5"></i>
+                                <span>دعم رفع الفيديو بمختلف الصيغ (MP4, WEBM) بسعة تصل إلى 100 ميغابايت للملف الواحد.</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-check-double text-emerald-600 mt-0.5"></i>
+                                <span>تحكم كامل بخصوصية ملفاتك مع خيار الحذف الآلي (ساعة، يوم، سنة، أو للأبد).</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-check-double text-emerald-600 mt-0.5"></i>
+                                <span>حفظ آمن ومستمر لحسابات المستخدمين في قاعدة بيانات خاصة للعودة إليها في أي وقت.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-green-50 border border-green-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition duration-300">
+                            <div class="bg-green-500 text-white p-4 rounded-xl shadow-md">
+                                <i class="fa-brands fa-whatsapp text-3xl"></i>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs text-green-700 font-bold" id="dev-whatsapp">رقم الواتساب الرسمي</span>
+                                <span class="block text-lg font-black text-green-900 ltr">+967 771620853</span>
+                                <a href="https://wa.me/967771620853" target="_blank" class="text-xs text-green-600 hover:underline font-bold mt-1 inline-block flex items-center gap-1">
+                                    ارسل رسالة مباشرة <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition duration-300">
+                            <div class="bg-brand-sky text-white p-4 rounded-xl shadow-md">
+                                <i class="fa-solid fa-paper-plane text-3xl"></i>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs text-sky-700 font-bold" id="dev-telegram">قنوات التليجرام الرسمية</span>
+                                <span class="block text-sm font-bold text-sky-900" id="dev-telegram-desc">تابع أحدث الشروحات والأدوات المجانية</span>
+                                <span class="text-xs text-gray-500 block mt-1" id="dev-telegram-sub">انضم لشبكتنا التقنية بالأسفل</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-100 pt-8">
+                        <h4 class="text-lg font-bold text-center text-brand-brown mb-6 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-tower-broadcast text-brand-sky animate-bounce"></i> <span id="dev-channels-title">قنوات التلجرام الرسمية Viper</span>
+                        </h4>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <a href="https://t.me/vsa_a" target="_blank" class="group bg-brand-cream border border-brand-lightbrown/20 hover:border-brand-sky p-4 rounded-xl flex items-center justify-between transition-all duration-300 shadow-sm hover:scale-[1.02]">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-brand-sky/10 text-brand-sky p-2 rounded-lg group-hover:bg-brand-sky group-hover:text-white transition duration-300">
+                                        <i class="fa-solid fa-hashtag text-lg"></i>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block font-bold text-sm text-brand-dark group-hover:text-brand-sky transition duration-300" id="ch1-title">Viper Code</span>
+                                        <span class="text-[10px] text-gray-500 ltr">@vsa_a</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-angle-left text-gray-400 group-hover:translate-x-[-4px] transition duration-300"></i>
+                            </a>
+
+                            <a href="https://t.me/frhudii" target="_blank" class="group bg-brand-cream border border-brand-lightbrown/20 hover:border-brand-sky p-4 rounded-xl flex items-center justify-between transition-all duration-300 shadow-sm hover:scale-[1.02]">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-brand-sky/10 text-brand-sky p-2 rounded-lg group-hover:bg-brand-sky group-hover:text-white transition duration-300">
+                                        <i class="fa-solid fa-hashtag text-lg"></i>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block font-bold text-sm text-brand-dark group-hover:text-brand-sky transition duration-300" id="ch2-title">&lt;/&gt;code</span>
+                                        <span class="text-[10px] text-gray-500 ltr">@frhudii</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-angle-left text-gray-400 group-hover:translate-x-[-4px] transition duration-300"></i>
+                            </a>
+
+                            <a href="https://t.me/icf_l" target="_blank" class="group bg-brand-cream border border-brand-lightbrown/20 hover:border-brand-sky p-4 rounded-xl flex items-center justify-between transition-all duration-300 shadow-sm hover:scale-[1.02]">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-brand-sky/10 text-brand-sky p-2 rounded-lg group-hover:bg-brand-sky group-hover:text-white transition duration-300">
+                                        <i class="fa-solid fa-hashtag text-lg"></i>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block font-bold text-sm text-brand-dark group-hover:text-brand-sky transition duration-300" id="ch3-title">Viper احتياطي</span>
+                                        <span class="text-[10px] text-gray-500 ltr">@icf_l</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-angle-left text-gray-400 group-hover:translate-x-[-4px] transition duration-300"></i>
+                            </a>
+
+                            <a href="https://t.me/vsm_m" target="_blank" class="group bg-brand-cream border border-brand-lightbrown/20 hover:border-brand-sky p-4 rounded-xl flex items-center justify-between transition-all duration-300 shadow-sm hover:scale-[1.02]">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-brand-sky/10 text-brand-sky p-2 rounded-lg group-hover:bg-brand-sky group-hover:text-white transition duration-300">
+                                        <i class="fa-solid fa-hashtag text-lg"></i>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="block font-bold text-sm text-brand-dark group-hover:text-brand-sky transition duration-300" id="ch4-title">تفعيلات بوت مملكة الأرقام</span>
+                                        <span class="text-[10px] text-gray-500 ltr">@vsm_m</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-angle-left text-gray-400 group-hover:translate-x-[-4px] transition duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-100 pt-8">
+                        <div class="bg-zinc-50 rounded-xl p-6 border border-zinc-200">
+                            <h4 class="font-bold text-lg text-brand-brown mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-users-gear text-brand-sky"></i>
+                                <span id="lbl-saved-accounts-title">قسم الحسابات المسجلة (إدارة المنصة)</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 mb-4" id="lbl-saved-accounts-desc">تُعرض هنا كافة الحسابات التي تم إنشاؤها محلياً على المتصفح للوصول السريع والتحقق من التخزين.</p>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-right text-xs border-collapse">
+                                    <thead>
+                                        <tr class="bg-brand-brown text-white">
+                                            <th class="p-3 rounded-r-lg" id="th-name">الاسم</th>
+                                            <th class="p-3" id="th-email">البريد الإلكتروني</th>
+                                            <th class="p-3" id="th-password">كلمة المرور</th>
+                                            <th class="p-3 rounded-l-lg" id="th-date">تاريخ التسجيل</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="accounts-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="auth-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4 hidden transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border-t-8 border-brand-brown transform transition-transform duration-300">
+            <div class="bg-brand-cream border-b border-gray-100 p-5 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-brand-brown" id="modal-title">تسجيل الدخول إلى حسابك</h3>
+                <button onclick="closeAuthModal()" class="text-gray-400 hover:text-gray-600 transition">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div id="login-panel" class="p-6">
+                <form onsubmit="handleAuthSubmit(event, 'login')">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right" id="lbl-email">البريد الإلكتروني</label>
+                            <input type="email" required id="login-email" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-sky" placeholder="example@gmail.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right" id="lbl-password">كلمة المرور</label>
+                            <input type="password" required id="login-password" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-sky" placeholder="******">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-brown hover:bg-brand-lightbrown text-white font-bold py-3 px-4 rounded-xl text-sm transition duration-300 shadow-md mt-6 btn-premium">
+                        <span id="btn-login-submit">تسجيل الدخول</span>
+                    </button>
+                </form>
+                <div class="text-center mt-6 text-xs text-gray-500">
+                    <span id="lbl-no-account">ليس لديك حساب؟</span>
+                    <button onclick="switchAuthMode('signup')" class="text-brand-sky font-bold hover:underline" id="btn-go-signup">أنشئ حساباً جديداً</button>
+                </div>
+            </div>
+
+            <div id="signup-panel" class="p-6 hidden">
+                <form onsubmit="handleAuthSubmit(event, 'signup')">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right" id="lbl-reg-name">الاسم بالكامل</label>
+                            <input type="text" required id="signup-name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-sky" placeholder="Viper">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right" id="lbl-reg-email">البريد الإلكتروني</label>
+                            <input type="email" required id="signup-email" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-sky" placeholder="example@gmail.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-brand-brown mb-1 text-right" id="lbl-reg-pass">كلمة المرور</label>
+                            <input type="password" required id="signup-password" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-sky" placeholder="******">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-sky hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl text-sm transition duration-300 shadow-md mt-6 btn-premium">
+                        <span id="btn-signup-submit">إنشاء الحساب</span>
+                    </button>
+                </form>
+                <div class="text-center mt-6 text-xs text-gray-500">
+                    <span id="lbl-have-account">لديك حساب بالفعل؟</span>
+                    <button onclick="switchAuthMode('login')" class="text-brand-brown font-bold hover:underline" id="btn-go-login">تسجيل الدخول</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-brand-dark text-white border-t-4 border-brand-lightbrown mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-right">
+                    <div class="font-black text-lg text-brand-lightsky" id="footer-logo">Viper Host الاستباقي</div>
+                    <p class="text-xs text-gray-400 mt-1" id="footer-desc">حقوق الرفع والنشر والتحويل للروابط المباشرة محفوظة للمطور</p>
+                </div>
+
+                <div class="flex flex-col items-center gap-2">
+                    <div class="bg-brand-brown border border-brand-lightbrown px-4 py-2 rounded-xl text-xs text-center shadow-lg">
+                        <span id="lbl-dev-rights">جميع الحقوق محفوظة للمطور Viper 👑</span>
+                        <span class="text-brand-sky font-bold block mt-1">Viper</span>
+                    </div>
+                    <div class="text-[10px] text-gray-500 ltr">Copyright © 2026 Viper Legend</div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <a href="https://wa.me/967771620853" target="_blank" class="w-9 h-9 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center text-white transition hover:scale-110 shadow" title="واتساب">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                    <a href="https://t.me/vsa_a" target="_blank" class="w-9 h-9 bg-sky-500 hover:bg-sky-600 rounded-full flex items-center justify-center text-white transition hover:scale-110 shadow" title="تليجرام">
+                        <i class="fa-solid fa-paper-plane text-base"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'ar';
+        let currentUploadType = 'image';
+        let currentUser = null;
+
+        const translations = {
+            ar: {
+                navLogoTitle: "Viper Host",
+                navLogoSub: "سيرفرات سحابية حقيقية 100%",
+                navHome: "الرئيسة",
+                navDev: "قسم المطور",
+                navLogin: "دخول",
+                navLogout: "خروج",
+                heroTitle: "ارفع صورك وفيديوهاتك واحصل على روابط مباشرة فوراً!",
+                heroDesc: "خوادم رفع حقيقية، حماية متقدمة، وتحكم كامل بمدة بقاء ملفاتك مع خيارات الحذف التلقائي.",
+                heroBadgeTitle: "استضافة حقيقية مجانية",
+                heroBadgeSub: "خوادم عالية السرعة 2026",
+                lockTitle: "يرجى تسجيل الدخول أو إنشاء حساب للبدء بالرفع",
+                lockDesc: "لضمان حماية خصوصيتك وإدارة ملفاتك، تتطلب خوادم الاستضافة الحقيقية تسجيل دخول آمن وحفظ حسابك تلقائياً.",
+                btnLockLogin: "تسجيل الدخول",
+                btnLockSignup: "إنشاء حساب جديد",
+                labelUploadImageTab: "رفع صور",
+                labelUploadVideoTab: "رفع فيديو",
+                labelExpiry: "مدة بقاء الرابط",
+                labelExpiryDesc: "سيتم حذف الملف تلقائياً بعد انتهاء المدة",
+                optForever: "مدى الحياة (بدون حذف)",
+                opt1h: "ساعة واحدة",
+                opt1d: "يوم واحد",
+                opt1y: "سنة كاملة",
+                labelDragTitle: "اضغط هنا أو اسحب الملفات لرفعها",
+                labelDragSubImage: "يدعم JPG, PNG, GIF, WebP (الحد الأقصى 50 ميجا بايت)",
+                labelDragSubVideo: "يدعم MP4, WEBM, MOV (الحد الأقصى 100 ميجا بايت)",
+                btnBrowse: "تصفح الملفات المحلية",
+                labelUploadingProgress: "جاري الرفع والتحويل الفعلي لروابط مباشرة...",
+                labelUploadNote: "يرجى عدم إغلاق هذه الصفحة حتى تكتمل العملية.",
+                labelUploadSuccess: "تم التحويل إلى رابط مباشر حقيقي بنجاح!",
+                labelUploadSuccessSub: "تم حجز مساحة حرة لملفك على خوادم الاستضافة الحقيقية والآمنة.",
+                lblDirectLink: "الرابط المباشر (Direct Link)",
+                lblHtmlCode: "كود HTML للمواقع",
+                lblBbCode: "كود BBCode للمنتديات",
+                lblCopy: "نسخ",
+                btnUploadMore: "رفع ملف جديد",
+                devName: "Viper",
+                devBadge: "المطور والمالك الرئيسي للمنصة",
+                devAboutTitle: "نبذة عن المطور Viper",
+                devAboutText: "مطور برمجيات يمني مبدع ذو خبرة متقدمة في تصميم وبرمجة تطبيقات الويب والمنصات السحابية. تم إنشاء وتطوير منصة \"Viper Host\" بهدف سد فجوة استضافة الميديا وتوفير خوادم عالية الكفاءة تقوم بتحويل الصور ومقاطع الفيديو إلى روابط مباشرة وصريحة (Direct Link) في ثوانٍ معدودة.",
+                devWhatsapp: "رقم الواتساب الرسمي",
+                devTelegram: "قنوات التليجرام الرسمية",
+                devTelegramDesc: "تابع أحدث الشروحات والأدوات المجانية",
+                devTelegramSub: "انضم لشبكتنا التقنية بالأسفل",
+                devChannelsTitle: "قنوات التلجرام الرسمية Viper",
+                ch1Title: "Viper Code",
+                ch2Title: "</>code",
+                ch3Title: "Viper احتياطي",
+                ch4Title: "تفعيلات بوت مملكة الأرقام",
+                modalTitleLogin: "تسجيل الدخول إلى حسابك",
+                modalTitleSignup: "إنشاء حساب جديد",
+                lblEmail: "البريد الإلكتروني",
+                lblPassword: "كلمة المرور",
+                btnLoginSubmit: "تسجيل الدخول",
+                lblNoAccount: "ليس لديك حساب؟",
+                btnGoSignup: "أنشئ حساباً جديداً",
+                lblRegName: "الاسم بالكامل",
+                lblRegEmail: "البريد الإلكتروني",
+                lblRegPass: "كلمة المرور",
+                btnSignupSubmit: "إنشاء الحساب",
+                lblHaveAccount: "لديك حساب بالفعل؟",
+                btnGoLogin: "تسجيل الدخول",
+                footerLogo: "Viper Host الاستباقي",
+                footerDesc: "حقوق الرفع والنشر والتحويل للروابط المباشرة محفوظة للمطور",
+                lblDevRights: "جميع الحقوق محفوظة للمطور Viper 👑",
+                toastSuccessCopy: "تم نسخ الرابط المباشر بنجاح!",
+                toastUploading: "جاري الاتصال بالسيرفر والرفع المباشر...",
+                toastUploadError: "فشل الرفع! تأكد من اتصالك بالإنترنت وصلاحية الملف.",
+                toastSuccessAuth: "أهلاً بك! تم الدخول بنجاح، يمكنك الرفع الآن.",
+                toastSuccessReg: "تم تسجيل وحفظ حسابك بنجاح! تم تسجيل الدخول.",
+                toastLogout: "تم تسجيل الخروج بنجاح.",
+                toastInvalidAuth: "البيانات المدخلة غير صحيحة أو الحساب غير موجود.",
+                lblSavedAccountsTitle: "قسم الحسابات المسجلة (إدارة المنصة)",
+                lblSavedAccountsDesc: "تُعرض هنا كافة الحسابات التي تم إنشاؤها محلياً على المتصفح للوصول السريع والتحقق من التخزين.",
+                thName: "الاسم",
+                thEmail: "البريد الإلكتروني",
+                thPassword: "كلمة المرور",
+                thDate: "تاريخ التسجيل"
+            },
+            en: {
+                navLogoTitle: "Viper Host",
+                navLogoSub: "100% Real Cloud Servers",
+                navHome: "Home",
+                navDev: "Developer Section",
+                navLogin: "Login",
+                navLogout: "Logout",
+                heroTitle: "Upload Images & Videos and Get Direct Links Instantly!",
+                heroDesc: "Real hosting servers, advanced protection, and full control over expiration time.",
+                heroBadgeTitle: "Free Real Hosting",
+                heroBadgeSub: "High Speed Servers 2026",
+                lockTitle: "Please login or register to start uploading",
+                lockDesc: "To protect your privacy and manage files, hosting on real servers requires a secure login.",
+                btnLockLogin: "Login Now",
+                btnLockSignup: "Sign Up Free",
+                labelUploadImageTab: "Upload Image",
+                labelUploadVideoTab: "Upload Video",
+                labelExpiry: "Expiry Duration",
+                labelExpiryDesc: "Files will automatically expire after the selected duration",
+                optForever: "Lifetime (No Expiry)",
+                opt1h: "1 Hour",
+                opt1d: "1 Day",
+                opt1y: "1 Year",
+                labelDragTitle: "Click or drag files here to upload",
+                labelDragSubImage: "Supports JPG, PNG, GIF, WebP (Max size 50 MB)",
+                labelDragSubVideo: "Supports MP4, WEBM, MOV (Max size 100 MB)",
+                btnBrowse: "Browse Local Files",
+                labelUploadingProgress: "Uploading and converting to direct hotlinks...",
+                labelUploadNote: "Please do not close this tab until the process finishes.",
+                labelUploadSuccess: "Converted to Direct Link Successfully!",
+                labelUploadSuccessSub: "File successfully hosted on high speed stable networks.",
+                lblDirectLink: "Direct Link",
+                lblHtmlCode: "HTML Code for Sites",
+                lblBbCode: "BBCode for Forums",
+                lblCopy: "Copy",
+                btnUploadMore: "Upload New File",
+                devName: "Viper",
+                devBadge: "Developer & Main Creator",
+                devAboutTitle: "About Developer Viper",
+                devAboutText: "A creative Yemeni software developer experienced in system design, APIs, and direct hosting services. Viper Host is optimized for speed, safety, and modern file preservation.",
+                devWhatsapp: "Official WhatsApp",
+                devTelegram: "Official Telegram Channels",
+                devTelegramDesc: "Follow tech tutorials and direct downloads",
+                devTelegramSub: "Join our official channels",
+                devChannelsTitle: "Viper Official Channels",
+                ch1Title: "Viper Code",
+                ch2Title: "</>code",
+                ch3Title: "Viper Backup",
+                ch4Title: "Bot Activations & Kingdom of Numbers",
+                modalTitleLogin: "Login to your account",
+                modalTitleSignup: "Create a new account",
+                lblEmail: "Email Address",
+                lblPassword: "Password",
+                btnLoginSubmit: "Login Now",
+                lblNoAccount: "No account yet?",
+                btnGoSignup: "Sign Up Here",
+                lblRegName: "Full Name",
+                lblRegEmail: "Email Address",
+                lblRegPass: "Password",
+                btnSignupSubmit: "Register Now",
+                lblHaveAccount: "Have an account already?",
+                btnGoLogin: "Log In",
+                footerLogo: "Viper Host Pro",
+                footerDesc: "Direct conversion and hosting rights reserved for the developer",
+                lblDevRights: "All Rights Reserved to Viper 👑",
+                toastSuccessCopy: "Direct Link copied to clipboard!",
+                toastUploading: "Uploading directly to real servers, please wait...",
+                toastUploadError: "Upload failed! Check file size or internet connection.",
+                toastSuccessAuth: "Welcome! Authentication successful. Upload is now unlocked.",
+                toastSuccessReg: "Account registered and saved successfully! Logged in.",
+                toastLogout: "Logged out successfully.",
+                toastInvalidAuth: "Invalid details. Account not found.",
+                lblSavedAccountsTitle: "Saved Accounts Dashboard",
+                lblSavedAccountsDesc: "All accounts registered in this browser are stored safely and listed below.",
+                thName: "Name",
+                thEmail: "Email",
+                thPassword: "Password",
+                thDate: "Registration Date"
+            },
+            fr: {
+                navLogoTitle: "Viper Host",
+                navLogoSub: "Serveurs Cloud 100% Réels",
+                navHome: "Accueil",
+                navDev: "Espace Développeur",
+                navLogin: "Connexion",
+                navLogout: "Déconnexion",
+                heroTitle: "Hébergez vos fichiers et obtenez des liens directs !",
+                heroDesc: "Serveurs d'hébergement réels, protection renforcée et choix de validité des fichiers.",
+                heroBadgeTitle: "Hébergement Réel Gratuit",
+                heroBadgeSub: "Serveurs Ultra-rapides 2026",
+                lockTitle: "Veuillez vous connecter pour uploader",
+                lockDesc: "Pour assurer la sécurité et la gestion des fichiers sur des serveurs réels, l'authentification est requise.",
+                btnLockLogin: "Se connecter",
+                btnLockSignup: "S'inscrire gratuitement",
+                labelUploadImageTab: "Uploader Image",
+                labelUploadVideoTab: "Uploader Vidéo",
+                labelExpiry: "Durée d'expiration",
+                labelExpiryDesc: "Les fichiers seront supprimés automatiquement après expiration",
+                optForever: "À vie (Pas d'expiration)",
+                opt1h: "1 Heure",
+                opt1d: "1 Jour",
+                opt1y: "1 An",
+                labelDragTitle: "Cliquez ou glissez les fichiers ici",
+                labelDragSubImage: "Prend en charge JPG, PNG, GIF, WebP (Max 50 Mo)",
+                labelDragSubVideo: "Prend en charge MP4, WEBM, MOV (Max 100 Mo)",
+                btnBrowse: "Parcourir vos fichiers",
+                labelUploadingProgress: "Envoi en cours vers des serveurs réels...",
+                labelUploadNote: "Veuillez ne pas fermer cet onglet.",
+                labelUploadSuccess: "Lien direct généré avec succès !",
+                labelUploadSuccessSub: "Fichier hébergé sur des infrastructures stables et sécurisées.",
+                lblDirectLink: "Lien Direct",
+                lblHtmlCode: "Code HTML pour sites",
+                lblBbCode: "Code BBCode pour forums",
+                lblCopy: "Copier",
+                btnUploadMore: "Uploader à nouveau",
+                devName: "Viper",
+                devBadge: "Développeur & Créateur Principal",
+                devAboutTitle: "À propos du Développeur",
+                devAboutText: "Développeur yéménite chevronné spécialisé dans le cloud. Viper Host fournit la solution optimale pour héberger et acquérir des liens directs sans publicités.",
+                devWhatsapp: "WhatsApp Officiel",
+                devTelegram: "Canaux Telegram Officiels",
+                devTelegramDesc: "Suivez nos nouveautés technologiques",
+                devTelegramSub: "Rejoignez nos réseaux",
+                devChannelsTitle: "Canaux Officiels de Viper",
+                ch1Title: "Viper Code",
+                ch2Title: "</>code",
+                ch3Title: "Viper Backup",
+                ch4Title: "Activations Bot & Kingdom of Numbers",
+                modalTitleLogin: "Se Connecter",
+                modalTitleSignup: "S'inscrire",
+                lblEmail: "Adresse E-mail",
+                lblPassword: "Mot de passe",
+                btnLoginSubmit: "Connexion",
+                lblNoAccount: "Pas de compte ?",
+                btnGoSignup: "S'inscrire ici",
+                lblRegName: "Nom Complet",
+                lblRegEmail: "E-mail",
+                lblRegPass: "Mot de passe",
+                btnSignupSubmit: "Créer un compte",
+                lblHaveAccount: "Vous avez déjà un compte ?",
+                btnGoLogin: "Se connecter",
+                footerLogo: "Viper Host Pro",
+                footerDesc: "Tous droits de conversion de fichiers réservés au développeur",
+                lblDevRights: "Tous Droits Réservés à Viper 👑",
+                toastSuccessCopy: "Lien copié avec succès !",
+                toastUploading: "Envoi en cours vers nos serveurs réels...",
+                toastUploadError: "Échec de l'envoi. Vérifiez votre connexion.",
+                toastSuccessAuth: "Bienvenue ! Connexion réussie. Upload débloqué.",
+                toastSuccessReg: "Compte créé et sauvegardé avec succès !",
+                toastLogout: "Déconnexion réussie.",
+                toastInvalidAuth: "Informations incorrectes. Compte introuvable.",
+                lblSavedAccountsTitle: "Tableau des Comptes Sauvegardés",
+                lblSavedAccountsDesc: "Tous les comptes enregistrés sur ce navigateur sont listés ci-dessous.",
+                thName: "Nom",
+                thEmail: "E-mail",
+                thPassword: "Mot de passe",
+                thDate: "Date d'Inscription"
+            }
+        };
+
+        if (!localStorage.getItem('ziko_users')) {
+            localStorage.setItem('ziko_users', JSON.stringify([
+                { name: 'Viper', email: 'viper@legend.com', password: '123', date: '2026-07-05' }
+            ]));
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const dict = translations[lang];
+            const isRTL = lang === 'ar';
+            document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+
+            document.getElementById('nav-logo-title').innerText = dict.navLogoTitle;
+            document.getElementById('nav-logo-sub').innerText = dict.navLogoSub;
+            document.getElementById('nav-home').innerHTML = `<i class="fa-solid fa-home ${isRTL ? 'ml-1' : 'mr-1'}"></i> ${dict.navHome}`;
+            document.getElementById('nav-dev').innerText = dict.navDev;
+
+            document.getElementById('hero-title').innerText = dict.heroTitle;
+            document.getElementById('hero-desc').innerText = dict.heroDesc;
+            document.getElementById('hero-badge-title').innerText = dict.heroBadgeTitle;
+            document.getElementById('hero-badge-sub').innerText = dict.heroBadgeSub;
+
+            document.getElementById('lock-title').innerText = dict.lockTitle;
+            document.getElementById('lock-desc').innerText = dict.lockDesc;
+            document.getElementById('btn-lock-login').innerText = dict.btnLockLogin;
+            document.getElementById('btn-lock-signup').innerText = dict.btnLockSignup;
+
+            document.getElementById('label-upload-image-tab').innerText = dict.labelUploadImageTab;
+            document.getElementById('label-upload-video-tab').innerText = dict.labelUploadVideoTab;
+
+            document.getElementById('label-expiry').innerText = dict.labelExpiry;
+            document.getElementById('label-expiry-desc').innerText = dict.labelExpiryDesc;
+
+            document.getElementById('opt-forever').innerText = dict.optForever;
+            document.getElementById('opt-1h').innerText = dict.opt1h;
+            document.getElementById('opt-1d').innerText = dict.opt1d;
+            document.getElementById('opt-1y').innerText = dict.opt1y;
+
+            document.getElementById('label-drag-title').innerText = dict.labelDragTitle;
+            updateDragSubLabel();
+            
+            document.getElementById('btn-browse').innerText = dict.btnBrowse;
+            document.getElementById('label-uploading-progress').innerText = dict.labelUploadingProgress;
+            document.getElementById('label-upload-note').innerText = dict.labelUploadNote;
+
+            document.getElementById('label-upload-success').innerText = dict.labelUploadSuccess;
+            document.getElementById('label-upload-success-sub').innerText = dict.labelUploadSuccessSub;
+
+            document.getElementById('lbl-direct-link').innerText = dict.lblDirectLink;
+            document.getElementById('lbl-html-code').innerText = dict.lblHtmlCode;
+            document.getElementById('lbl-bb-code').innerText = dict.lblBbCode;
+            document.querySelectorAll('.lbl-copy').forEach(btn => btn.innerText = dict.lblCopy);
+            document.getElementById('btn-upload-more').innerText = dict.btnUploadMore;
+
+            document.getElementById('dev-name').innerText = dict.devName;
+            document.getElementById('dev-badge').innerText = dict.devBadge;
+            document.getElementById('dev-about-title').innerText = dict.devAboutTitle;
+            document.getElementById('dev-about-text').innerText = dict.devAboutText;
+            document.getElementById('dev-whatsapp').innerText = dict.devWhatsapp;
+            document.getElementById('dev-telegram').innerText = dict.devTelegram;
+            document.getElementById('dev-telegram-desc').innerText = dict.devTelegramDesc;
+            document.getElementById('dev-telegram-sub').innerText = dict.devTelegramSub;
+            document.getElementById('dev-channels-title').innerText = dict.devChannelsTitle;
+
+            document.getElementById('ch1-title').innerText = dict.ch1Title;
+            document.getElementById('ch2-title').innerText = dict.ch2Title;
+            document.getElementById('ch3-title').innerText = dict.ch3Title;
+            document.getElementById('ch4-title').innerText = dict.ch4Title;
+
+            document.getElementById('lbl-email').innerText = dict.lblEmail;
+            document.getElementById('lbl-password').innerText = dict.lblPassword;
+            document.getElementById('btn-login-submit').innerText = dict.btnLoginSubmit;
+            document.getElementById('lbl-no-account').innerText = dict.lblNoAccount;
+            document.getElementById('btn-go-signup').innerText = dict.btnGoSignup;
+
+            document.getElementById('lbl-reg-name').innerText = dict.lblRegName;
+            document.getElementById('lbl-reg-email').innerText = dict.lblRegEmail;
+            document.getElementById('lbl-reg-pass').innerText = dict.lblRegPass;
+            document.getElementById('btn-signup-submit').innerText = dict.btnSignupSubmit;
+            document.getElementById('lbl-have-account').innerText = dict.lblHaveAccount;
+            document.getElementById('btn-go-login').innerText = dict.btnGoLogin;
+
+            document.getElementById('footer-logo').innerText = dict.footerLogo;
+            document.getElementById('footer-desc').innerText = dict.footerDesc;
+            document.getElementById('lbl-dev-rights').innerText = dict.lblDevRights;
+
+            document.getElementById('lbl-saved-accounts-title').innerText = dict.lblSavedAccountsTitle;
+            document.getElementById('lbl-saved-accounts-desc').innerText = dict.lblSavedAccountsDesc;
+            document.getElementById('th-name').innerText = dict.thName;
+            document.getElementById('th-email').innerText = dict.thEmail;
+            document.getElementById('th-password').innerText = dict.thPassword;
+            document.getElementById('th-date').innerText = dict.thDate;
+
+            updateAuthNavbar();
+            renderAccountsTable();
+        }
+
+        function updateDragSubLabel() {
+            const dict = translations[currentLang];
+            const dragSub = document.getElementById('label-drag-sub');
+            if (currentUploadType === 'image') {
+                dragSub.innerText = dict.labelDragSubImage;
+            } else {
+                dragSub.innerText = dict.labelDragSubVideo;
+            }
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section-container').forEach(sec => sec.classList.add('hidden'));
+
+            if (sectionId === 'main-upload') {
+                if (currentUser) {
+                    document.getElementById('main-upload').classList.remove('hidden');
+                } else {
+                    document.getElementById('lock-section').classList.remove('hidden');
+                }
+            } else {
+                document.getElementById(sectionId).classList.remove('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setUploadType(type) {
+            currentUploadType = type;
+            const btnImage = document.getElementById('btn-type-image');
+            const btnVideo = document.getElementById('btn-type-video');
+            const fileInput = document.getElementById('file-input');
+
+            if (type === 'image') {
+                btnImage.className = "flex items-center justify-center gap-3 py-4 rounded-xl font-bold border-2 transition-all duration-300 shadow-md bg-brand-lightsky border-brand-sky text-brand-sky";
+                btnVideo.className = "flex items-center justify-center gap-3 py-4 rounded-xl font-bold border-2 transition-all duration-300 shadow-md bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100";
+                fileInput.accept = "image/*";
+            } else {
+                btnVideo.className = "flex items-center justify-center gap-3 py-4 rounded-xl font-bold border-2 transition-all duration-300 shadow-md bg-brand-lightsky border-brand-sky text-brand-sky";
+                btnImage.className = "flex items-center justify-center gap-3 py-4 rounded-xl font-bold border-2 transition-all duration-300 shadow-md bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100";
+                fileInput.accept = "video/*";
+            }
+            updateDragSubLabel();
+            resetUploadForm();
+        }
+
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 px-6 py-3.5 rounded-xl shadow-2xl border-l-4 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto ${
+                isError 
+                ? 'bg-rose-50 border-rose-500 text-rose-800' 
+                : 'bg-emerald-50 border-emerald-500 text-emerald-800'
+            }`;
+            
+            const icon = isError ? 'fa-circle-xmark' : 'fa-circle-check';
+            toast.innerHTML = `
+                <i class="fa-solid ${icon} text-lg"></i>
+                <span class="text-xs font-bold text-right">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-brand-sky', 'bg-brand-lightsky/20');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-brand-sky', 'bg-brand-lightsky/20');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-brand-sky', 'bg-brand-lightsky/20');
+            if (e.dataTransfer.files.length > 0) {
+                handleFileSelection(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelection(e.target.files[0]);
+            }
+        });
+
+        function copyToClipboard(inputId) {
+            const copyText = document.getElementById(inputId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast(translations[currentLang].toastSuccessCopy);
+            } catch (err) {
+                showToast(translations[currentLang].toastUploadError, true);
+            }
+        }
+
+        function handleFileSelection(file) {
+            const isImage = file.type.startsWith('image/');
+            const isVideo = file.type.startsWith('video/');
+
+            if (currentUploadType === 'image' && !isImage) {
+                showToast(currentLang === 'ar' ? 'الرجاء اختيار ملف صورة صالح!' : 'Please choose a valid image file!', true);
+                return;
+            }
+            if (currentUploadType === 'video' && !isVideo) {
+                showToast(currentLang === 'ar' ? 'الرجاء اختيار ملف فيديو صالح!' : 'Please choose a valid video file!', true);
+                return;
+            }
+
+            const maxSize = currentUploadType === 'image' ? 50 * 1024 * 1024 : 100 * 1024 * 1024;
+            if (file.size > maxSize) {
+                showToast(currentLang === 'ar' ? 'حجم الملف يتجاوز الحد الأقصى المسموح به!' : 'File size exceeds maximum permitted limit!', true);
+                return;
+            }
+
+            startRealUpload(file);
+        }
+
+        async function startRealUpload(file) {
+            const progressContainer = document.getElementById('upload-progress-container');
+            const progressBar = document.getElementById('upload-progress-bar');
+            const progressPercentage = document.getElementById('upload-percentage');
+            const uploadIcon = document.getElementById('upload-icon-status');
+            
+            progressContainer.classList.remove('hidden');
+            dropZone.classList.add('pointer-events-none', 'opacity-50');
+            uploadIcon.className = "fa-solid fa-spinner animate-spin text-brand-sky text-3xl";
+
+            let progress = 10;
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.innerText = `${progress}%`;
+
+            const progressInterval = setInterval(() => {
+                if (progress < 85) {
+                    progress += Math.floor(Math.random() * 5) + 1;
+                    progressBar.style.width = `${progress}%`;
+                    progressPercentage.innerText = `${progress}%`;
+                }
+            }, 100);
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                clearInterval(progressInterval);
+
+                if (!response.ok) {
+                    throw new Error('Connection error or size limitation occurred.');
+                }
+
+                const result = await response.json();
+
+                if (result.status === 'success' && result.data && result.data.url) {
+                    progressBar.style.width = '100%';
+                    progressPercentage.innerText = '100%';
+
+                    setTimeout(() => {
+                        const originalUrl = result.data.url;
+                        const directUrl = originalUrl.replace('https://tmpfiles.org/', 'https://tmpfiles.org/dl/');
+                        
+                        finalizeUpload(file, directUrl);
+                    }, 500);
+
+                } else {
+                    throw new Error('Invalid response structure');
+                }
+
+            } catch (error) {
+                clearInterval(progressInterval);
+                console.error(error);
+                showToast(translations[currentLang].toastUploadError, true);
+                resetUploadForm();
+            }
+        }
+
+        function finalizeUpload(file, directUrl) {
+            const previewContainer = document.getElementById('file-preview-container');
+            
+            const localPreview = URL.createObjectURL(file);
+
+            if (currentUploadType === 'image') {
+                previewContainer.innerHTML = `<img src="${localPreview}" class="w-full h-full object-cover rounded-lg" alt="Direct Preview">`;
+            } else {
+                previewContainer.innerHTML = `
+                    <div class="relative w-full h-full flex items-center justify-center bg-zinc-900 text-white rounded-lg">
+                        <i class="fa-regular fa-circle-play text-3xl absolute z-10 opacity-80"></i>
+                        <video src="${localPreview}" class="w-full h-full object-cover rounded-lg opacity-60" muted playsinline></video>
+                    </div>
+                `;
+            }
+
+            const expiryVal = document.getElementById('expiry-select').value;
+            const dict = translations[currentLang];
+            let expiryText = dict.optForever;
+            if (expiryVal === '1h') expiryText = dict.opt1h;
+            if (expiryVal === '1d') expiryText = dict.opt1d;
+            if (expiryVal === '1y') expiryText = dict.opt1y;
+
+            document.getElementById('result-filename').innerText = file.name;
+            document.getElementById('result-filesize').innerText = formatBytes(file.size);
+            document.getElementById('result-expiry').innerText = `${currentLang === 'ar' ? 'مدة الصلاحية: ' : 'Expiry: '} ${expiryText}`;
+
+            document.getElementById('link-direct').value = directUrl;
+            
+            if (currentUploadType === 'image') {
+                document.getElementById('link-html').value = `<img src="${directUrl}" alt="${file.name}" border="0" />`;
+                document.getElementById('link-bbcode').value = `[img]${directUrl}[/img]`;
+            } else {
+                document.getElementById('link-html').value = `<video src="${directUrl}" controls width="100%"></video>`;
+                document.getElementById('link-bbcode').value = `[video]${directUrl}[/video]`;
+            }
+
+            document.getElementById('upload-progress-container').classList.add('hidden');
+            document.getElementById('upload-result').classList.remove('hidden');
+            dropZone.classList.add('hidden');
+            
+            showToast(translations[currentLang].labelUploadSuccess);
+        }
+
+        function resetUploadForm() {
+            document.getElementById('upload-result').classList.add('hidden');
+            document.getElementById('upload-progress-container').classList.add('hidden');
+            
+            const progressBar = document.getElementById('upload-progress-bar');
+            const progressPercentage = document.getElementById('upload-percentage');
+            progressBar.style.width = `0%`;
+            progressPercentage.innerText = `0%`;
+
+            dropZone.classList.remove('hidden', 'pointer-events-none', 'opacity-50');
+            const uploadIcon = document.getElementById('upload-icon-status');
+            uploadIcon.className = "fa-solid fa-cloud-arrow-up text-brand-sky text-3xl";
+            
+            fileInput.value = "";
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function openAuthModal(mode) {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.remove('hidden');
+            switchAuthMode(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function switchAuthMode(mode) {
+            const dict = translations[currentLang];
+            const loginPanel = document.getElementById('login-panel');
+            const signupPanel = document.getElementById('signup-panel');
+            const modalTitle = document.getElementById('modal-title');
+
+            if (mode === 'login') {
+                loginPanel.classList.remove('hidden');
+                signupPanel.classList.add('hidden');
+                modalTitle.innerText = dict.modalTitleLogin;
+            } else {
+                signupPanel.classList.remove('hidden');
+                loginPanel.classList.add('hidden');
+                modalTitle.innerText = dict.modalTitleSignup;
+            }
+        }
+
+        function handleAuthSubmit(e, type) {
+            e.preventDefault();
+            const dict = translations[currentLang];
+            let users = JSON.parse(localStorage.getItem('ziko_users')) || [];
+
+            if (type === 'signup') {
+                const name = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+
+                const exists = users.some(u => u.email === email);
+                if (exists) {
+                    showToast(currentLang === 'ar' ? 'هذا البريد مسجل بالفعل!' : 'Email already registered!', true);
+                    return;
+                }
+
+                const newUser = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                users.push(newUser);
+                localStorage.setItem('ziko_users', JSON.stringify(users));
+
+                currentUser = newUser;
+                showToast(dict.toastSuccessReg);
+
+            } else if (type === 'login') {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                const foundUser = users.find(u => u.email === email && u.password === password);
+                if (!foundUser) {
+                    showToast(dict.toastInvalidAuth, true);
+                    return;
+                }
+
+                currentUser = foundUser;
+                showToast(dict.toastSuccessAuth);
+            }
+
+            document.getElementById('login-email').value = "";
+            document.getElementById('login-password').value = "";
+            document.getElementById('signup-name').value = "";
+            document.getElementById('signup-email').value = "";
+            document.getElementById('signup-password').value = "";
+
+            updateAuthNavbar();
+            renderAccountsTable();
+            closeAuthModal();
+
+            showSection('main-upload');
+        }
+
+        function updateAuthNavbar() {
+            const authArea = document.getElementById('auth-nav-area');
+            const dict = translations[currentLang];
+
+            if (currentUser) {
+                authArea.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="hidden sm:inline-block bg-brand-lightbrown/40 border border-brand-lightbrown/20 px-3 py-1.5 rounded-lg text-xs font-bold text-white">
+                            <i class="fa-solid fa-user-shield text-brand-sky"></i> ${currentUser.name}
+                        </span>
+                        <button onclick="handleLogout()" class="border border-rose-400 text-rose-300 hover:bg-rose-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300">
+                            <i class="fa-solid fa-sign-out-alt"></i> ${dict.navLogout}
+                        </button>
+                    </div>
+                `;
+            } else {
+                authArea.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="border border-brand-lightsky text-brand-lightsky hover:bg-white hover:text-brand-brown px-3 py-2 rounded-md text-sm font-medium transition duration-300" id="nav-login">
+                        <i class="fa-solid fa-sign-in"></i> ${dict.navLogin}
+                    </button>
+                `;
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            updateAuthNavbar();
+            showSection('main-upload');
+            showToast(translations[currentLang].toastLogout);
+        }
+
+        function renderAccountsTable() {
+            const tbody = document.getElementById('accounts-table-body');
+            const users = JSON.parse(localStorage.getItem('ziko_users')) || [];
+            
+            tbody.innerHTML = "";
+            users.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-gray-200 hover:bg-brand-cream";
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-brand-dark">${user.name}</td>
+                    <td class="p-3 text-gray-600 ltr text-right">${user.email}</td>
+                    <td class="p-3 text-gray-500 font-mono">${'•'.repeat(user.password.length)}</td>
+                    <td class="p-3 text-gray-400">${user.date}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.onload = function() {
+            changeLanguage('ar');
+        }
+    </script>
+</body>
+</html>
