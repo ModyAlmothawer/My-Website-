@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ON SPORT VIP | مشغل البث المباشر</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- HLS.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="brand">
+            <i class="fas fa-play-circle logo-icon"></i>
+            <span>ON SPORT <strong class="vip-tag">VIP</strong></span>
+        </div>
+        <div class="dev-badge">
+            <i class="fas fa-code"></i> المطور: <span class="dev-name">Dark</span>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <!-- شريط حالة الشبكة والبث -->
+        <div class="status-bar">
+            <div class="network-info">
+                <div class="signal-bars" id="signalBars">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                    <span class="bar bar4"></span>
+                </div>
+                <span class="net-text" id="netStatus">جاري فحص الاتصال...</span>
+                <span class="net-speed" id="netSpeed">-- Mbps</span>
+                <span class="ping-tag" id="pingStatus">Ping: -- ms</span>
+            </div>
+
+            <div class="live-indicator">
+                <span class="pulse-dot"></span>
+                <span>بث مباشر (سيرفر VIP)</span>
+            </div>
+        </div>
+
+        <!-- أداة تغيير الرابط المباشر من الشاشة -->
+        <div class="url-input-card">
+            <div class="input-group">
+                <i class="fas fa-link input-icon"></i>
+                <input type="text" id="customUrlInput" placeholder="أدخل رابط البث المباشر (.m3u8 أو iframe)...">
+                <button id="changeUrlBtn"><i class="fas fa-play"></i> تشغيل الرابط</button>
+            </div>
+        </div>
+
+        <!-- مشغل الفيديو -->
+        <div class="player-wrapper" id="playerWrapper">
+            <video id="videoPlayer" controls playsinline preload="auto"></video>
+            
+            <!-- زر التشغيل المخصص لفك كتم الصوت / بدء الفيديو -->
+            <div id="playOverlay" class="play-overlay">
+                <button id="startPlayBtn" class="big-play-btn">
+                    <i class="fas fa-play"></i>
+                    <span>اضغط لبدء البث المباشر</span>
+                </button>
+            </div>
+
+            <!-- إطار iframe للروابط الخارجية -->
+            <iframe id="iframePlayer" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>
+
+        <!-- لوحة التحكم والجودة -->
+        <div class="controls-card">
+            <div class="quality-selector">
+                <label for="qualitySelect"><i class="fas fa-sliders-h"></i> الجودة:</label>
+                <select id="qualitySelect">
+                    <option value="auto" selected>تلقائي (Auto VIP)</option>
+                </select>
+            </div>
+
+            <div class="control-btns">
+                <button id="reloadBtn" class="action-btn">
+                    <i class="fas fa-sync-alt"></i> تحديث البث
+                </button>
+                <button id="fullscreenBtn" class="action-btn">
+                    <i class="fas fa-expand"></i> شاشة كاملة
+                </button>
+            </div>
+        </div>
+
+        <!-- كارت تواصل المطور -->
+        <div class="developer-card">
+            <div class="dev-info">
+                <div class="avatar">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <div>
+                    <h3>المطور دارك (Dark)</h3>
+                    <p>دعم سيرفرات البث والمباريات على مدار الساعة</p>
+                </div>
+            </div>
+            <a href="https://t.me/modark16" target="_blank" rel="noopener noreferrer" class="telegram-cta">
+                <i class="fab fa-telegram-plane"></i> تواصل عبر تلجرام (@modark16)
+            </a>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
