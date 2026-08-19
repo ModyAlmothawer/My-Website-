@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ON SPORT VIP | Dev Dark</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="brand">
+            <i class="fas fa-play-circle logo-icon"></i>
+            <span>ON SPORT <strong class="vip-tag">VIP</strong></span>
+        </div>
+        <div class="dev-badge">
+            <i class="fas fa-code"></i> المطور: <span class="dev-name">Dark</span>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- شريط حالة الشبكة والبث -->
+        <div class="status-bar">
+            <div class="network-info">
+                <div class="signal-bars" id="signalBars">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                    <span class="bar bar4"></span>
+                </div>
+                <span class="net-text" id="netStatus">جاري فحص الاتصال...</span>
+                <span class="net-speed" id="netSpeed">-- Mbps</span>
+                <span class="ping-tag" id="pingStatus">Ping: -- ms</span>
+            </div>
+
+            <div class="live-indicator">
+                <span class="pulse-dot"></span>
+                <span>بث مباشر بدون تقطيع</span>
+            </div>
+        </div>
+
+        <!-- مشغل الفيديو -->
+        <div class="player-wrapper">
+            <video id="videoPlayer" controls autoplay playsinline preload="auto"></video>
+            
+            <!-- مشغل البديل للإطار (إطار iframe في حال لم تكن الوصلة m3u8) -->
+            <iframe id="iframePlayer" src="ضع_رابط_البث_هنا" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>
+
+        <!-- لوحة التحكم والجودة -->
+        <div class="controls-card">
+            <div class="quality-selector">
+                <label for="qualitySelect"><i class="fas fa-sliders-h"></i> جودة البث:</label>
+                <select id="qualitySelect">
+                    <option value="auto" selected>أعلى جودة تلقائياً (Auto VIP)</option>
+                </select>
+            </div>
+
+            <div class="reconnect-box">
+                <button id="reloadBtn" class="action-btn">
+                    <i class="fas fa-sync-alt"></i> إعادة تحديث البث
+                </button>
+            </div>
+        </div>
+
+        <!-- كارت تواصل المطور -->
+        <div class="developer-card">
+            <div class="dev-info">
+                <div class="avatar">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <div>
+                    <h3>المطور دارك (Dark)</h3>
+                    <p>دعم سيرفرات البث والمباريات علي مدار الساعة</p>
+                </div>
+            </div>
+            <a href="https://t.me/modark16" target="_blank" rel="noopener noreferrer" class="telegram-cta">
+                <i class="fab fa-telegram-plane"></i> تواصل عبر تلجرام (@modark16)
+            </a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
