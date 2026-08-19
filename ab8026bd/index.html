@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071021">
+<title>꧁★ DARK ★꧂ | Links</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  font-family:Cairo,Arial,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at 50% 15%,rgba(55,85,170,.18),transparent 30%),
+    linear-gradient(180deg,#080e20 0%,#071124 55%,#06172a 100%);
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle,#39aaff 1.2px,transparent 1.8px),
+    radial-gradient(circle,#7d55ff 1px,transparent 1.6px);
+  background-size:170px 170px,230px 230px;
+  background-position:20px 30px,90px 120px;
+  opacity:.28;
+  animation:stars 12s linear infinite;
+}
+@keyframes stars{to{background-position:20px 220px,90px 330px}}
+
+.container{
+  width:min(100% - 28px,680px);
+  margin:0 auto;
+  padding:34px 0 25px;
+  position:relative;
+  z-index:2;
+}
+
+.profile{text-align:center;padding-top:5px}
+
+.avatar{
+  width:158px;height:158px;border-radius:50%;
+  margin:0 auto 28px;
+  padding:6px;
+  background:linear-gradient(135deg,#fff,#675eff,#24dfff,#fff);
+  box-shadow:
+    0 0 15px rgba(71,117,255,.7),
+    0 0 55px rgba(59,106,255,.35);
+  position:relative;
+}
+.avatar:after{
+  content:"";
+  position:absolute;
+  inset:-7px;
+  border-radius:50%;
+  border:1px solid rgba(106,151,255,.5);
+  box-shadow:0 0 25px rgba(72,108,255,.4);
+}
+.avatar img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+  display:block;
+  background:#101a32;
+}
+
+.name{
+  font-family:"Playfair Display",serif;
+  font-size:44px;
+  line-height:1.1;
+  letter-spacing:2px;
+  margin-bottom:18px;
+  text-shadow:0 0 12px rgba(255,255,255,.13);
+}
+.name span{display:inline-block;margin:0 5px}
+
+.bio{
+  color:#aab3c7;
+  font-size:18px;
+  line-height:2.25;
+  margin-bottom:28px;
+}
+.bio b{font-size:20px;color:#c9d1df;margin-left:6px}
+
+.links{
+  background:rgba(8,15,32,.63);
+  border:1px solid rgba(102,121,170,.18);
+  border-radius:34px;
+  padding:28px 20px 25px;
+  box-shadow:0 15px 60px rgba(0,0,0,.35), inset 0 0 30px rgba(64,91,150,.05);
+  backdrop-filter:blur(12px);
+}
+
+.link{
+  width:100%;
+  min-height:82px;
+  margin:0 0 20px;
+  border-radius:27px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px 19px;
+  text-decoration:none;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  transition:.25s ease;
+  box-shadow:0 9px 25px rgba(0,0,0,.22);
+}
+.link:last-child{margin-bottom:0}
+.link:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.18),transparent 75%);
+  transform:translateX(-120%);
+  transition:.55s;
+}
+.link:hover:before{transform:translateX(120%)}
+.link:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.link:active{transform:scale(.985)}
+
+.icon{
+  width:54px;height:54px;
+  border-radius:17px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.96);
+  color:#111;
+  flex:0 0 auto;
+  font-size:29px;
+  font-weight:800;
+}
+.arrow{
+  font-size:32px;
+  line-height:1;
+  opacity:.9;
+  margin-left:auto;
+}
+.label{
+  flex:1;
+  text-align:center;
+  font-family:"Playfair Display",Cairo,serif;
+  font-size:23px;
+  font-weight:800;
+  direction:ltr;
+}
+.ar-label{font-family:Cairo,sans-serif;direction:rtl}
+
+.tiktok{background:linear-gradient(90deg,#050505,#020202);border:2px solid #fe1d74}
+.telegram{background:linear-gradient(135deg,#2da9e7,#168bc9)}
+.instagram{background:linear-gradient(110deg,#ff9b28,#f50073,#b800a8)}
+.contact{background:linear-gradient(135deg,#24d36a,#18bd5b)}
+.quran{background:linear-gradient(135deg,#146b38,#1d8d49)}
+.youtube{background:linear-gradient(135deg,#ff2525,#c80000)}
+.facebook{background:linear-gradient(135deg,#2787ef,#1666c1)}
+
+.footer{
+  text-align:center;
+  color:#7c879b;
+  padding:30px 8px 8px;
+  line-height:2;
+  font-size:15px;
+}
+.footer strong{color:#aab2c3}
+.heart{color:#ff625e}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,130px);
+  background:rgba(16,24,45,.95);
+  border:1px solid rgba(255,255,255,.12);
+  padding:12px 22px;
+  border-radius:30px;
+  color:#fff;
+  z-index:20;
+  transition:.3s;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:520px){
+  .container{width:min(100% - 18px,680px);padding-top:25px}
+  .avatar{width:145px;height:145px;margin-bottom:24px}
+  .name{font-size:37px}
+  .bio{font-size:16px;line-height:2}
+  .links{padding:22px 12px 18px;border-radius:29px}
+  .link{min-height:74px;border-radius:24px;padding:10px 14px;margin-bottom:15px}
+  .icon{width:49px;height:49px;font-size:25px;border-radius:15px}
+  .label{font-size:19px}
+  .arrow{font-size:27px}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+  <section class="profile">
+    <!-- غيّر رابط الصورة هنا إلى صورتك -->
+    <div class="avatar">
+      <img src="https://i.postimg.cc/0y7kW5GQ/profile-placeholder.jpg"
+           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%230e1830%22/%3E%3Ctext x=%2250%25%22 y=%2253%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2270%22%3ED%3C/text%3E%3C/svg%3E';"
+           alt="DARK">
+    </div>
+
+    <h1 class="name"><span>☆</span> DARK <span>☆</span></h1>
+
+    <div class="bio">
+      <div>🥀 <b>Lost in silence...</b></div>
+      <div>☠️ <b>Ego above all.</b></div>
+      <div>♛ <b>No second chances.</b></div>
+    </div>
+  </section>
+
+  <section class="links">
+
+    <!-- غيّر الروابط داخل href كما تريد -->
+    <a class="link tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener">
+      <span class="arrow">‹</span>
+      <span class="label">✦ My TikTok ✦</span>
+      <span class="icon">♪</span>
+    </a>
+
+    <a class="link telegram" href="https://t.me/" target="_blank" rel="noopener">
+      <span class="arrow">‹</span>
+      <span class="label">☬ Telegram Channel ☬</span>
+      <span class="icon">➤</span>
+    </a>
+
+    <a class="link instagram" href="https://www.instagram.com/" target="_blank" rel="noopener">
+      <span class="arrow">‹</span>
+      <span class="label">♛ Insta Profile ♛</span>
+      <span class="icon">◎</span>
+    </a>
+
+    <a class="link telegram" href="https://t.me/" target="_blank" rel="noopener">
+      <span class="arrow">‹</span>
+      <span class="label">☬ My Telegram ☬</span>
+      <span class="icon">➤</span>
+    </a>
+
+    <a class="link quran" href="#" onclick="showToast('ضع رابط موقعك القرآني هنا');return false;">
+      <span class="arrow">‹</span>
+      <span class="label ar-label">☪ الموقع القرآني ☪</span>
+      <span class="icon">☪</span>
+    </a>
+
+    <a class="link youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">
+      <span class="arrow">‹</span>
+      <span class="label">YouTube Channel</span>
+      <span class="icon">▶</span>
+    </a>
+
+  </section>
+
+  <div class="footer">
+    <div><strong>✦ DARK LINKS ✦</strong> — All Rights Reserved.</div>
+    <div>Proudly Designed With <span class="heart">♥</span> By <strong>☆ DARK ☆</strong></div>
+  </div>
+</main>
+
+<a class="link contact"
+   style="position:fixed;right:20px;bottom:20px;width:auto;min-height:65px;padding:8px 18px;border-radius:40px;z-index:10"
+   href="https://wa.me/201000000000" target="_blank" rel="noopener">
+  <span class="label" style="font-family:Cairo;font-size:18px;white-space:nowrap">تواصل مع المطور</span>
+  <span class="icon" style="width:46px;height:46px;border-radius:50%">☏</span>
+</a>
+
+<div id="toast" class="toast"></div>
+
+<script>
+function showToast(message){
+  const toast=document.getElementById('toast');
+  toast.textContent=message;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2500);
+}
+
+// تأثير بسيط عند الضغط على أي رابط
+document.querySelectorAll('.link').forEach(link=>{
+  link.addEventListener('click',()=>{
+    if(link.getAttribute('href') && link.getAttribute('href')!=='#'){
+      showToast('جاري فتح الرابط...');
+    }
+  });
+});
+</script>
+</body>
+</html>
