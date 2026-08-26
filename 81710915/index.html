@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>لعبه ديناصور مهكره</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                background: #2c3e50;
+                font-family: Arial, sans-serif;
+                padding: 10px;
+            }
+            h1 {
+                color: white;
+                margin-bottom: 15px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                font-size: 28px;
+                text-align: center;
+            }
+            .game-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 760px;
+                margin: 0 auto;
+            }
+            .game-container {
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 100%;
+                background: #f7f7f7;
+                border: 3px solid #333;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                overflow: hidden;
+            }
+            #board {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                touch-action: none;
+                cursor: pointer;
+            }
+            #score {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: rgba(255,255,255,0.9);
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-size: 24px;
+                z-index: 20;
+                border: 1px solid rgba(255,255,255,0.3);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            #speedIndicator {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background: rgba(255,255,255,0.9);
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-size: 18px;
+                color: #e67e22;
+                z-index: 20;
+                border: 1px solid rgba(255,255,255,0.3);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            
+            /* شاشة البداية */
+            .start-screen {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                z-index: 100;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                backdrop-filter: blur(5px);
+            }
+            .start-title {
+                font-size: 48px;
+                color: #e74c3c;
+                margin-bottom: 20px;
+                text-shadow: 0 0 30px #e74c3c;
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            .start-dino {
+                font-size: 120px;
+                margin-bottom: 30px;
+                filter: drop-shadow(0 0 30px #e74c3c);
+                animation: bounce 1s infinite;
+            }
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+            .start-btn {
+                background: linear-gradient(135deg, #e74c3c, #c0392b);
+                color: white;
+                border: none;
+                padding: 20px 60px;
+                font-size: 32px;
+                border-radius: 60px;
+                cursor: pointer;
+                border: 3px solid white;
+                box-shadow: 0 0 50px #e74c3c;
+                margin: 20px 0;
+                font-weight: bold;
+                transition: all 0.2s;
+            }
+            .start-btn:active {
+                transform: scale(0.9);
+                background: #c0392b;
+            }
+            .start-hint {
+                color: rgba(255,255,255,0.7);
+                font-size: 18px;
+                margin-top: 20px;
+            }
+            
+            /* زر القائمة الدائري */
+            .hack-circle {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                width: 70px;
+                height: 70px;
+                background: linear-gradient(135deg, #e74c3c, #c0392b);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 30px;
+                font-weight: bold;
+                z-index: 50;
+                cursor: pointer;
+                box-shadow: 0 5px 20px rgba(231, 76, 60, 0.8), 0 0 0 3px white;
+                transition: all 0.2s ease;
+                border: 2px solid #fff;
+            }
+            .hack-circle:active {
+                transform: scale(0.9);
+                background: #c0392b;
+            }
+            
+            /* القائمة الجانبية */
+            .mod-menu-side {
+                position: fixed;
+                top: 0;
+                right: -400px;
+                width: 350px;
+                height: 100vh;
+                background: linear-gradient(135deg, #1a1a2e, #16213e);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 30px rgba(0,0,0,0.8), 0 0 0 3px #e74c3c;
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                border-left: 4px solid #e74c3c;
+                overflow-y: auto;
+                scrollbar-width: thin;
+                scrollbar-color: #e74c3c #1a1a2e;
+            }
+            .mod-menu-side.show {
+                right: 0;
+            }
+            .mod-menu-side::-webkit-scrollbar {
+                width: 8px;
+            }
+            .mod-menu-side::-webkit-scrollbar-track {
+                background: #1a1a2e;
+            }
+            .mod-menu-side::-webkit-scrollbar-thumb {
+                background: #e74c3c;
+                border-radius: 10px;
+            }
+            
+            /* عناوين القائمة */
+            .menu-header-side {
+                color: #e74c3c;
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                text-shadow: 0 0 10px #e74c3c;
+                text-align: center;
+                border-bottom: 2px solid #e74c3c;
+                padding-bottom: 15px;
+            }
+            
+            /* أزرار الأسهم */
+            .arrow-controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 20px 0;
+                gap: 10px;
+            }
+            .arrow-btn {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #e74c3c, #c0392b);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 40px;
+                font-weight: bold;
+                cursor: pointer;
+                border: 3px solid white;
+                box-shadow: 0 0 30px #e74c3c;
+                transition: all 0.1s ease;
+            }
+            .arrow-btn:active {
+                transform: scale(0.9);
+                background: #c0392b;
+            }
+            .arrow-btn.left {
+                background: #3498db;
+                box-shadow: 0 0 30px #3498db;
+            }
+            .arrow-btn.right {
+                background: #9b59b6;
+                box-shadow: 0 0 30px #9b59b6;
+            }
+            .arrow-btn.middle {
+                background: #27ae60;
+                box-shadow: 0 0 30px #27ae60;
+                font-size: 30px;
+            }
+            
+            /* عرض الهاك الحالي */
+            .current-hack-side {
+                background: rgba(231, 76, 60, 0.2);
+                border-radius: 20px;
+                padding: 20px;
+                margin: 15px 0;
+                text-align: center;
+                border: 2px solid #e74c3c;
+                color: white;
+                backdrop-filter: blur(5px);
+                box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+            }
+            .current-icon-side {
+                font-size: 60px;
+                display: block;
+                margin-bottom: 10px;
+                filter: drop-shadow(0 0 10px #e74c3c);
+            }
+            .current-name-side {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 10px 0;
+                color: #e74c3c;
+            }
+            .current-desc-side {
+                font-size: 16px;
+                color: rgba(255,255,255,0.7);
+                margin-bottom: 10px;
+            }
+            .hack-status {
+                display: inline-block;
+                padding: 5px 15px;
+                border-radius: 30px;
+                font-size: 14px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+            .status-active {
+                background: #27ae60;
+                color: white;
+                box-shadow: 0 0 15px #27ae60;
+            }
+            .status-inactive {
+                background: #7f8c8d;
+                color: white;
+            }
+            
+            /* مؤشر الموقع */
+            .position-indicator {
+                text-align: center;
+                color: white;
+                font-size: 18px;
+                margin: 15px 0;
+                padding: 10px;
+                background: rgba(0,0,0,0.3);
+                border-radius: 30px;
+            }
+            .position-text {
+                color: #e74c3c;
+                font-weight: bold;
+                font-size: 22px;
+            }
+            
+            /* زر الإغلاق */
+            .close-side {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                background: #e74c3c;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                border: 2px solid white;
+                box-shadow: 0 0 20px #e74c3c;
+                z-index: 20;
+                transition: all 0.2s;
+            }
+            .close-side:active {
+                transform: scale(0.9);
+                background: #c0392b;
+            }
+            
+            .touch-hint {
+                margin-top: 20px;
+                color: rgba(255,255,255,0.8);
+                font-size: 16px;
+                text-align: center;
+                background: rgba(0,0,0,0.3);
+                padding: 10px 20px;
+                border-radius: 30px;
+                backdrop-filter: blur(5px);
+            }
+            .touch-hint span {
+                font-size: 24px;
+                display: inline-block;
+                margin: 0 5px;
+            }
+            
+            #gameOver {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 30px 40px;
+                border-radius: 20px;
+                text-align: center;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                display: none;
+                z-index: 1000;
+                width: 80%;
+                max-width: 350px;
+            }
+            #gameOver h2 {
+                color: #e74c3c;
+                margin-bottom: 15px;
+                font-size: 32px;
+            }
+            #gameOver p {
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #333;
+            }
+            #restartBtn {
+                background: #3498db;
+                color: white;
+                border: none;
+                padding: 15px 40px;
+                font-size: 22px;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background 0.3s;
+                width: 100%;
+                font-weight: bold;
+                touch-action: manipulation;
+            }
+            #restartBtn:active {
+                background: #2980b9;
+                transform: scale(0.98);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🦖 ARROW HACK CONTROL</h1>
+        
+        <div class="game-wrapper">
+            <div class="game-container">
+                <!-- شاشة البداية -->
+                <div class="start-screen" id="startScreen">
+                    <div class="start-title">DINO HACK</div>
+                    <div class="start-dino">🦖</div>
+                    <button class="start-btn" id="startBtn">ابدأ اللعبة</button>
+                    <div class="start-hint">اضغط على الدائرة الحمراء لفتح قائمة الهاكات</div>
+                </div>
+                
+                <canvas id="board" width="760" height="760"></canvas>
+                <div id="score">0</div>
+                <div id="speedIndicator">⚡ 5.0</div>
+                
+                <!-- الدائري الصغير -->
+                <div class="hack-circle" id="hackCircle">
+                    💀
+                </div>
+            </div>
+        </div>
+
+        <div class="touch-hint">
+            <span>👆</span> قائمه هاك في الدائرة <span>👆</span>
+        </div>
+        
+        <!-- القائمة الجانبية - تحكم بالأسهم -->
+        <div class="mod-menu-side" id="modMenuSide">
+            <div class="close-side" id="closeSide">✕</div>
+            
+            <div class="menu-header-side">💀 مود منيو 💀</div>
+            
+            <!-- أزرار الأسهم -->
+            <div class="arrow-controls">
+                <div class="arrow-btn left" id="arrowLeft">←</div>
+                <div class="arrow-btn middle" id="arrowMiddle">⚡</div>
+                <div class="arrow-btn right" id="arrowRight">→</div>
+            </div>
+            
+            <!-- مؤشر الموقع -->
+            <div class="position-indicator">
+                <span>الهاك الحالي: <span class="position-text" id="currentPosition">1/25</span></span>
+            </div>
+            
+            <!-- عرض الهاك الحالي -->
+            <div class="current-hack-side" id="currentHackSide">
+                <span class="current-icon-side" id="currentIconSide">🛡️</span>
+                <div class="current-name-side" id="currentNameSide">وضع الخلود</div>
+                <div class="current-desc-side" id="currentDescSide">God Mode - لا تموت أبداً</div>
+                <div class="hack-status" id="hackStatus">غير مفعل</div>
+            </div>
+            
+            <div style="color: rgba(255,255,255,0.5); margin-top: 10px; text-align: center; font-size: 12px;">
+                استخدم الأسهم للتنقل بين الهاكات<br>الزر الأوسط لتفعيل/إلغاء الهاك
+            </div>
+        </div>
+        
+        <div id="gameOver">
+            <h2>Game Over!</h2>
+            <p>نقاطك: <span id="finalScore">0</span></p>
+            <button id="restartBtn">العب مرة أخرى</button>
+        </div>
+
+        <script>
+            (function() {
+                // اللعبة
+                const canvas = document.getElementById('board');
+                const ctx = canvas.getContext('2d');
+                const scoreElement = document.getElementById('score');
+                const speedIndicator = document.getElementById('speedIndicator');
+                const gameOverElement = document.getElementById('gameOver');
+                const finalScoreElement = document.getElementById('finalScore');
+                const restartBtn = document.getElementById('restartBtn');
+                
+                // عناصر شاشة البداية
+                const startScreen = document.getElementById('startScreen');
+                const startBtn = document.getElementById('startBtn');
+                
+                // عناصر القائمة
+                const hackCircle = document.getElementById('hackCircle');
+                const modMenuSide = document.getElementById('modMenuSide');
+                const closeSide = document.getElementById('closeSide');
+                const arrowLeft = document.getElementById('arrowLeft');
+                const arrowRight = document.getElementById('arrowRight');
+                const arrowMiddle = document.getElementById('arrowMiddle');
+                const currentPosition = document.getElementById('currentPosition');
+                const currentIconSide = document.getElementById('currentIconSide');
+                const currentNameSide = document.getElementById('currentNameSide');
+                const currentDescSide = document.getElementById('currentDescSide');
+                const hackStatus = document.getElementById('hackStatus');
+
+                // إعدادات اللعبة
+                const groundY = 680;
+                
+                let lastTimestamp = 0;
+                let gameSpeed = 5;
+                const BASE_SPEED = 5;
+                const MAX_SPEED = 12;
+                const SPEED_FACTOR = 60;
+
+                // حالة اللعبة
+                let gameStarted = false;
+                let gameRunning = false;
+
+                // هاكات اللعبة - 25 ميزة
+                let hacks = {
+                    godMode: false,
+                    infinityJump: false,
+                    slowMotion: false,
+                    invisibility: false,
+                    xRay: false,
+                    speedNormal: false,
+                    speedFast: false,
+                    speedInsane: false,
+                    speedReverse: false,
+                    speedRandom: false,
+                    scoreDouble: false,
+                    scoreTriple: false,
+                    scoreAutoAdd: false,
+                    scoreMultiplier: false,
+                    scoreFreeze: false,
+                    noObstacles: false,
+                    obstaclesSlow: false,
+                    obstaclesSmall: false,
+                    obstaclesInvisible: false,
+                    obstaclesCollect: false,
+                    dinoBig: false,
+                    dinoSmall: false,
+                    dinoFly: false,
+                    dinoGhost: false,
+                    dinoRainbow: false
+                };
+
+                // قائمة الميزات
+                const hackItems = [
+                    { id: 'godMode', name: 'وضع الخلود', icon: '🛡️', desc: 'God Mode - لا تموت أبداً' },
+                    { id: 'infinityJump', name: 'قفز لا نهائي', icon: '🦘', desc: 'Infinity Jump - اقفز في الهواء' },
+                    { id: 'slowMotion', name: 'تصوير بطيء', icon: '⏱️', desc: 'Slow Motion - الوقت يبطئ' },
+                    { id: 'invisibility', name: 'اختفاء', icon: '👻', desc: 'Invisibility - الديناصور يختفي' },
+                    { id: 'xRay', name: 'الأشعة السينية', icon: '🔍', desc: 'X-Ray - شوف العوائق من بعيد' },
+                    { id: 'speedNormal', name: 'سرعة عادية', icon: '🐢', desc: 'Speed Normal - 5' },
+                    { id: 'speedFast', name: 'سرعة سريعة', icon: '🚀', desc: 'Speed Fast - 8' },
+                    { id: 'speedInsane', name: 'سرعة جنونية', icon: '⚡', desc: 'Speed Insane - 15' },
+                    { id: 'speedReverse', name: 'سرعة عكسية', icon: '🔄', desc: 'Reverse Speed - العوائق ترجع' },
+                    { id: 'speedRandom', name: 'سرعة عشوائية', icon: '🎲', desc: 'Random Speed - تتغير كل ثانية' },
+                    { id: 'scoreDouble', name: 'ضعف النقاط', icon: '2️⃣', desc: 'Double Score - كل نقطة ب 20' },
+                    { id: 'scoreTriple', name: 'ثلاث أضعاف', icon: '3️⃣', desc: 'Triple Score - كل نقطة ب 30' },
+                    { id: 'scoreAutoAdd', name: 'نقاط تلقائية', icon: '💰', desc: 'Auto Score - نقاط بتزيد لوحدها' },
+                    { id: 'scoreMultiplier', name: 'مضاعف النقاط', icon: '✖️', desc: 'Multiplier x5' },
+                    { id: 'scoreFreeze', name: 'تجميد النقاط', icon: '❄️', desc: 'Freeze Score - النقاط تثبت' },
+                    { id: 'noObstacles', name: 'لا عوائق', icon: '🚫', desc: 'No Obstacles - مفيش عوائق' },
+                    { id: 'obstaclesSlow', name: 'عوائق بطيئة', icon: '🐌', desc: 'Slow Obstacles' },
+                    { id: 'obstaclesSmall', name: 'عوائق صغيرة', icon: '🔹', desc: 'Small Obstacles' },
+                    { id: 'obstaclesInvisible', name: 'عوائق خفية', icon: '👁️', desc: 'Invisible Obstacles' },
+                    { id: 'obstaclesCollect', name: 'جمع العوائق', icon: '💎', desc: 'Collect - العوائق تعطي نقاط' },
+                    { id: 'dinoBig', name: 'ديناصور كبير', icon: '🐘', desc: 'Big Dino - حجم كبير' },
+                    { id: 'dinoSmall', name: 'ديناصور صغير', icon: '🐜', desc: 'Small Dino - حجم صغير' },
+                    { id: 'dinoFly', name: 'طيران', icon: '🦅', desc: 'Fly Mode - يقدر يطير' },
+                    { id: 'dinoGhost', name: 'شبح', icon: '👻', desc: 'Ghost - يمر من العوائق' },
+                    { id: 'dinoRainbow', name: 'قوس قزح', icon: '🌈', desc: 'Rainbow - ألوان متغيرة' }
+                ];
+
+                let currentIndex = 0; // المؤشر الحالي في القائمة
+
+                // تحديث عرض الهاك الحالي
+                function updateCurrentHack() {
+                    const hack = hackItems[currentIndex];
+                    currentIconSide.textContent = hack.icon;
+                    currentNameSide.textContent = hack.name;
+                    currentDescSide.textContent = hack.desc;
+                    currentPosition.textContent = `${currentIndex + 1}/${hackItems.length}`;
+                    
+                    // تحديث الحالة
+                    if (hacks[hack.id]) {
+                        hackStatus.textContent = '✅ مفعل';
+                        hackStatus.className = 'hack-status status-active';
+                    } else {
+                        hackStatus.textContent = '⭕ غير مفعل';
+                        hackStatus.className = 'hack-status status-inactive';
+                    }
+                }
+
+                // التنقل بين الهاكات
+                function navigateLeft() {
+                    currentIndex = (currentIndex - 1 + hackItems.length) % hackItems.length;
+                    updateCurrentHack();
+                    if (navigator.vibrate) navigator.vibrate(20);
+                }
+
+                function navigateRight() {
+                    currentIndex = (currentIndex + 1) % hackItems.length;
+                    updateCurrentHack();
+                    if (navigator.vibrate) navigator.vibrate(20);
+                }
+
+                // تفعيل/إلغاء الهاك الحالي
+                function toggleCurrentHack() {
+                    const hackId = hackItems[currentIndex].id;
+                    
+                    if (hackId.startsWith('speed')) {
+                        // إلغاء كل سرعات السرعة
+                        Object.keys(hacks).forEach(key => {
+                            if (key.startsWith('speed')) hacks[key] = false;
+                        });
+                        hacks[hackId] = true;
+                        
+                        // تطبيق السرعة
+                        if (hackId === 'speedNormal') gameSpeed = 5;
+                        else if (hackId === 'speedFast') gameSpeed = 8;
+                        else if (hackId === 'speedInsane') gameSpeed = 15;
+                    } else {
+                        hacks[hackId] = !hacks[hackId];
+                    }
+                    
+                    updateCurrentHack();
+                    speedIndicator.textContent = `⚡ ${gameSpeed.toFixed(1)}`;
+                    
+                    // اهتزاز
+                    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+                }
+
+                // أحداث أزرار الأسهم
+                arrowLeft.addEventListener('click', navigateLeft);
+                arrowLeft.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    navigateLeft();
+                });
+
+                arrowRight.addEventListener('click', navigateRight);
+                arrowRight.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    navigateRight();
+                });
+
+                arrowMiddle.addEventListener('click', toggleCurrentHack);
+                arrowMiddle.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    toggleCurrentHack();
+                });
+
+                // بدء اللعبة
+                startBtn.addEventListener('click', startGame);
+                startBtn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    startGame();
+                });
+
+                function startGame() {
+                    gameStarted = true;
+                    gameRunning = true;
+                    startScreen.style.display = 'none';
+                    resetGame();
+                    if (navigator.vibrate) navigator.vibrate(100);
+                }
+
+                // فتح/غلق القائمة (فقط بعد بدء اللعبة)
+                hackCircle.addEventListener('click', () => {
+                    if (!gameStarted) return;
+                    modMenuSide.classList.add('show');
+                    updateCurrentHack();
+                });
+                
+                hackCircle.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    if (!gameStarted) return;
+                    modMenuSide.classList.add('show');
+                    updateCurrentHack();
+                });
+
+                closeSide.addEventListener('click', () => {
+                    modMenuSide.classList.remove('show');
+                });
+                
+                closeSide.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    modMenuSide.classList.remove('show');
+                });
+
+                // إعادة التشغيل
+                restartBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (!gameStarted) return;
+                    resetGame();
+                    gameRunning = true;
+                    gameOverElement.style.display = 'none';
+                });
+
+                restartBtn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    if (!gameStarted) return;
+                    resetGame();
+                    gameRunning = true;
+                    gameOverElement.style.display = 'none';
+                });
+
+                // القفز
+                canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    if (!gameStarted || !gameRunning) return;
+                    
+                    if (hacks.infinityJump) {
+                        dino.vy = dino.jumpPower;
+                        dino.grounded = false;
+                    } else if (dino.grounded) {
+                        dino.vy = dino.jumpPower;
+                        dino.grounded = false;
+                    }
+                });
+
+                canvas.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    if (!gameStarted || !gameRunning) return;
+                    
+                    if (hacks.infinityJump) {
+                        dino.vy = dino.jumpPower;
+                        dino.grounded = false;
+                    } else if (dino.grounded) {
+                        dino.vy = dino.jumpPower;
+                        dino.grounded = false;
+                    }
+                });
+
+                canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+                // الديناصور
+                const dino = {
+                    x: 100,
+                    y: groundY - 80,
+                    width: 45,
+                    height: 80,
+                    vy: 0,
+                    gravity: 0.6,
+                    jumpPower: -14,
+                    grounded: true
+                };
+
+                let obstacles = [];
+                let score = 0;
+
+                function createObstacle() {
+                    if (!gameRunning || hacks.noObstacles) return;
+                    
+                    const types = [
+                        { w: 25, h: 45 },
+                        { w: 30, h: 55 },
+                        { w: 35, h: 65 },
+                        { w: 45, h: 35 }
+                    ];
+                    const type = Math.floor(Math.random() * types.length);
+                    
+                    let height = types[type].h;
+                    if (hacks.obstaclesSmall) height = height / 2;
+                    
+                    obstacles.push({
+                        x: canvas.width,
+                        y: groundY - height,
+                        width: types[type].w,
+                        height: height,
+                        type: type
+                    });
+                }
+
+                function updateScore() {
+                    scoreElement.textContent = score;
+                }
+
+                function gameLoop(timestamp) {
+                    if (!gameStarted) {
+                        requestAnimationFrame(gameLoop);
+                        return;
+                    }
+
+                    if (!gameRunning) {
+                        draw();
+                        requestAnimationFrame(gameLoop);
+                        return;
+                    }
+
+                    if (!lastTimestamp) {
+                        lastTimestamp = timestamp;
+                        requestAnimationFrame(gameLoop);
+                        return;
+                    }
+
+                    let deltaTime = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
+                    
+                    // تطبيق الهاكات
+                    let speedMultiplier = 1;
+                    if (hacks.slowMotion) speedMultiplier = 0.3;
+                    if (hacks.speedReverse) speedMultiplier = -0.5;
+                    if (hacks.speedRandom) {
+                        gameSpeed = 3 + Math.random() * 10;
+                        speedIndicator.textContent = `⚡ ${gameSpeed.toFixed(1)}`;
+                    }
+                    
+                    // فيزياء الديناصور
+                    if (!hacks.dinoFly) {
+                        dino.vy += dino.gravity * deltaTime * SPEED_FACTOR * speedMultiplier;
+                        dino.y += dino.vy * deltaTime * SPEED_FACTOR * speedMultiplier;
+                    } else {
+                        dino.y -= 2 * speedMultiplier;
+                    }
+
+                    // حجم الديناصور
+                    if (hacks.dinoBig) {
+                        dino.width = 70;
+                        dino.height = 120;
+                    } else if (hacks.dinoSmall) {
+                        dino.width = 25;
+                        dino.height = 40;
+                    } else {
+                        dino.width = 45;
+                        dino.height = 80;
+                    }
+
+                    if (dino.y >= groundY - dino.height && !hacks.dinoFly) {
+                        dino.y = groundY - dino.height;
+                        dino.vy = 0;
+                        dino.grounded = true;
+                    }
+
+                    // تحديث العوائق
+                    for (let i = obstacles.length - 1; i >= 0; i--) {
+                        let obsSpeed = gameSpeed;
+                        if (hacks.obstaclesSlow) obsSpeed = gameSpeed * 0.5;
+                        
+                        obstacles[i].x -= obsSpeed * deltaTime * SPEED_FACTOR * speedMultiplier;
+
+                        if (obstacles[i].x + obstacles[i].width < 0) {
+                            obstacles.splice(i, 1);
+                            
+                            let pointValue = 10;
+                            if (hacks.scoreDouble) pointValue = 20;
+                            if (hacks.scoreTriple) pointValue = 30;
+                            if (hacks.obstaclesCollect) pointValue = 50;
+                            
+                            score += pointValue;
+                            updateScore();
+                            
+                            if (score % 100 === 0 && score > 0 && !hacks.godMode && !hacks.scoreFreeze) {
+                                gameSpeed = Math.min(gameSpeed + 0.5, MAX_SPEED);
+                                speedIndicator.textContent = `⚡ ${gameSpeed.toFixed(1)}`;
+                            }
+                        }
+                    }
+
+                    // إنشاء عوائق جديدة
+                    if (Math.random() < 0.015 * deltaTime * SPEED_FACTOR && obstacles.length < 3) {
+                        createObstacle();
+                    }
+
+                    // نقاط تلقائية
+                    if (hacks.scoreAutoAdd) {
+                        score += 1;
+                        updateScore();
+                    }
+
+                    // التحقق من التصادم
+                    if (!hacks.godMode && !hacks.dinoGhost) {
+                        for (let obs of obstacles) {
+                            let collision = dino.x + 8 < obs.x + obs.width - 8 &&
+                                          dino.x + dino.width - 8 > obs.x + 8 &&
+                                          dino.y + 8 < obs.y + obs.height - 8 &&
+                                          dino.y + dino.height - 8 > obs.y + 8;
+                            
+                            if (collision) {
+                                if (hacks.obstaclesCollect) {
+                                    obstacles = obstacles.filter(o => o !== obs);
+                                    score += 100;
+                                    updateScore();
+                                } else {
+                                    gameRunning = false;
+                                    finalScoreElement.textContent = score;
+                                    gameOverElement.style.display = 'block';
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    lastTimestamp = timestamp;
+                    draw();
+                    requestAnimationFrame(gameLoop);
+                }
+
+                function resetGame() {
+                    dino.y = groundY - dino.height;
+                    dino.vy = 0;
+                    dino.grounded = true;
+                    obstacles = [];
+                    score = 0;
+                    gameSpeed = BASE_SPEED;
+                    updateScore();
+                    speedIndicator.textContent = `⚡ ${gameSpeed.toFixed(1)}`;
+                }
+
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // السماء
+                    const gradient = ctx.createLinearGradient(0, 0, 0, groundY);
+                    gradient.addColorStop(0, '#87CEEB');
+                    gradient.addColorStop(1, '#E0F6FF');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, groundY);
+
+                    // غيمة
+                    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                    ctx.beginPath();
+                    ctx.arc(200 + (Date.now()*0.02 % 800), 120, 30, 0, Math.PI*2);
+                    ctx.arc(240 + (Date.now()*0.02 % 800), 100, 35, 0, Math.PI*2);
+                    ctx.arc(280 + (Date.now()*0.02 % 800), 120, 30, 0, Math.PI*2);
+                    ctx.fill();
+                    
+                    // الأرض
+                    ctx.fillStyle = '#8B7355';
+                    ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+                    
+                    // تفاصيل الأرض
+                    ctx.fillStyle = '#A0522D';
+                    for (let i = 0; i < 15; i++) {
+                        let x = (i * 60 + Date.now() * gameSpeed * 0.01) % (canvas.width + 60) - 60;
+                        ctx.fillRect(x, groundY + 10, 40, 5);
+                    }
+
+                    // خط الأرض
+                    ctx.strokeStyle = '#4A3728';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(0, groundY);
+                    ctx.lineTo(canvas.width, groundY);
+                    ctx.stroke();
+
+                    // العوائق
+                    if (!hacks.obstaclesInvisible || hacks.xRay) {
+                        for (let obs of obstacles) {
+                            if (obs.type === 3) {
+                                ctx.fillStyle = '#7F8C8D';
+                                ctx.beginPath();
+                                ctx.ellipse(obs.x + obs.width/2, obs.y + obs.height/2, obs.width/2, obs.height/2, 0, 0, Math.PI*2);
+                                ctx.fill();
+                            } else {
+                                ctx.fillStyle = '#27AE60';
+                                ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+                            }
+                        }
+                    }
+
+                    // الديناصور
+                    if (!hacks.invisibility) {
+                        if (hacks.dinoRainbow) {
+                            let hue = (Date.now() * 0.1) % 360;
+                            ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                        } else {
+                            ctx.fillStyle = hacks.godMode ? '#E74C3C' : '#2C3E50';
+                        }
+                        
+                        ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+                        
+                        // العين
+                        ctx.fillStyle = 'white';
+                        ctx.beginPath();
+                        ctx.arc(dino.x + 30, dino.y + 20, 6, 0, Math.PI*2);
+                        ctx.fill();
+                        ctx.fillStyle = 'black';
+                        ctx.beginPath();
+                        ctx.arc(dino.x + 33, dino.y + 18, 3, 0, Math.PI*2);
+                        ctx.fill();
+                    }
+
+                    // تأثير الأشعة السينية
+                    if (hacks.xRay) {
+                        ctx.globalAlpha = 0.2;
+                        ctx.fillStyle = '#00ff00';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.globalAlpha = 1;
+                    }
+                }
+
+                // منع التمرير
+                document.body.addEventListener('touchmove', (e) => {
+                    if (e.target === canvas) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                // بدء اللوب
+                requestAnimationFrame(gameLoop);
+                updateCurrentHack();
+            })();
+        </script>
+    </body>
+</html>
