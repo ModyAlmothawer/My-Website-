@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شاشتك فـ جيبك - Shashtak</title>
+    <!-- HLS.js لتشغيل روابط البث المباشر m3u8 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #e11d48;
+            --text-color: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #020617;
+            padding: 1rem 2rem;
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Player Section */
+        .player-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        video, iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .channel-details {
+            background-color: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .channel-details img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #334155;
+        }
+
+        /* Sidebar & Grid */
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .btn-add {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .channels-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .channel-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background-color: #334155;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .channel-card:hover, .channel-card.active {
+            background-color: var(--accent-color);
+        }
+
+        .channel-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: #1e293b;
+        }
+
+        /* Modal Form */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-content input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">📺 موقع شاشتك فـ جيبك</div>
+    </header>
+
+    <div class="container">
+        <!-- قسم المشغل -->
+        <div class="player-section">
+            <div class="video-wrapper" id="videoContainer">
+                <video id="videoPlayer" controls autoplay></video>
+            </div>
+            <div class="channel-details">
+                <img id="currentLogo" src="https://via.placeholder.com/50?text=TV" alt="Logo">
+                <div>
+                    <h2 id="currentName">اختر قناة للبدء</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;" id="currentStatus">بث مباشر متواصل</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- الشريط الجانبي والقنوات -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>قائمة القنوات</h3>
+                <button class="btn-add" onclick="openModal()">+ إضافة قناة</button>
+            </div>
+            <div class="channels-grid" id="channelsContainer">
+                <!-- القنوات ستظهر هنا -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة قناة جديدة -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h3>إضافة قناة جديدة</h3>
+            <input type="text" id="inputName" placeholder="اسم القناة (مثلاً: روتانا سينما)">
+            <input type="url" id="inputLogo" placeholder="رابط صورة اللوجو (URL)">
+            <input type="url" id="inputUrl" placeholder="رابط البث (m3u8 أو رابط مدمج)">
+            <div class="modal-actions">
+                <button class="btn-add" style="background:#475569" onclick="closeModal()">إلغاء</button>
+                <button class="btn-add" onclick="saveChannel()">حفظ القناة</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // القنوات الافتراضية الأولية
+        const defaultChannels = [
+            {
+                name: "Rotana Cinema",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Rotana_Cinema_logo.svg/512px-Rotana_Cinema_logo.svg.png",
+                url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" // رابط تجريبي
+            }
+        ];
+
+        let channels = JSON.parse(localStorage.getItem('my_channels')) || defaultChannels;
+        let hls = new Hls();
+
+        function renderChannels() {
+            const container = document.getElementById('channelsContainer');
+            container.innerHTML = '';
+            channels.forEach((channel, index) => {
+                const card = document.createElement('div');
+                card.className = 'channel-card';
+                card.onclick = () => playChannel(index);
+                card.innerHTML = `
+                    <img src="${channel.logo}" onerror="this.src='https://via.placeholder.com/40?text=TV'">
+                    <span>${channel.name}</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function playChannel(index) {
+            const channel = channels[index];
+            const video = document.getElementById('videoPlayer');
+            const container = document.getElementById('videoContainer');
+            
+            document.getElementById('currentName').innerText = channel.name;
+            document.getElementById('currentLogo').src = channel.logo;
+
+            // التمييز بين روابط HLS المباشرة وأكواد Iframe
+            if (channel.url.includes('.m3u8')) {
+                container.innerHTML = `<video id="videoPlayer" controls autoplay></video>`;
+                const newVideo = document.getElementById('videoPlayer');
+                if (Hls.isSupported()) {
+                    hls.destroy();
+                    hls = new Hls();
+                    hls.loadSource(channel.url);
+                    hls.attachMedia(newVideo);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => newVideo.play());
+                } else if (newVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    newVideo.src = channel.url;
+                    newVideo.play();
+                }
+            } else {
+                container.innerHTML = `<iframe src="${channel.url}" allowfullscreen allow="autoplay"></iframe>`;
+            }
+        }
+
+        function openModal() { document.getElementById('addModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('addModal').style.display = 'none'; }
+
+        function saveChannel() {
+            const name = document.getElementById('inputName').value.trim();
+            const logo = document.getElementById('inputLogo').value.trim();
+            const url = document.getElementById('inputUrl').value.trim();
+
+            if (!name || !url) {
+                alert('يرجى كتابة اسم القناة ورابط البث على الأقل');
+                return;
+            }
+
+            channels.push({ name, logo: logo || 'https://via.placeholder.com/40?text=TV', url });
+            localStorage.setItem('my_channels', JSON.stringify(channels));
+            renderChannels();
+            closeModal();
+            
+            // تفريغ الحقول
+            document.getElementById('inputName').value = '';
+            document.getElementById('inputLogo').value = '';
+            document.getElementById('inputUrl').value = '';
+        }
+
+        // تشغيل أول قناة عند الفتح
+        renderChannels();
+        if(channels.length > 0) playChannel(0);
+    </script>
+</body>
+</html>
