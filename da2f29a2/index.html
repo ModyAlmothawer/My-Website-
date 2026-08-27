@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="description" content="Boyka Academy - أكاديمية الكابتن سالم دياب للتمارين واللياقة">
+<title>Boyka Academy | الكابتن سالم دياب</title>
+<style>
+:root{
+  --bg:#080808;--card:#121212;--card2:#181818;--orange:#ff7a00;--orange2:#ff9d3d;
+  --text:#f7f7f7;--muted:#a8a8a8;--line:#272727;--green:#25d366;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at 50% -10%,#2a1608 0,#080808 34%);
+  color:var(--text);line-height:1.7;overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.container{width:min(1120px,92%);margin:auto}
+header{
+  position:sticky;top:0;z-index:100;background:rgba(8,8,8,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,122,0,.14)
+}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.brand img{width:46px;height:46px;object-fit:contain;border-radius:12px}
+.brand span{color:var(--orange)}
+nav{display:flex;gap:8px;align-items:center}
+nav a{padding:9px 12px;color:#ddd;font-size:14px;border-radius:10px}
+nav a:hover{background:#171717;color:var(--orange)}
+.menu{display:none;background:#171717;color:#fff;border:1px solid #2b2b2b;padding:9px 12px;border-radius:10px}
+
+.hero{padding:72px 0 50px;min-height:650px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:35px}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid #3a2414;background:#17110b;border-radius:999px;color:#ffb36a;font-size:13px}
+.hero h1{font-size:clamp(42px,7vw,78px);line-height:1.03;margin:17px 0}
+.hero h1 span{color:var(--orange)}
+.hero p{color:#c6c6c6;max-width:650px;font-size:18px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{border:0;border-radius:13px;padding:13px 20px;cursor:pointer;font-weight:800;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--orange);color:#111}
+.secondary{background:#171717;border:1px solid #303030!important;color:#fff}
+.whatsapp{background:var(--green);color:#061008}
+.hero-card{position:relative;display:flex;justify-content:center}
+.logo-wrap{width:min(410px,85vw);aspect-ratio:1;border-radius:35px;background:linear-gradient(145deg,#171717,#0b0b0b);border:1px solid #332416;display:grid;place-items:center;box-shadow:0 30px 90px rgba(255,122,0,.12)}
+.logo-wrap img{width:72%;height:72%;object-fit:contain;filter:drop-shadow(0 18px 30px rgba(0,0,0,.7))}
+.float{position:absolute;background:#161616;border:1px solid #333;border-radius:15px;padding:12px 15px;box-shadow:0 10px 35px #000}
+.f1{top:9%;right:-2%}.f2{bottom:10%;left:-3%}
+section{padding:72px 0}
+.section-head{text-align:center;margin-bottom:30px}
+.kicker{color:var(--orange);font-weight:900;font-size:13px;letter-spacing:1px}
+.section-head h2{font-size:clamp(28px,4vw,42px);margin:5px 0}
+.section-head p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:linear-gradient(160deg,#151515,#0e0e0e);border:1px solid var(--line);border-radius:20px;padding:22px}
+.price{font-size:42px;font-weight:900;margin:10px 0;color:var(--orange)}
+.card small,.muted{color:var(--muted)}
+.feature{display:flex;gap:12px;align-items:flex-start;margin:13px 0;color:#ddd}
+.icon{width:38px;height:38px;border-radius:11px;background:#21170f;color:var(--orange);display:grid;place-items:center;flex:0 0 auto}
+.plan-card{position:relative;overflow:hidden}
+.plan-card.popular{border-color:#874400;box-shadow:0 0 0 1px #3c210e inset}
+.popular-tag{position:absolute;left:15px;top:15px;background:var(--orange);color:#111;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:900}
+.exercise-grid{grid-template-columns:repeat(4,1fr)}
+.exercise{padding:0;overflow:hidden}
+.exercise-art{height:145px;background:#0a0a0a;display:grid;place-items:center;position:relative;overflow:hidden}
+.exercise-art .figure{font-size:62px;filter:drop-shadow(0 10px 10px #000);animation:bounce 2s ease-in-out infinite}
+.exercise-art:after{content:"";position:absolute;width:130px;height:12px;background:#242424;bottom:25px;border-radius:50%}
+@keyframes bounce{50%{transform:translateY(-7px)}}
+.exercise-body{padding:17px}
+.exercise-body h3{margin-bottom:4px}
+.exercise-body p{font-size:13px;color:var(--muted)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:11px;border:1px solid #303030;color:#ccc;padding:3px 8px;border-radius:999px}
+.tips{grid-template-columns:repeat(3,1fr)}
+.tip{min-height:160px}
+.tip strong{display:block;margin:8px 0;color:#fff}
+.video-grid{grid-template-columns:repeat(2,1fr)}
+.video{padding:0;overflow:hidden}
+.video iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+.video .video-body{padding:15px}
+.calculator{max-width:760px;margin:auto}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+label{font-size:13px;color:#bbb;display:block;margin-bottom:5px}
+input,select{width:100%;background:#0b0b0b;color:#fff;border:1px solid #303030;border-radius:12px;padding:12px;outline:none}
+input:focus,select:focus{border-color:var(--orange)}
+.result{margin-top:16px;background:#0b0b0b;border:1px solid #303030;border-radius:15px;padding:18px;display:none}
+.cta{background:linear-gradient(135deg,#221205,#100d09);border:1px solid #5b3011;border-radius:26px;padding:35px;text-align:center}
+footer{border-top:1px solid #222;padding:30px 0;color:#888;text-align:center}
+.fab{position:fixed;z-index:110;left:18px;bottom:18px;width:60px;height:60px;border-radius:50%;background:var(--green);color:#061008;display:grid;place-items:center;font-size:27px;box-shadow:0 12px 35px #000;border:2px solid #0a0a0a}
+.toast{position:fixed;z-index:200;right:50%;transform:translateX(50%) translateY(20px);bottom:25px;background:#1d1d1d;border:1px solid #333;padding:12px 17px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translateX(50%) translateY(0)}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;text-align:center;padding-top:45px}.hero p{margin:auto}.actions{justify-content:center}
+  .grid,.tips{grid-template-columns:repeat(2,1fr)}.exercise-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-card{order:-1}.logo-wrap{width:290px}.f1{right:7%}.f2{left:7%}
+  nav{display:none}.menu{display:block}
+  nav.open{display:flex;position:absolute;top:72px;right:4%;left:4%;padding:10px;background:#101010;border:1px solid #292929;border-radius:14px;flex-direction:column}
+  nav.open a{width:100%;text-align:center}
+}
+@media(max-width:580px){
+  section{padding:52px 0}.grid,.tips,.video-grid,.exercise-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}
+  .hero{min-height:auto}.hero h1{font-size:48px}.brand span{display:none}.card{padding:19px}
+  .float{font-size:12px}.f1{top:2%;right:1%}.f2{bottom:2%;left:1%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">
+      <img src="https://files.catbox.moe/szmwd7.png" alt="Boyka Academy">
+      <div>BOYKA <span>ACADEMY</span></div>
+    </a>
+    <button class="menu" onclick="toggleMenu()">☰</button>
+    <nav id="nav">
+      <a href="#plans">الاشتراكات</a>
+      <a href="#workouts">التمارين</a>
+      <a href="#videos">الفيديوهات</a>
+      <a href="#tips">النصائح</a>
+      <a href="#calculator">الحاسبة</a>
+      <a href="#contact">تواصل</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+<section class="hero container">
+  <div>
+    <div class="badge">🥊 مع الكابتن سالم دياب • تدريب والتزام</div>
+    <h1>ابني جسمك.<br><span>اصنع قوتك.</span></h1>
+    <p>منصة Boyka Academy لمساعدة طلاب الجيم على تنظيم التمرين، فهم الأداء الصحيح، واختيار الخطة المناسبة لهدفهم.</p>
+    <div class="actions">
+      <a class="btn primary" href="#plans">ابدأ خطتك الآن</a>
+      <a class="btn whatsapp" href="https://wa.me/201152664865?text=السلام%20عليكم%20كابتن%20سالم%20👋%0Aأريد%20الاستفسار%20عن%20Boyka%20Academy." target="_blank">💬 تواصل مع الكابتن</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="logo-wrap"><img src="https://files.catbox.moe/szmwd7.png" alt="Boyka Academy Logo"></div>
+    <div class="float f1">🔥 التزم • تطور • استمر</div>
+    <div class="float f2">🏆 هدفك يبدأ من أول تمرينة</div>
+  </div>
+</section>
+
+<section id="plans">
+<div class="container">
+  <div class="section-head"><div class="kicker">MEMBERSHIPS</div><h2>اختار اشتراكك</h2><p>بسيطة وواضحة — واكمل التفاصيل مع الكابتن على واتساب.</p></div>
+  <div class="grid">
+    <article class="card plan-card">
+      <div class="icon">☀️</div><h3>الاشتراك اليومي</h3><div class="price">20 <small>جنيه</small></div>
+      <p class="muted">مناسب للتجربة أو دخول يوم واحد.</p>
+      <div class="feature"><span>✓</span> دخول يومي</div>
+      <div class="feature"><span>✓</span> متابعة تفاصيل الاشتراك مع الكابتن</div>
+      <button class="btn primary" style="width:100%" onclick="contactPlan('اليومي','20 جنيه')">اشترك الآن</button>
+    </article>
+    <article class="card plan-card popular">
+      <div class="popular-tag">الأكثر اختياراً</div>
+      <div class="icon">🔥</div><h3>الاشتراك الشهري</h3><div class="price">200 <small>جنيه</small></div>
+      <p class="muted">للي عايز يستمر ويبني روتين تمرين.</p>
+      <div class="feature"><span>✓</span> اشتراك شهر كامل</div>
+      <div class="feature"><span>✓</span> اختيار الهدف والخطة</div>
+      <button class="btn primary" style="width:100%" onclick="contactPlan('الشهري','200 جنيه')">اشترك الآن</button>
+    </article>
+    <article class="card">
+      <div class="icon">🥊</div><h3>خطة خاصة</h3><div class="price">💬 <small>تواصل</small></div>
+      <p class="muted">لو محتاج تفاصيل أو خطة مختلفة، كلم الكابتن مباشرة.</p>
+      <div class="feature"><span>✓</span> تحديد الهدف</div>
+      <div class="feature"><span>✓</span> الاستفسار عن التدريب</div>
+      <a class="btn whatsapp" style="display:block;text-align:center" target="_blank" href="https://wa.me/201152664865?text=السلام%20عليكم%20كابتن%20سالم%20👋%0Aأريد%20الاستفسار%20عن%20خطة%20خاصة%20في%20Boyka%20Academy.">تواصل مع الكابتن</a>
+    </article>
+  </div>
+</div>
+</section>
+
+<section id="workouts">
+<div class="container">
+  <div class="section-head"><div class="kicker">WORKOUT LIBRARY</div><h2>مكتبة التمارين</h2><p>اختار العضلة وشوف التمرينات الأساسية والنصائح السريعة.</p></div>
+  <div class="grid exercise-grid">
+    <article class="card exercise"><div class="exercise-art"><div class="figure">🦵</div></div><div class="exercise-body"><h3>LEG DAY</h3><p>Squat • Leg Press • Extension • Curl • Calf</p><div class="chips"><span class="chip">رجل</span><span class="chip">قوة</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">🏋️</div></div><div class="exercise-body"><h3>CHEST</h3><p>Bench Press • Incline • Fly • Push-ups</p><div class="chips"><span class="chip">صدر</span><span class="chip">بنش</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">🪽</div></div><div class="exercise-body"><h3>BACK</h3><p>Lat Pulldown • Row • Pull-up • Deadlift</p><div class="chips"><span class="chip">ظهر</span><span class="chip">سحب</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">💪</div></div><div class="exercise-body"><h3>SHOULDERS</h3><p>Shoulder Press • Lateral Raise • Rear Delt</p><div class="chips"><span class="chip">كتف</span><span class="chip">تكنيك</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">💪</div></div><div class="exercise-body"><h3>BICEPS</h3><p>Curl • Hammer Curl • Incline Curl</p><div class="chips"><span class="chip">باي</span><span class="chip">ذراع</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">🔥</div></div><div class="exercise-body"><h3>TRICEPS</h3><p>Pushdown • Extension • Dips</p><div class="chips"><span class="chip">تراي</span><span class="chip">ذراع</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">🧱</div></div><div class="exercise-body"><h3>ABS</h3><p>Crunch • Leg Raise • Plank</p><div class="chips"><span class="chip">بطن</span><span class="chip">Core</span></div></div></article>
+    <article class="card exercise"><div class="exercise-art"><div class="figure">❤️</div></div><div class="exercise-body"><h3>CARDIO</h3><p>Walking • Running • Cycling • Intervals</p><div class="chips"><span class="chip">لياقة</span><span class="chip">تحمل</span></div></div></article>
+  </div>
+</div>
+</section>
+
+<section id="videos">
+<div class="container">
+  <div class="section-head"><div class="kicker">VIDEO ACADEMY</div><h2>فيديوهات تعليمية</h2><p>فيديوهات YouTube مدمجة داخل الموقع لتوضيح الحركة والأداء.</p></div>
+  <div class="grid video-grid">
+    <article class="card video"><iframe src="https://www.youtube.com/embed/aclHkVaku9U" title="Squat tutorial" loading="lazy" allowfullscreen></iframe><div class="video-body"><h3>🏋️ أساسيات الـ Squat</h3><p class="muted">تعلم الوضعية والحركة الأساسية.</p></div></article>
+    <article class="card video"><iframe src="https://www.youtube.com/embed/rT7rgXQtDcI" title="Bench press tutorial" loading="lazy" allowfullscreen></iframe><div class="video-body"><h3>🏋️ Bench Press</h3><p class="muted">شرح أساسي للبنش والأداء الآمن.</p></div></article>
+    <article class="card video"><iframe src="https://www.youtube.com/embed/CAwf7n6Luuc" title="Lat pulldown" loading="lazy" allowfullscreen></iframe><div class="video-body"><h3>🪽 Lat Pulldown</h3><p class="muted">تركيز على الظهر والتحكم في الحركة.</p></div></article>
+    <article class="card video"><iframe src="https://www.youtube.com/embed/2yjwXTZQDDI" title="Dumbbell shoulder press" loading="lazy" allowfullscreen></iframe><div class="video-body"><h3>💪 Shoulder Press</h3><p class="muted">أساسيات تمرين الكتف بالدمبل.</p></div></article>
+  </div>
+</div>
+</section>
+
+<section id="tips">
+<div class="container">
+  <div class="section-head"><div class="kicker">BOYKA TIPS</div><h2>نصائح الكابتن</h2><p>التمرين مش أوزان بس — التكنيك والاستمرارية أهم.</p></div>
+  <div class="grid tips">
+    <article class="card tip">🎯<strong>ركز على الأداء</strong><p class="muted">الوزن المناسب مع حركة صحيحة أفضل من وزن كبير بتكنيك سيئ.</p></article>
+    <article class="card tip">🔥<strong>سخّن قبل التمرين</strong><p class="muted">ابدأ بإحماء مناسب وحركة تدريجية قبل المجموعات الثقيلة.</p></article>
+    <article class="card tip">😴<strong>النوم جزء من الخطة</strong><p class="muted">الراحة والنوم يساعدان جسمك على التعافي والاستمرار.</p></article>
+    <article class="card tip">🥗<strong>اهتم بأكلك</strong><p class="muted">اختياراتك الغذائية اليومية لها دور مهم مع هدفك التدريبي.</p></article>
+    <article class="card tip">📈<strong>تدرّج</strong><p class="muted">طوّر أداءك بالتدريج وسجل تقدمك بدل ما تستعجل النتائج.</p></article>
+    <article class="card tip">🧠<strong>اسأل لما تحتار</strong><p class="muted">لو مش فاهم حركة أو خطة، اسأل الكابتن قبل ما تنفذها غلط.</p></article>
+  </div>
+</div>
+</section>
+
+<section id="calculator">
+<div class="container">
+  <div class="section-head"><div class="kicker">QUICK CALCULATOR</div><h2>حاسبة BMI</h2><p>حساب إرشادي سريع وليس تشخيصاً طبياً.</p></div>
+  <div class="card calculator">
+    <div class="form-grid">
+      <div><label>الوزن (كجم)</label><input id="weight" type="number" min="1" placeholder="مثال: 80"></div>
+      <div><label>الطول (سم)</label><input id="height" type="number" min="50" placeholder="مثال: 175"></div>
+    </div>
+    <button class="btn primary" style="width:100%;margin-top:15px" onclick="calcBMI()">احسب الآن</button>
+    <div id="result" class="result"></div>
+  </div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+  <div class="cta">
+    <div class="kicker">CONTACT COACH SALEM</div>
+    <h2 style="font-size:34px;margin:7px 0">جاهز تبدأ؟ 🥊</h2>
+    <p class="muted">اضغط على واتساب، واكتب للكابتن هدفك والاشتراك اللي اخترته.</p>
+    <div class="actions" style="justify-content:center">
+      <a class="btn whatsapp" target="_blank" href="https://wa.me/201152664865?text=السلام%20عليكم%20كابتن%20سالم%20👋%0Aأريد%20الاشتراك%20في%20Boyka%20Academy.%0Aالهدف:%20%0Aالباقة:%20">💬 واتساب الكابتن</a>
+    </div>
+    <p style="margin-top:14px;color:#aaa;direction:ltr">01152664865</p>
+  </div>
+</div>
+</section>
+</main>
+
+<a class="fab" target="_blank" aria-label="WhatsApp" href="https://wa.me/201152664865?text=السلام%20عليكم%20كابتن%20سالم%20👋%0Aأريد%20الاستفسار%20عن%20Boyka%20Academy.">☏</a>
+<div id="toast" class="toast"></div>
+
+<footer>
+  <div class="container">© 2026 Boyka Academy — الكابتن سالم دياب • جميع الحقوق محفوظة</div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
+
+function contactPlan(plan,price){
+  const text=`السلام عليكم كابتن سالم 👋
+أريد الاشتراك في Boyka Academy.
+الباقة: ${plan}
+السعر: ${price}
+الهدف: 
+أريد معرفة خطوات الاشتراك.`;
+  window.open('https://wa.me/201152664865?text='+encodeURIComponent(text),'_blank');
+}
+function calcBMI(){
+  const w=parseFloat(document.getElementById('weight').value), h=parseFloat(document.getElementById('height').value);
+  const box=document.getElementById('result');
+  if(!w||!h||w<=0||h<=0){box.style.display='block';box.innerHTML='⚠️ اكتب الوزن والطول بشكل صحيح.';return}
+  const bmi=w/Math.pow(h/100,2);
+  let label=bmi<18.5?'أقل من المعدل المعتاد':bmi<25?'ضمن النطاق المعتاد':bmi<30?'أعلى من النطاق المعتاد':'مرتفع';
+  box.style.display='block';
+  box.innerHTML=`<strong>نتيجتك: ${bmi.toFixed(1)}</strong><br><span class="muted">${label}</span><br><small>هذا مؤشر عام ولا يحدد حالتك الصحية أو تركيب جسمك بدقة.</small>`;
+}
+</script>
+</body>
+</html>
