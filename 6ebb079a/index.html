@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شاشتك فـ جيبك - Shashtak</title>
+    <!-- مكتبة HLS.js لتشغيل روابط البث المباشر m3u8 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151c2c;
+            --accent-color: #f43f5e;
+            --accent-hover: #e11d48;
+            --text-color: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar Header */
+        header {
+            background-color: #070a12;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            background: #1e293b;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .social-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Container & Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Player Section */
+        .player-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        video, iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Welcome Card Screen */
+        .welcome-screen {
+            padding: 30px;
+            text-align: center;
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        .welcome-screen h2 {
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            font-size: 1.8rem;
+        }
+
+        .welcome-screen p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-item i {
+            color: var(--accent-color);
+        }
+
+        .channel-details {
+            background-color: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .channel-details img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: #334155;
+        }
+
+        /* Sidebar & Search */
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 82vh;
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-add {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-add:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 35px 10px 10px;
+            background-color: #0b0f19;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .channels-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            padding-left: 5px;
+        }
+
+        /* Channel Card Item */
+        .channel-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #1e293b;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .channel-card:hover {
+            background-color: #26334d;
+            border-color: var(--accent-color);
+        }
+
+        .channel-card.active {
+            background-color: var(--accent-color);
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .channel-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+            background-color: #0f172a;
+        }
+
+        .channel-name {
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .channel-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .action-btn {
+            background: rgba(0,0,0,0.3);
+            border: none;
+            color: #cbd5e1;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover.edit { background: #eab308; color: #000; }
+        .action-btn:hover.delete { background: #ef4444; color: #fff; }
+
+        /* Modal Form */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-content input {
+            padding: 11px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: #0b0f19;
+            color: white;
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #070a12;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Social Links -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-tv"></i> شاشتك فـ جيبك
+        </div>
+        <div class="social-links">
+            <a href="https://t.me/hamo_darkbot" target="_blank" class="social-btn">
+                <i class="fa-brands fa-telegram"></i> قناة التليجرام
+            </a>
+            <a href="https://t.me/modark16" target="_blank" class="social-btn">
+                <i class="fa-solid fa-code"></i> المطور دارك
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Player Section -->
+        <div class="player-section">
+            <div class="video-wrapper" id="videoContainer">
+                <!-- شاشة ترحيب افتراضية بدلاً من التشغيل التلقائي -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <h2>أهلاً بك في موقعك المفضّل! 🚀</h2>
+                    <p>قمنا بتطوير هذا الموقع خصيصاً ليوفر لك أفضل واجهة مشاهدة سريعة وسلسة بدون تعقيدات.</p>
+                    <div class="features-list">
+                        <div class="feature-item"><i class="fa-solid fa-bolt"></i> تشغيل سريع ودقة عالية</div>
+                        <div class="feature-item"><i class="fa-solid fa-sliders"></i> التحكم التام بالقنوات</div>
+                        <div class="feature-item"><i class="fa-solid fa-pen-to-square"></i> إضافة وتعديل اللينكات</div>
+                        <div class="feature-item"><i class="fa-solid fa-magnifying-glass"></i> بحث سريع ومباشر</div>
+                    </div>
+                    <p style="color: var(--accent-color); font-weight: bold;">👈 اختر أي قناة من القائمة الجانبية لبدء التشغيل!</p>
+                </div>
+            </div>
+
+            <div class="channel-details">
+                <img id="currentLogo" src="https://via.placeholder.com/50?text=TV" alt="Logo">
+                <div>
+                    <h3 id="currentName">لم يتم اختيار قناة</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;" id="currentStatus">اختر قناة لبدء المشاهدة</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>القنوات المتاحة</h3>
+                <button class="btn-add" onclick="openModal()"><i class="fa-solid fa-plus"></i> إضافة قناة</button>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" oninput="filterChannels()" placeholder="ابحث عن قناة...">
+            </div>
+
+            <!-- Channels List -->
+            <div class="channels-grid" id="channelsContainer">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form (Add / Edit) -->
+    <div class="modal" id="channelModal">
+        <div class="modal-content">
+            <h3 id="modalTitle">إضافة قناة جديدة</h3>
+            <input type="hidden" id="editIndex" value="-1">
+            <input type="text" id="inputName" placeholder="اسم القناة (مثال: beIN Sports 1)">
+            <input type="url" id="inputLogo" placeholder="رابط صورة اللوجو (URL)">
+            <input type="url" id="inputUrl" placeholder="رابط البث (m3u8 أو رابط مدمج Embed)">
+            
+            <div class="modal-actions">
+                <button class="btn-add" style="background:#475569" onclick="closeModal()">إلغاء</button>
+                <button class="btn-add" onclick="saveChannel()">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Rights -->
+    <footer>
+        جميع الحقوق محفوظة © شاشتك فـ جيبك | تم التطوير بواسطة <a href="https://t.me/modark16" target="_blank">دارك (@modark16)</a>
+    </footer>
+
+    <script>
+        // Default List
+        const defaultChannels = [
+            {
+                name: "قناة تجريبية (Rotana)",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Rotana_Cinema_logo.svg/512px-Rotana_Cinema_logo.svg.png",
+                url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            }
+        ];
+
+        let channels = JSON.parse(localStorage.getItem('my_channels')) || defaultChannels;
+        let hls = null;
+        let activeChannelIndex = -1;
+
+        // Render Channels
+        function renderChannels(filterText = '') {
+            const container = document.getElementById('channelsContainer');
+            container.innerHTML = '';
+
+            channels.forEach((channel, index) => {
+                if (filterText && !channel.name.toLowerCase().includes(filterText.toLowerCase())) {
+                    return;
+                }
+
+                const card = document.createElement('div');
+                card.className = `channel-card ${activeChannelIndex === index ? 'active' : ''}`;
+                
+                card.innerHTML = `
+                    <div class="channel-info" onclick="playChannel(${index})">
+                        <img src="${channel.logo}" onerror="this.src='https://via.placeholder.com/40?text=TV'">
+                        <span class="channel-name">${channel.name}</span>
+                    </div>
+                    <div class="channel-actions">
+                        <button class="action-btn edit" title="تعديل" onclick="openModal(${index}, event)"><i class="fa-solid fa-pen"></i></button>
+                        <button class="action-btn delete" title="حذف" onclick="deleteChannel(${index}, event)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Play Selected Channel
+        function playChannel(index) {
+            activeChannelIndex = index;
+            const channel = channels[index];
+            const container = document.getElementById('videoContainer');
+            
+            document.getElementById('currentName').innerText = channel.name;
+            document.getElementById('currentLogo').src = channel.logo;
+            document.getElementById('currentStatus').innerText = "بث مباشر متواصل";
+
+            if (hls) {
+                hls.destroy();
+            }
+
+            if (channel.url.includes('.m3u8')) {
+                container.innerHTML = `<video id="videoPlayer" controls autoplay></video>`;
+                const newVideo = document.getElementById('videoPlayer');
+                if (Hls.isSupported()) {
+                    hls = new Hls();
+                    hls.loadSource(channel.url);
+                    hls.attachMedia(newVideo);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => newVideo.play());
+                } else if (newVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    newVideo.src = channel.url;
+                    newVideo.play();
+                }
+            } else {
+                container.innerHTML = `<iframe src="${channel.url}" allowfullscreen allow="autoplay"></iframe>`;
+            }
+
+            renderChannels(document.getElementById('searchInput').value);
+        }
+
+        // Filter Function for Search
+        function filterChannels() {
+            const query = document.getElementById('searchInput').value;
+            renderChannels(query);
+        }
+
+        // Modal Logic (Add & Edit)
+        function openModal(index = -1, event = null) {
+            if (event) event.stopPropagation();
+            
+            document.getElementById('editIndex').value = index;
+            if (index > -1) {
+                document.getElementById('modalTitle').innerText = 'تعديل بيانات القناة';
+                document.getElementById('inputName').value = channels[index].name;
+                document.getElementById('inputLogo').value = channels[index].logo;
+                document.getElementById('inputUrl').value = channels[index].url;
+            } else {
+                document.getElementById('modalTitle').innerText = 'إضافة قناة جديدة';
+                document.getElementById('inputName').value = '';
+                document.getElementById('inputLogo').value = '';
+                document.getElementById('inputUrl').value = '';
+            }
+            document.getElementById('channelModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('channelModal').style.display = 'none';
+        }
+
+        function saveChannel() {
+            const name = document.getElementById('inputName').value.trim();
+            const logo = document.getElementById('inputLogo').value.trim();
+            const url = document.getElementById('inputUrl').value.trim();
+            const editIndex = parseInt(document.getElementById('editIndex').value);
+
+            if (!name || !url) {
+                alert('يرجى كتابة اسم القناة ورابط البث على الأقل!');
+                return;
+            }
+
+            const channelObj = {
+                name,
+                logo: logo || 'https://via.placeholder.com/40?text=TV',
+                url
+            };
+
+            if (editIndex > -1) {
+                channels[editIndex] = channelObj;
+                if(activeChannelIndex === editIndex) {
+                    playChannel(editIndex);
+                }
+            } else {
+                channels.push(channelObj);
+            }
+
+            localStorage.setItem('my_channels', JSON.stringify(channels));
+            renderChannels(document.getElementById('searchInput').value);
+            closeModal();
+        }
+
+        function deleteChannel(index, event) {
+            event.stopPropagation();
+            if (confirm(`هل أنت تأكد من حذف قناة "${channels[index].name}"؟`)) {
+                channels.splice(index, 1);
+                localStorage.setItem('my_channels', JSON.stringify(channels));
+                
+                if (activeChannelIndex === index) {
+                    document.getElementById('videoContainer').innerHTML = `
+                        <div class="welcome-screen">
+                            <h2>تم حذف القناة الحالية</h2>
+                            <p>اختر قناة أخرى من القائمة الجانبية للمتابعة.</p>
+                        </div>
+                    `;
+                    document.getElementById('currentName').innerText = "لم يتم اختيار قناة";
+                    document.getElementById('currentLogo').src = "https://via.placeholder.com/50?text=TV";
+                    activeChannelIndex = -1;
+                }
+
+                renderChannels(document.getElementById('searchInput').value);
+            }
+        }
+
+        // Initialize App
+        renderChannels();
+    </script>
+</body>
+</html>
